@@ -5,10 +5,12 @@ import './css/dashboard.css'
 function App() {
 
   return (
-    <div className="dashboard">
-      <Sidebar/>
-      <Outlet/>
-    </div>
+    <>
+      <div className="dashboard">
+        <Sidebar/>
+        <Outlet/>
+      </div>
+    </>
   )
 }
 
