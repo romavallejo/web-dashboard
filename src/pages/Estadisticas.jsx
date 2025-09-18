@@ -2,7 +2,7 @@
 export default function Estadisticas() {
 
     return (
-        <div className="bg-green-300">
+        <div>
             this is Estadisticas
         </div>
     );

@@ -1,12 +1,12 @@
 import { Outlet, Link } from "react-router-dom"
 import Sidebar from "./pages/Sidebar"
+import './css/dashboard.css'
 
 function App() {
 
   return (
-    <div>
+    <div className="dashboard">
       <Sidebar/>
-      <hr/>
       <Outlet/>
     </div>
   )

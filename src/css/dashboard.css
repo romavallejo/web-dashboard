@@ -1,0 +1,14 @@
+.dashboard {
+    display: flex;
+    height: 100vh;
+}
+
+.dashboard > :first-child {
+  flex: 1; 
+  max-width: 250px; 
+}
+
+.dashboard > :last-child {
+  flex: 3; 
+  padding: 1rem; 
+}

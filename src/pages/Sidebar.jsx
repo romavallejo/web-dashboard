@@ -1,10 +1,11 @@
+import '../css/sidebar.css'
 
 export default function Sidebar() {
 
     return (
-        <div className="bg-red-900">
-            this is the navbar
-        </div>
+        <nav className='sidebar bg-gray-100'>
+            navbar
+        </nav>
     );
 
 };
