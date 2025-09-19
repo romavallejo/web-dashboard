@@ -6,9 +6,11 @@ export default function Sidebar() {
 
     return (
         <nav className='sidebar'>
-            <div>
-                <img className="logo"src={logo} alt='Logo'/>
-            </div>
+
+                <Link to="/"> 
+                    <img className="logo"src={logo} alt='Logo'/>
+                </Link>
+            
             <div className='links'>
                 <Link to='/'>Estadisticas</Link>
                 <Link to='/categorias'>categorias</Link>
