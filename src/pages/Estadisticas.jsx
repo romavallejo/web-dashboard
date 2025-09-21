@@ -1,9 +1,13 @@
+import '../css/pageBase.css'
 
 export default function Estadisticas() {
 
     return (
-        <div>
-            this is Estadisticas
+        <div className='page'>
+            <h1>Estadísticas</h1>
+            <div className='grid'>
+                grid
+            </div>
         </div>
     );
 

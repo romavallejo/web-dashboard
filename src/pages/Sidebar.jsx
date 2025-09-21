@@ -3,11 +3,11 @@ import logo from '/logo.png'
 import SideBarLink from '../components/SideBarLink';
 
 const links = [
-  ["/", "Estadísticas", "/barchart.svg", "/barchart-current.svg"],
-  ["/categorias", "Categorías", "/category.svg", "/category-current.svg"],
-  ["/reportes", "Reportes", "/report.svg", "/report-current.svg"],
-  ["/t&c", "T&C","/terms.svg","/terms-current.svg"],
-  ["/configuracion", "Configuración", "/config.svg", "/config-current.svg"],
+  ["/", "Estadísticas", "/icons/barchart.svg", "/icons/barchart-current.svg"],
+  ["/categorias", "Categorías", "/icons/category.svg", "/icons/category-current.svg"],
+  ["/reportes", "Reportes", "/icons/report.svg", "/icons/report-current.svg"],
+  ["/t&c", "T&C","/icons/terms.svg","/icons/terms-current.svg"],
+  ["/configuracion", "Configuración", "/icons/config.svg", "/icons/config-current.svg"],
 ];
 
 export default function Sidebar({ current }) {

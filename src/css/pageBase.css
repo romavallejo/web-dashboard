@@ -1,0 +1,16 @@
+.page {
+    background-color: whitesmoke;
+    margin: 1rem;
+    margin-left: 0rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.page * {
+    margin: 1rem;
+}
+
+.page h1 {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
