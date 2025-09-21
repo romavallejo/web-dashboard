@@ -10,7 +10,21 @@ export default function Reportes(){
                 <button>+ Crear Reporte</button>
             </div>
             <div className="grid">
+                <Card title='Total Reportes'>
 
+                </Card>
+                <Card title='Aceptados'>
+
+                </Card>
+                <Card title='Rechazados'>
+
+                </Card>
+                <Card title='En Revisión'>
+
+                </Card>
+                <Card title='Lista de Reportes' size={[1,4]}>
+                    
+                </Card>
             </div>
         </div>
     );

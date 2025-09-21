@@ -8,4 +8,5 @@
 
 .card p {
     color: var(--secondary-color);
+    margin-bottom: 1rem;
 }
