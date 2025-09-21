@@ -1,0 +1,16 @@
+li {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.current {
+    background-color: var(--secondary-highlight-color);
+}
+
+.current * {
+    color: var(--primary-highlight-color);
+}
