@@ -2,7 +2,7 @@ import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/login.css'
 
-export default function LogIn(){
+export default function LogIn() {
 
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
