@@ -5,7 +5,10 @@ export default function Reportes(){
 
     return (
         <div className="page">
-            <h1>Reportes</h1>
+            <div className='header'>
+                <h1>Reportes</h1>
+                <button>+ Crear Reporte</button>
+            </div>
             <div className="grid">
 
             </div>
