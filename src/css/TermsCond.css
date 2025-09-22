@@ -1,0 +1,17 @@
+.edit-text {
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+    padding: 1rem;
+    border: 1px solid var(--margin-color);
+    border-radius: 1rem;
+    font-size: 1rem;
+}
+
+.green {
+    background-color: var(--green-color) !important;
+}
+
+.red {
+    background-color: var(--red-color) !important;
+}
