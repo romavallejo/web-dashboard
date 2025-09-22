@@ -1,7 +1,6 @@
 import '../css/pageBase.css'
 import Card from '../components/Card.jsx'
 
-
 export default function Categorias() {
 
     return (

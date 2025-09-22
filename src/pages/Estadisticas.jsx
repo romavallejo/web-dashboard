@@ -1,5 +1,6 @@
-import '../css/pageBase.css'
 import Card from '../components/Card.jsx'
+import '../css/pageBase.css'
+import '../css/Estadisticas.css'
 
 export default function Estadisticas() {
 
@@ -8,10 +9,10 @@ export default function Estadisticas() {
             <h1>Estadísticas</h1>
             <div className='grid'>
                 <Card title='Usuarios Registrados'>
-                    
+                    <p className="number">27</p>
                 </Card>
                 <Card title='Reportes Totales'>
-                    
+                    <p className="number">127</p>
                 </Card>
                 <Card title='Estado de Reportes' size={[2,2]}>
                     

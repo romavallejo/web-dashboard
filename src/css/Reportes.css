@@ -1,0 +1,11 @@
+ .number.aceptado {
+    color: var(--green-color);
+}
+
+ .number.rechazado {
+    color: var(--red-color);
+}
+
+ .number.revision {
+    color: var(--orange-color);
+}

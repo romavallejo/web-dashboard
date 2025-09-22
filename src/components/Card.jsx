@@ -12,7 +12,7 @@ export default function Card({ title, size = [1,1], children}) {
         }}
         className="card"
         >
-            <p>{title}</p>
+            <p className='title'>{title}</p>
             {children}
         </div>
     );
