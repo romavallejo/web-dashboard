@@ -14,7 +14,7 @@
 .modal {
     flex-grow: 1;
     max-width: 700px;
-    background-color: var(--background-color)d;
+    background-color: var(--background-color);
     border: 1px solid var(--margin-color);
     border-radius: 1rem;
     padding: 1rem;

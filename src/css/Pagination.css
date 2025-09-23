@@ -1,0 +1,38 @@
+table {
+    width: 100%;
+    border: 2px solid var(--margin-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+td, th {
+    padding: 5px;
+}
+
+.tag {
+    border-radius: 10px;
+    display: inline-block;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: var(--background-color);
+    font-size: 0.8rem;
+}
+
+.estado-aceptado {
+    background-color: var(--green-color);
+}
+
+.estado-revision {
+    background-color: var(--orange-color);
+}
+
+.estado-rechazado {
+    background-color: var(--red-color);
+}
+
+.categoria {
+    background-color: var(--primary-highlight-color);
+}

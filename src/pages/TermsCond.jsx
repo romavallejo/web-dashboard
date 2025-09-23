@@ -41,7 +41,7 @@ export default function TermsCond() {
                         className='edit-text' 
                         value={draftTerms} 
                         onChange={e => setDraftTerms(e.target.value)}
-                        rows={30}/>)}
+                        rows={15}/>)}
                 </Card>
             </div>
         </div>
