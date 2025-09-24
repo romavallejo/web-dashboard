@@ -1,6 +1,7 @@
 import Card from '../components/Card.jsx'
 import Window from '../components/Window.jsx'
 import PaginationReportes from '../components/PaginationReportes.jsx'
+import SearchBar from '../components/SearchBar.jsx'
 import { useState } from 'react'
 import '../css/pageBase.css'
 import '../css/Reportes.css'
@@ -8,13 +9,11 @@ import '../css/Reportes.css'
 export default function Reportes(){
 
     const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
-    const [isEditReportOpen,setIsEditReportOpen] = useState(false);
 
-    const paginationColumns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const paginationRows = [
         {id:'1',usuario:'pepe23',categoria:'Ropa',estado:'En Revisión',fechaCreacion:'27/03/2028'},
-        {id:'2',usuario:'juanelgod',categoria:'Comida',estado:'Aceptado',fechaCreacion:'15/11/2026'},
-        {id:'3',usuario:'juanelgod',categoria:'Comida',estado:'Rechazado',fechaCreacion:'15/11/2026'},
+        {id:'2',usuario:'juan',categoria:'Comida',estado:'Aceptado',fechaCreacion:'15/11/2026'},
+        {id:'3',usuario:'noel',categoria:'Coches',estado:'Rechazado',fechaCreacion:'15/11/2026'},
     ]
     //const paginationInfoj = await something();
 
@@ -39,7 +38,9 @@ export default function Reportes(){
                         <p className="number revision">0</p>
                     </Card>
                     <Card title='Lista de Reportes' size={[1,4]}>
-                        <PaginationReportes columns={paginationColumns} rows={paginationRows} />
+                        <SearchBar/>
+                        <PaginationReportes rows={paginationRows} />
+                        pages options here
                     </Card>
                 </div>
             </div>

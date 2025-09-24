@@ -36,3 +36,13 @@ td, th {
 .categoria {
     background-color: var(--primary-highlight-color);
 }
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions button {
+    background-color: var(--background-color);
+    border: 0px;
+}

@@ -1,6 +1,5 @@
 import '../css/pageBase.css'
 import Card from '../components/Card.jsx'
-import { RecentTransactions } from '../components/RecentTransactions.js';
 
 export default function Categorias() {
 
@@ -12,7 +11,7 @@ export default function Categorias() {
             </div>
             <div className="grid">
                 <Card title="Lista de Categorias" size={[1,4]}>
-                    <RecentTransactions></RecentTransactions>
+                    
                 </Card>
             </div>
         </div>
