@@ -9,3 +9,17 @@
  .number.revision {
     color: var(--orange-color);
 }
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.toggle-select {
+    border: 2px solid var(--margin-color);
+    padding: 10px;
+    border-radius: 1rem;
+    color: var(--secondary-color);
+}

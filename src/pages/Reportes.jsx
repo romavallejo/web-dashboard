@@ -9,6 +9,12 @@ import '../css/Reportes.css'
 export default function Reportes(){
 
     const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
+    const [searchFilter,setSearchFilter] = useState("");
+
+    const handleSearch = text => { //later get rid of this and use setSearchFilter direclty bellow
+        setSearchFilter(text);
+        console.log(text);
+    }
 
     const paginationRows = [
         {id:'1',usuario:'pepe23',categoria:'Ropa',estado:'En Revisión',fechaCreacion:'27/03/2028'},
@@ -38,7 +44,21 @@ export default function Reportes(){
                         <p className="number revision">0</p>
                     </Card>
                     <Card title='Lista de Reportes' size={[1,4]}>
-                        <SearchBar/>
+                        <div className='search-bar'>
+                            <SearchBar onSearch={handleSearch} />
+                            <select className='toggle-select'>
+                                <option value='0'>Todos los Estados</option>
+                                <option value='1'>Aceptados</option>
+                                <option value='2'>Pendientes</option>
+                                <option value='3'>Rechazados</option>
+                            </select>
+                            <select className='toggle-select'>
+                                <option value='0'>Todas las Categorias</option>
+                                <option value='1'>Perros</option>
+                                <option value='2'>Amigos</option>
+                                <option value='3'>Coches</option>
+                            </select>
+                        </div>
                         <PaginationReportes rows={paginationRows} />
                         pages options here
                     </Card>
