@@ -5,7 +5,7 @@ export default function Window({ title, onClose, children }) {
         <div className="modal-overlay">
             <div className="modal">
                 <div className='modal-header'>
-                    <h3>{title}</h3>
+                    <p className='window-descriptor'>{title}</p>
                     <button onClick={onClose}>X</button>
                 </div>
                 {children}

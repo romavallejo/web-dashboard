@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Window from './Window';
 import '../css/Pagination.css'
+import '../css/PaginationReportes.css'
 
 export default function PaginationReportes({ rows }) {
 
@@ -10,6 +11,47 @@ export default function PaginationReportes({ rows }) {
         'En Revisión': 'estado-revision',
         'Rechazado': 'estado-rechazado'
     };
+
+    //categories var here
+    let categorias = [
+    {
+        "id": 1,
+        "name": "Electrodomésticos",
+        "description": "Aparatos para el hogar que facilitan las tareas diarias, como refrigeradores, lavadoras o microondas."
+    },
+    {
+        "id": 2,
+        "name": "Muebles",
+        "description": "Artículos para amueblar y decorar espacios, incluyendo mesas, sillas, sofás y camas."
+    },
+    {
+        "id": 3,
+        "name": "Ropa",
+        "description": "Prendas de vestir para diferentes estilos, climas y ocasiones."
+    },
+    {
+        "id": 4,
+        "name": "Electrónica",
+        "description": "Dispositivos tecnológicos como celulares, computadoras, televisores y accesorios."
+    },
+    {
+        "id": 5,
+        "name": "Libros",
+        "description": "Obras impresas o digitales que abarcan géneros de ficción, no ficción, educación y más."
+    },
+    {
+        "id": 6,
+        "name": "Juguetes",
+        "description": "Artículos diseñados para la diversión y el aprendizaje de niños de todas las edades."
+    },
+    {
+        "id": 7,
+        "name": "Deportes",
+        "description": "Equipo, ropa y accesorios relacionados con la práctica y disfrute de actividades deportivas."
+    }
+]
+
+    //reports var here
 
     const [isEditReportOpen,setIsEditReportOpen] = useState(false);
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);
@@ -67,19 +109,61 @@ export default function PaginationReportes({ rows }) {
                         </tr>
                     ))}
                 </tbody>
+
                 {isEditReportOpen && 
                     <Window title='Editar Reporte' onClose={()=>setIsEditReportOpen(false)}>
+                        <div className="window-layout">
+                            <div className="text-holder">
+                                <input placeholder='Titulo'/>
+                                <p className='user-holder'>Nombre Usuario</p>
+                            </div>
+                            <div className="image-holder">
 
+                            </div>
+                        </div>
                     </Window>
                 }
+
                 {isViewReportOpen && 
                     <Window title='Reporte' onClose={()=>setIsViewReportOpen(false)}>
-
+                        <div className='window-layout'>
+                            <div className='text-holder'>
+                                <h3>Titulo de Reporte</h3>
+                                <p className='user-holder'>Nombre Usuario</p>
+                                <div className='categories-list'>
+                                    {categorias.map(categoria => {
+                                        //here i need to map the categorie IDs of reporte to the actual category
+                                        return (<p key={categoria.id} className='tag'>{categoria.name}</p>);
+                                    })}
+                                </div>
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat praesentium quis ducimus itaque et molestias perspiciatis velit mollitia eos alias maiores, odio corrupti similique quaerat ea nam placeat, quasi ullam voluptatibus nostrum. Fugiat perspiciatis praesentium vel molestias amet harum fugit in eius placeat nisi qui consequuntur sunt deserunt, iure eligendi?</p>
+                                <div className='liga-holder'>
+                                    <h4>Liga Fraudulenta</h4>
+                                    <p>http://noesseguro.com</p>
+                                </div>
+                                <div className='report-state'>
+                                    {// i need to map the state to the correct background color here
+                                        
+                                    }
+                                    <p className='tag aceptado'>Aceptado</p>
+                                </div>
+                            </div>
+                            <div className='image-holder'>
+                                <img className='report-image' src="/prueba.jpg"/>
+                            </div>
+                        </div>
                     </Window>
                 }
+                
                 {isDeleteOpen && 
                     <Window title='Eliminar Reporte' onClose={()=>setIsDeleteOpen(false)}>
-                        
+                        <div className='delete-report'>
+                            <p>¿Seguro que desea eliminar el reporte X?</p>
+                            <button onClick={()=>{
+                                //llamado a funcion para eliminar reporte
+
+                            }}>Eliminar</button>
+                        </div>
                     </Window>
                 }
             </table>
