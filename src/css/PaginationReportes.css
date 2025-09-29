@@ -9,7 +9,6 @@
 
 .report-image {
     max-width: 300px;
-    
 }
 .image-holder {
     display: flex;
@@ -61,7 +60,25 @@
     align-items: center;
 }
 
-/* */
+.delete-report p {
+    font-weight: 700;
+}
+
+/* edit window */
+
+.edit-report-text input {
+    padding: 10px;
+    border: 2px solid var(--margin-color);
+    padding: 10px;
+    border-radius: 1rem;
+    width: 90%;
+}
+
+.edit-report-text {
+    flex: 1;
+}
+
+/* color for satte */
 .report-state .aceptado {
     background-color: var(--green-color);
 }

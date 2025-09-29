@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { use, useState } from 'react';
 import Window from './Window';
 import '../css/Pagination.css'
 import '../css/PaginationReportes.css'
@@ -50,8 +50,11 @@ export default function PaginationReportes({ rows }) {
         "description": "Equipo, ropa y accesorios relacionados con la práctica y disfrute de actividades deportivas."
     }
 ]
-
     //reports var here
+
+    //STATES FOR EDIT REPORTE
+    const [titleField,setTitlteField] = useState("");
+    const [selectedCategories,setSelectedCategories] = useState([]);
 
     const [isEditReportOpen,setIsEditReportOpen] = useState(false);
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);
@@ -113,12 +116,27 @@ export default function PaginationReportes({ rows }) {
                 {isEditReportOpen && 
                     <Window title='Editar Reporte' onClose={()=>setIsEditReportOpen(false)}>
                         <div className="window-layout">
-                            <div className="text-holder">
-                                <input placeholder='Titulo'/>
+                            <div className="text-holder edit-report-text">
+                                <input placeholder='Titulo del Reporte' value={titleField} onChange={e => setTitlteField(e.target.value)}/>
                                 <p className='user-holder'>Nombre Usuario</p>
+                                <select className='toggle-select' onChange={e => {
+                                    setSelectedCategories(prevItems => {
+                                        const value =[...prevItems,e.target.value];
+                                        console.log(value);
+                                        return value;
+                                    });
+                                    
+                                }}>
+                                    <option value={0}>Selecionar Cateogiras</option>
+                                    {
+                                        categorias.map(category =>
+                                            <option key={category.id} value={category.id}>{category.name}</option>
+                                        )
+                                    }
+                                </select>
                             </div>
                             <div className="image-holder">
-
+                                <img className='report-image' src="/prueba.jpg"/>
                             </div>
                         </div>
                     </Window>
@@ -158,7 +176,7 @@ export default function PaginationReportes({ rows }) {
                 {isDeleteOpen && 
                     <Window title='Eliminar Reporte' onClose={()=>setIsDeleteOpen(false)}>
                         <div className='delete-report'>
-                            <p>¿Seguro que desea eliminar el reporte X?</p>
+                            <p>¿Seguro que desea eliminar el reporte con ID X?</p>
                             <button onClick={()=>{
                                 //llamado a funcion para eliminar reporte
 

@@ -22,15 +22,15 @@ td, th {
 }
 
 .estado-aceptado {
-    background-color: var(--green-color);
+    background-color: var(--green-color) !important;
 }
 
 .estado-revision {
-    background-color: var(--orange-color);
+    background-color: var(--orange-color) !important;
 }
 
 .estado-rechazado {
-    background-color: var(--red-color);
+    background-color: var(--red-color) !important;
 }
 
 .categoria {
