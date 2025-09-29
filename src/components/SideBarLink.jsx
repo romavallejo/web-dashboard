@@ -5,8 +5,10 @@ export default function SideBarLink({target,label,icon,isCurrent}) {
 
     return (
         <li className={isCurrent ? 'current' : ''}>
-            <img src={icon}/>
-            <Link to={target}>{label}</Link>
+            <Link className='link-button' to={target}>
+                <img src={icon}/>
+                <p>{label}</p>
+            </Link>
         </li>
     );
 }

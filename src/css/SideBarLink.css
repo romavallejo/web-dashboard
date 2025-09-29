@@ -1,10 +1,10 @@
 li {
     width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
     border-radius: 1rem;
+}
+
+li:hover {
+    outline: 2px var(--margin-color) solid;
 }
 
 .current {
@@ -13,4 +13,12 @@ li {
 
 .current * {
     color: var(--primary-highlight-color);
+}
+
+.link-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap:1rem;
 }
