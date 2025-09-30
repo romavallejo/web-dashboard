@@ -39,6 +39,10 @@
     border-radius: 1rem;
 }
 
+.modal-header button:hover {
+    background-color: var(--red-color-hover);
+}
+
 .window-descriptor {
     color: var(--secondary-color);
 }

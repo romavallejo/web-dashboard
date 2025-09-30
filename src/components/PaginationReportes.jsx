@@ -179,8 +179,10 @@ export default function PaginationReportes({ rows }) {
                                 <img className='report-image' src="/prueba.jpg"/>
                             </div>
                         </div>
-                        <div>
-                            <button>Guardar cambios</button>
+                        <div className='save-changes'>
+                            <button onClick={
+                                console.log()
+                            }>Guardar cambios</button>
                         </div>
                     </Window>
                 }

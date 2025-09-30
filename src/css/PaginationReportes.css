@@ -110,3 +110,22 @@
 .report-state button.selected {
     outline: 2px var(--primary-color) solid;
 }
+
+/**/
+
+.save-changes {
+    display: flex;
+    justify-content: center;
+}
+
+.save-changes button {
+    background-color: var(--primary-highlight-color);
+    color: var(--background-color);
+    border: 0;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.save-changes button:hover {
+    background-color: var(--primary-highlight-color-hover);
+}

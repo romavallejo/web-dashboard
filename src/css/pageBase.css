@@ -21,7 +21,7 @@
 }
 
 .header button:hover {
-    background-color: var(--secondary-highlight-color);
+    background-color: var(--primary-highlight-color-hover);
 }
 
 .page h1 {
