@@ -1,5 +1,6 @@
 import { use, useState } from 'react';
 import Window from './Window';
+import CategoryTag from './CategoryTag';
 import '../css/Pagination.css'
 import '../css/PaginationReportes.css'
 
@@ -55,6 +56,9 @@ export default function PaginationReportes({ rows }) {
     //STATES FOR EDIT REPORTE
     const [titleField,setTitlteField] = useState("");
     const [selectedCategories,setSelectedCategories] = useState([]);
+    const [descriptionField,setDescriptionField] = useState("");
+    const [linkField,setLinkField] = useState("");
+    const [state,setState] = useState(1);
 
     const [isEditReportOpen,setIsEditReportOpen] = useState(false);
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);
@@ -114,16 +118,24 @@ export default function PaginationReportes({ rows }) {
                 </tbody>
 
                 {isEditReportOpen && 
-                    <Window title='Editar Reporte' onClose={()=>setIsEditReportOpen(false)}>
+                    <Window title='Editar Reporte' onClose={()=>{
+                        setTitlteField("")
+                        setSelectedCategories([]);
+                        setIsEditReportOpen(false);
+                        }}>
                         <div className="window-layout">
                             <div className="text-holder edit-report-text">
-                                <input placeholder='Titulo del Reporte' value={titleField} onChange={e => setTitlteField(e.target.value)}/>
+                                <h4>Titulo del Reporte</h4>
+                                <input placeholder='Titulo' value={titleField} onChange={e => setTitlteField(e.target.value)}/>
                                 <p className='user-holder'>Nombre Usuario</p>
+                                <h4>Categorias</h4>
                                 <select className='toggle-select' onChange={e => {
                                     setSelectedCategories(prevItems => {
-                                        const value =[...prevItems,e.target.value];
-                                        console.log(value);
-                                        return value;
+                                        if (e.target.value == 0)
+                                            return [...prevItems];
+                                        if (!prevItems.includes(e.target.value))
+                                            return [...prevItems,e.target.value];
+                                        return [...prevItems];
                                     });
                                     
                                 }}>
@@ -134,10 +146,41 @@ export default function PaginationReportes({ rows }) {
                                         )
                                     }
                                 </select>
+                                <div className='categories-list'>
+                                    {selectedCategories.map(id => {
+                                        return <CategoryTag 
+                                                key={id} 
+                                                categoryName={categorias[id-1].name} 
+                                                onDelete={() => {
+                                                    setSelectedCategories(
+                                                        (prevItems) => prevItems.filter(el => el !== id)
+                                                    )
+                                                }}
+                                            />
+                                    })}
+                                </div>
+                                <h4>Descripción del reporte</h4>
+                                <textarea 
+                                    className='edit-text' 
+                                    value={descriptionField} 
+                                    onChange={e => setDescriptionField(e.target.value)}
+                                    rows={5}/>
+                                <div className='liga-holder'>
+                                    <h4>Liga Fraudulenta</h4>
+                                    <input placeholder='Titulo' value={titleField} onChange={e => setTitlteField(e.target.value)}/>
+                                </div>
+                                <div className='categories-list report-state'>
+                                    <button onClick={()=>setState(1)} className={`tag aceptado ${state === 1 ? 'selected' : ''}`}>Aceptado</button>
+                                    <button onClick={()=>setState(2)} className={`tag rechazado ${state === 2 ? 'selected' : ''}`}>Rechazado</button>
+                                    <button onClick={()=>setState(3)} className={`tag revision ${state === 3 ? 'selected' : ''}`}>En revisión</button>
+                                </div>
                             </div>
                             <div className="image-holder">
                                 <img className='report-image' src="/prueba.jpg"/>
                             </div>
+                        </div>
+                        <div>
+                            <button>Guardar cambios</button>
                         </div>
                     </Window>
                 }

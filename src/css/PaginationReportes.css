@@ -71,7 +71,7 @@
     border: 2px solid var(--margin-color);
     padding: 10px;
     border-radius: 1rem;
-    width: 90%;
+    width: 97%;
 }
 
 .edit-report-text {
@@ -89,4 +89,24 @@
 
 .report-state .revision {
     background-color: var(--orange-color);
+}
+
+.report-state button.aceptado:hover {
+    background-color: var(--green-color-hover);
+}
+
+.report-state button.rechazado:hover {
+    background-color: var(--red-color-hover);
+}
+
+.report-state button.revision:hover {
+    background-color: var(--orange-color-hover);
+}
+
+.report-state button {
+    border: 0px;
+}
+
+.report-state button.selected {
+    outline: 2px var(--primary-color) solid;
 }

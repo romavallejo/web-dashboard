@@ -15,8 +15,11 @@
     --primary-highlight-color: #1B60F8;
     --secondary-highlight-color: #d9efff;
     --green-color: #38de22;
+    --green-color-hover: #7ada6e;
     --red-color: red;
+    --red-color-hover: rgb(255, 83, 83);
     --orange-color: orange;
+    --orange-color-hover: rgb(255, 188, 65);
     --background-color: #FFF;
 }
 
