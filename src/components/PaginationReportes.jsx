@@ -19,13 +19,21 @@ export default function PaginationReportes({ rows, categorias }) {
     const [descriptionField,setDescriptionField] = useState("");
     const [linkField,setLinkField] = useState("");
     const [state,setState] = useState(1);
+    const [user,setUser] = useState("");
 
     const [isEditReportOpen,setIsEditReportOpen] = useState(false);
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);
     const [isDeleteOpen,setIsDeleteOpen] = useState(false);
-
-    function viewReport() {
+    
+    function viewReport(report) {
         setIsViewReportOpen(true);
+        setTitlteField(report.title);
+        setSelectedCategories(report.categories);
+        setDescriptionField(report.description);
+        setLinkField(report.report_url);
+        setState(report.status);
+        setUser(report.user_name);
+        console.log(report.title);
     }
 
     function editReport() {
@@ -63,7 +71,9 @@ export default function PaginationReportes({ rows, categorias }) {
                             </td>
                             <td>{row.created_at}</td>
                             <td className='actions'>
-                                <button onClick={viewReport}>
+                                <button onClick={()=>{
+                                    viewReport(row);
+                                }}>
                                     <img src='/icons/view.svg'/>
                                 </button>
                                 <button onClick={editReport}>
@@ -151,27 +161,27 @@ export default function PaginationReportes({ rows, categorias }) {
                 }
 
                 {isViewReportOpen && 
-                    <Window title='Reporte' onClose={()=>setIsViewReportOpen(false)}>
+                    <Window title='Reporte' onClose={()=>{setIsViewReportOpen(false)}}>
                         <div className='window-layout'>
                             <div className='text-holder'>
-                                <h3>Titulo de Reporte</h3>
-                                <p className='user-holder'>Nombre Usuario</p>
+                                <h3>{titleField}</h3>
+                                <p className='user-holder'>{user}</p>
                                 <div className='categories-list'>
-                                    {categorias.map(categoria => {
-                                        //here i need to map the categorie IDs of reporte to the actual category
-                                        return (<p key={categoria.id} className='tag'>{categoria.name}</p>);
+                                    {selectedCategories.map(selectedCategory => {
+                                        return (<p key={categorias[selectedCategory-1].name} className='tag'>{categorias[selectedCategory-1].name}</p>);
                                     })}
                                 </div>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat praesentium quis ducimus itaque et molestias perspiciatis velit mollitia eos alias maiores, odio corrupti similique quaerat ea nam placeat, quasi ullam voluptatibus nostrum. Fugiat perspiciatis praesentium vel molestias amet harum fugit in eius placeat nisi qui consequuntur sunt deserunt, iure eligendi?</p>
+                                <p>{descriptionField}</p>
                                 <div className='liga-holder'>
                                     <h4>Liga Fraudulenta</h4>
-                                    <p>http://noesseguro.com</p>
+                                    <p>{linkField}</p>
                                 </div>
                                 <div className='report-state'>
-                                    {// i need to map the state to the correct background color here
-                                        
+                                    {
+                                        state === 1 ? <p className='tag revision'>Pendiente</p> :
+                                        state === 2 ? <p className='tag aceptado'>Aprobado</p> : 
+                                        <p className='tag rechazado'>Aceptado</p>
                                     }
-                                    <p className='tag aceptado'>Aceptado</p>
                                 </div>
                             </div>
                             <div className='image-holder'>
