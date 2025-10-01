@@ -24,12 +24,97 @@ export default function Reportes(){
         setSearchFilter(text);
         console.log(text);
     }
-
-    const paginationRows = [
+    
+    const reports = [
         {id:'1',usuario:'pepe23',categoria:'Ropa',estado:1,fechaCreacion:'27/03/2028'},
         {id:'2',usuario:'juan',categoria:'Comida',estado:2,fechaCreacion:'15/11/2026'},
         {id:'3',usuario:'noel',categoria:'Coches',estado:3,fechaCreacion:'15/11/2026'},
     ]
+
+    /*
+    const paginationRow = [
+    {
+        "id": 1,
+        "title": "Reporte de sitio fraudulento",
+        "image": "prueba.jpg",
+        "description": "Este sitio web solicita datos bancarios sin medidas de seguridad y redirige a páginas falsas.",
+        "created_at": "2025-09-27T23:50:39.000Z",
+        "updated_at": "2025-09-27T23:50:39.000Z",
+        "user_name": "Skibidi Toilet",
+        "created_by": 1,
+        "status": 1,
+        "report_url": "http://banco-seguro-falso.com",
+        "categories": [
+        1,
+        5
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Página de phishing detectada",
+        "image": "prueba.jpg",
+        "description": "El portal imita la interfaz de una empresa de envíos para robar credenciales de acceso.",
+        "created_at": "2025-09-27T23:51:32.000Z",
+        "updated_at": "2025-09-27T23:51:32.000Z",
+        "user_name": "Dr. Sahur",
+        "created_by": 2,
+        "status": 1,
+        "report_url": "http://envios-gratis-seguro.net",
+        "categories": [
+        2,
+        5
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Sitio de ventas falsas",
+        "image": "prueba.jpg",
+        "description": "La página ofrece productos electrónicos a precios demasiado bajos y nunca realiza las entregas.",
+        "created_at": "2025-09-27T23:51:51.000Z",
+        "updated_at": "2025-09-27T23:51:51.000Z",
+        "user_name": "Dr. Sahur",
+        "created_by": 3,
+        "status": 2,
+        "report_url": "http://ofertas-electronica-barata.org",
+        "categories": [
+        3,
+        5
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Plataforma de inversión fraudulenta",
+        "image": "prueba.jpg",
+        "description": "El sitio promete ganancias irreales en criptomonedas y exige depósitos sin garantía alguna.",
+        "created_at": "2025-09-27T23:52:29.000Z",
+        "updated_at": "2025-09-27T23:52:29.000Z",
+        "user_name": "Dr. Sahur",
+        "created_by": 2,
+        "status": 3,
+        "report_url": "http://crypto-ganancias-rapidas.info",
+        "categories": [
+        4,
+        5
+        ]
+    },
+    {
+        "id": 7,
+        "title": "Portal falso de soporte técnico",
+        "image": "prueba.jpg",
+        "description": "La web se hace pasar por un servicio de soporte oficial y pide pagos por reparaciones inexistentes.",
+        "created_at": "2025-09-27T23:52:50.000Z",
+        "updated_at": "2025-09-27T23:52:50.000Z",
+        "user_name": "Skibidi Toilet",
+        "created_by": 1,
+        "status": 2,
+        "report_url": "http://soporte-oficial-falso.com",
+        "categories": [
+        1,
+        4
+        ]
+    }
+    ]
+    */
 
     let categories = [
     {
@@ -109,7 +194,7 @@ export default function Reportes(){
                                 onChange={e => setDateFilter(e.target.value)}
                                 />
                         </div>
-                        <PaginationReportes rows={paginationRows} categorias={categories}/>
+                        <PaginationReportes rows={reports} categorias={categories}/>
                         pages options here
                     </Card>
                 </div>

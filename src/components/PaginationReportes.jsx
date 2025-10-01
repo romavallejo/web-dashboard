@@ -79,12 +79,12 @@ export default function PaginationReportes({ rows, categorias }) {
 
                 {isEditReportOpen && 
                     <Window title='Editar Reporte' onClose={()=>{
-                        setTitlteField("")
+                        setTitlteField("");
                         setSelectedCategories([]);
                         setDescriptionField("");
                         setIsEditReportOpen(false);
                         setLinkField("");
-                        setState(1)
+                        setState(1);
                         }}>
                         <div className="window-layout">
                             <div className="text-holder edit-report-text">
