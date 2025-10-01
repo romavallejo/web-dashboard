@@ -36,7 +36,7 @@ export default function PaginationReportes({ rows, categorias }) {
                 status: report.status,
                 user: report.user_name
             });
-        }
+    }
 
     const [isEditReportOpen,setIsEditReportOpen] = useState(false);
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);

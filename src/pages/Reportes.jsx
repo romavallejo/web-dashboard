@@ -8,23 +8,6 @@ import '../css/pageBase.css'
 import '../css/Reportes.css'
 
 export default function Reportes(){
-
-    const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
-    const [searchFilter,setSearchFilter] = useState("");
-    const [dateFilter,setDateFilter] = useState("");
-
-    //STATES FOR CREATING NEW REPORTES
-    const [titleField,setTitlteField] = useState("");
-    const [selectedCategories,setSelectedCategories] = useState([]);
-    const [descriptionField,setDescriptionField] = useState("");
-    const [linkField,setLinkField] = useState("");
-    const [state,setState] = useState(1);
-
-    const handleSearch = text => { //later get rid of this and use setSearchFilter direclty bellow
-        setSearchFilter(text);
-        console.log(text);
-    }
-        
     const reports = [
     {
         "id": 1,
@@ -146,6 +129,40 @@ export default function Reportes(){
     }
 ]
 
+    const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
+    const [searchFilter,setSearchFilter] = useState("");
+    const [dateFilter,setDateFilter] = useState("");
+
+    //STATES FOR CREATING NEW REPORTES
+    const [reportInfo,setReportInfo] = useState({
+        id: 1,
+        title: "",
+        image: "",
+        categories: [],
+        description: "",
+        link: "",
+        status: 1,
+        user: ""
+    });
+
+    function handleSetReportInfo(report) {
+            setReportInfo({
+                id: 1,
+                title: "",
+                image: "",
+                categories: [],
+                description: "",
+                link: "",
+                status: 1,
+                user: ""
+            });
+    }
+
+    const handleSearch = text => { //later get rid of this and use setSearchFilter direclty bellow
+        setSearchFilter(text);
+        console.log(text);
+    }
+        
     return (
         <div>
             <div className="page">
@@ -194,28 +211,23 @@ export default function Reportes(){
 
             {isCreateReportOpen &&
                 <Window title="Crear Reporte" onClose={()=>{
-                    setIsCreateReportOpen(false)
-                    setTitlteField("");
-                    setSelectedCategories([]);
-                    setDescriptionField("");
-                    setLinkField("");
-                    setState(1);
+                    setIsCreateReportOpen(false);
+                    handleSetReportInfo();
                 }}>
                     <div className="window-layout">
                         <div className="text-holder edit-report-text">
                             <h4>Titulo del Reporte</h4>
-                            <input placeholder='Titulo' value={titleField} onChange={e => setTitlteField(e.target.value)}/>
-                            <p className='user-holder'>Nombre Usuario</p>
+                            <input placeholder='Titulo' value={reportInfo.title} onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}/>
+                            <p className='user-holder'>{reportInfo.user}</p>
                             <h4>Categorias</h4>
                             <select className='toggle-select' onChange={e => {
-                                setSelectedCategories(prevItems => {
+                                setReportInfo(prev => {
                                     if (e.target.value == 0)
-                                        return [...prevItems];
-                                    if (!prevItems.includes(e.target.value))
-                                        return [...prevItems,e.target.value];
-                                    return [...prevItems];
+                                        return {...prev}
+                                    if (!prev.categories.includes(e.target.value))
+                                        return {...prev, categories: [...prev.categories, e.target.value]}
+                                    return {...prev}
                                 });
-                                
                             }}>
                                 <option value={0}>Selecionar Cateogiras</option>
                                 {
@@ -225,36 +237,38 @@ export default function Reportes(){
                                 }
                             </select>
                             <div className='categories-list'>
-                                {selectedCategories.map(id => {
-                                    return <CategoryTag 
+                                {
+                                    reportInfo.categories.map(id => {
+                                        return <CategoryTag 
                                             key={id} 
                                             categoryName={categories[id-1].name} 
                                             onDelete={() => {
-                                                setSelectedCategories(
-                                                    (prevItems) => prevItems.filter(el => el !== id)
-                                                )
+                                                setReportInfo(prev =>{
+                                                    return {...prev, categories: prev.categories.filter(el => el !== id)}
+                                                })
                                             }}
                                         />
-                                })}
+                                    })
+                                }
                             </div>
                             <h4>Descripción del reporte</h4>
                             <textarea 
                                 className='edit-text' 
-                                value={descriptionField} 
-                                onChange={e => setDescriptionField(e.target.value)}
+                                value={reportInfo.description} 
+                                onChange={e => setReportInfo(prev => {return {...prev, description: e.target.value}})}
                                 rows={5}/>
                             <div className='liga-holder'>
                                 <h4>Liga Fraudulenta</h4>
-                                <input placeholder='https://ejemplo.com' value={linkField} onChange={e => setLinkField(e.target.value)}/>
+                                <input placeholder='https://ejemplo.com' value={reportInfo.link} onChange={e => setReportInfo(prev => {return {...prev, link: e.target.value}})}/>
                             </div>
                             <div className='categories-list report-state'>
-                                <button onClick={()=>setState(2)} className={`tag aceptado ${state === 2 ? 'selected' :''}`}>Aceptado</button>
-                                <button onClick={()=>setState(3)} className={`tag rechazado ${state === 3 ? 'selected' : ''}`}>Rechazado</button>
-                                <button onClick={()=>setState(1)} className={`tag revision ${state === 1 ? 'selected' : ''}`}>Pendiente</button>
+                                <button onClick={()=>setReportInfo(prev => {return {...prev, status: 2}})} className={`tag aceptado ${reportInfo.status === 2 ? 'selected' :''}`}>Aceptado</button>
+                                <button onClick={()=>setReportInfo(prev => {return {...prev, status: 3}})} className={`tag rechazado ${reportInfo.status === 3 ? 'selected' : ''}`}>Rechazado</button>
+                                <button onClick={()=>setReportInfo(prev => {return {...prev, status: 1}})} className={`tag revision ${reportInfo.status === 1 ? 'selected' : ''}`}>Pendiente</button>
                             </div>
                         </div>
                         <div className="image-holder">
-                            <img className='report-image' src="/prueba.jpg"/>
+                            <img className='report-image' src={reportInfo.image}/>
                         </div>
                     </div>
                     <div className='save-changes'>
