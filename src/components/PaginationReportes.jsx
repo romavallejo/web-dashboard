@@ -50,18 +50,18 @@ export default function PaginationReportes({ rows, categorias }) {
                     {rows && rows.map(row => (
                         <tr key={row.id}>
                             <td>{row.id}</td>
-                            <td>{row.usuario}</td>
+                            <td>{row.user_name}</td>
                             <td>
                                 <div className='tag categoria'>
-                                    {row.categoria} 
+                                    {categorias[row.categories[0]].name} 
                                 </div>
                             </td>
                             <td>
-                                <div className={`tag ${estadoClass[row.estado] || ''}`}>
-                                    {row.estado === 1 ? 'Pendiente' : row.estado === 2 ? 'Aprobado' : 'Rechazado'}
+                                <div className={`tag ${estadoClass[row.status] || ''}`}>
+                                    {row.status === 1 ? 'Pendiente' : row.status === 2 ? 'Aprobado' : 'Rechazado'}
                                 </div>
                             </td>
-                            <td>{row.fechaCreacion}</td>
+                            <td>{row.created_at}</td>
                             <td className='actions'>
                                 <button onClick={viewReport}>
                                     <img src='/icons/view.svg'/>

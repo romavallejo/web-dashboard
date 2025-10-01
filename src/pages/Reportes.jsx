@@ -24,15 +24,8 @@ export default function Reportes(){
         setSearchFilter(text);
         console.log(text);
     }
-    
+        
     const reports = [
-        {id:'1',usuario:'pepe23',categoria:'Ropa',estado:1,fechaCreacion:'27/03/2028'},
-        {id:'2',usuario:'juan',categoria:'Comida',estado:2,fechaCreacion:'15/11/2026'},
-        {id:'3',usuario:'noel',categoria:'Coches',estado:3,fechaCreacion:'15/11/2026'},
-    ]
-
-    /*
-    const paginationRow = [
     {
         "id": 1,
         "title": "Reporte de sitio fraudulento",
@@ -114,7 +107,6 @@ export default function Reportes(){
         ]
     }
     ]
-    */
 
     let categories = [
     {
