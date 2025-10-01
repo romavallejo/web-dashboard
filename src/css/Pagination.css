@@ -46,3 +46,8 @@ td, th {
     background-color: var(--background-color);
     border: 0px;
 }
+
+.actions button:hover {
+    background-color: var(--secondary-highlight-color);
+    border-radius: 5px;
+}

@@ -4,55 +4,15 @@ import CategoryTag from './CategoryTag';
 import '../css/Pagination.css'
 import '../css/PaginationReportes.css'
 
-export default function PaginationReportes({ rows }) {
+export default function PaginationReportes({ rows, categorias }) {
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
-        'Aceptado': 'estado-aceptado',
-        'En Revisión': 'estado-revision',
-        'Rechazado': 'estado-rechazado'
+        2: 'estado-aceptado',
+        1: 'estado-revision',
+        3: 'estado-rechazado'
     };
-
-    //categories var here
-    let categorias = [
-    {
-        "id": 1,
-        "name": "Electrodomésticos",
-        "description": "Aparatos para el hogar que facilitan las tareas diarias, como refrigeradores, lavadoras o microondas."
-    },
-    {
-        "id": 2,
-        "name": "Muebles",
-        "description": "Artículos para amueblar y decorar espacios, incluyendo mesas, sillas, sofás y camas."
-    },
-    {
-        "id": 3,
-        "name": "Ropa",
-        "description": "Prendas de vestir para diferentes estilos, climas y ocasiones."
-    },
-    {
-        "id": 4,
-        "name": "Electrónica",
-        "description": "Dispositivos tecnológicos como celulares, computadoras, televisores y accesorios."
-    },
-    {
-        "id": 5,
-        "name": "Libros",
-        "description": "Obras impresas o digitales que abarcan géneros de ficción, no ficción, educación y más."
-    },
-    {
-        "id": 6,
-        "name": "Juguetes",
-        "description": "Artículos diseñados para la diversión y el aprendizaje de niños de todas las edades."
-    },
-    {
-        "id": 7,
-        "name": "Deportes",
-        "description": "Equipo, ropa y accesorios relacionados con la práctica y disfrute de actividades deportivas."
-    }
-]
-    //reports var here
-
+   
     //STATES FOR EDIT REPORTE
     const [titleField,setTitlteField] = useState("");
     const [selectedCategories,setSelectedCategories] = useState([]);
@@ -98,7 +58,7 @@ export default function PaginationReportes({ rows }) {
                             </td>
                             <td>
                                 <div className={`tag ${estadoClass[row.estado] || ''}`}>
-                                    {row.estado}
+                                    {row.estado === 1 ? 'Pendiente' : row.estado === 2 ? 'Aprobado' : 'Rechazado'}
                                 </div>
                             </td>
                             <td>{row.fechaCreacion}</td>
@@ -121,7 +81,10 @@ export default function PaginationReportes({ rows }) {
                     <Window title='Editar Reporte' onClose={()=>{
                         setTitlteField("")
                         setSelectedCategories([]);
+                        setDescriptionField("");
                         setIsEditReportOpen(false);
+                        setLinkField("");
+                        setState(1)
                         }}>
                         <div className="window-layout">
                             <div className="text-holder edit-report-text">
@@ -167,12 +130,12 @@ export default function PaginationReportes({ rows }) {
                                     rows={5}/>
                                 <div className='liga-holder'>
                                     <h4>Liga Fraudulenta</h4>
-                                    <input placeholder='Titulo' value={titleField} onChange={e => setTitlteField(e.target.value)}/>
+                                    <input placeholder='https://ejemplo.com' value={linkField} onChange={e => setLinkField(e.target.value)}/>
                                 </div>
                                 <div className='categories-list report-state'>
-                                    <button onClick={()=>setState(1)} className={`tag aceptado ${state === 1 ? 'selected' : ''}`}>Aceptado</button>
-                                    <button onClick={()=>setState(2)} className={`tag rechazado ${state === 2 ? 'selected' : ''}`}>Rechazado</button>
-                                    <button onClick={()=>setState(3)} className={`tag revision ${state === 3 ? 'selected' : ''}`}>En revisión</button>
+                                    <button onClick={()=>setState(2)} className={`tag aceptado ${state === 2 ? 'selected' :''}`}>Aceptado</button>
+                                    <button onClick={()=>setState(3)} className={`tag rechazado ${state === 3 ? 'selected' : ''}`}>Rechazado</button>
+                                    <button onClick={()=>setState(1)} className={`tag revision ${state === 1 ? 'selected' : ''}`}>Pendiente</button>
                                 </div>
                             </div>
                             <div className="image-holder">

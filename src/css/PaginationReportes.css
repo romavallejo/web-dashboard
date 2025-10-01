@@ -45,6 +45,11 @@
     justify-content: space-evenly;
 }
 
+/**/
+.delete-report button:hover {
+    background-color: var(--red-color-hover);
+}
+
 .delete-report button {
     background-color: var(--red-color);
     border: 0px;
