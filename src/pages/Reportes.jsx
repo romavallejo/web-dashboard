@@ -3,11 +3,12 @@ import Window from '../components/Window.jsx'
 import PaginationReportes from '../components/PaginationReportes.jsx'
 import SearchBar from '../components/SearchBar.jsx'
 import CategoryTag from '../components/CategoryTag.jsx'
-import { use, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../css/pageBase.css'
 import '../css/Reportes.css'
 
 export default function Reportes(){
+
     const reports = [
     {
         "id": 1,
@@ -129,9 +130,32 @@ export default function Reportes(){
     }
 ]
 
+    const [filteredReports,setFilteredReports] = useState([]);
+    const [filters,setFilters] = useState(
+        {
+            textFilter: "",
+            status: 0,
+            categoryFilter: 0,
+            dateFilter: ""
+        }
+    );
+
+    useEffect(() => {
+        let result = reports;
+
+        if (filters.status !== 0)
+            result = result.filter(rep => rep.status === filters.status);
+
+        if (filters.categoryFilter !== 0)
+            result = result.filter(rep => rep.categories.includes(filters.categoryFilter))
+
+        
+
+        setFilteredReports(result);
+    },[filters]);
+
     const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
-    const [searchFilter,setSearchFilter] = useState("");
-    const [dateFilter,setDateFilter] = useState("");
+    
 
     //STATES FOR CREATING NEW REPORTES
     const [reportInfo,setReportInfo] = useState({
@@ -141,13 +165,13 @@ export default function Reportes(){
         categories: [],
         description: "",
         link: "",
-        status: 1,
+        status: 0,
         user: ""
     });
 
     function handleSetReportInfo(report) {
             setReportInfo({
-                id: 1,
+                id: 0,
                 title: "",
                 image: "",
                 categories: [],
@@ -158,9 +182,8 @@ export default function Reportes(){
             });
     }
 
-    const handleSearch = text => { //later get rid of this and use setSearchFilter direclty bellow
-        setSearchFilter(text);
-        console.log(text);
+    const handleSearch = text => {
+        setFilters(prev => {return {...prev, textFilter: text}})
     }
         
     return (
@@ -186,25 +209,25 @@ export default function Reportes(){
                     <Card title='Lista de Reportes' size={[1,4]}>
                         <div className='search-bar'>
                             <SearchBar onSearch={handleSearch} />
-                            <select className='toggle-select'>
-                                <option value='0'>Todos los Estados</option>
-                                <option value='1'>Pendientes</option>
-                                <option value='2'>Aprobados</option>
-                                <option value='3'>Rechazados</option>
+                            <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, status: Number(e.target.value)}})}>
+                                <option value={0}>Todos los Estados</option>
+                                <option value={1}>Pendientes</option>
+                                <option value={2}>Aprobados</option>
+                                <option value={3}>Rechazados</option>
                             </select>
-                            <select className='toggle-select'>
-                                <option value='0'>Todas las Categorias</option>
+                            <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, categoryFilter: Number(e.target.value)}})}>
+                                <option value={0}>Todas las Categorias</option>
                                 {categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
                             </select>
                             <input 
                                 className='toggle-select' 
                                 type="date" 
-                                value={dateFilter}
-                                onChange={e => setDateFilter(e.target.value)}
+                                value={filters.dateFilter}
+                                onChange={e => setFilters(prev => {return {...prev, dateFilter: e.target.value}})}
                                 />
                         </div>
-                        <PaginationReportes rows={reports} categorias={categories}/>
-                        pages options here
+                        <PaginationReportes rows={filteredReports} categorias={categories}/>
+                        {}
                     </Card>
                 </div>
             </div>

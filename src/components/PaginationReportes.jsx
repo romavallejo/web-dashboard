@@ -57,10 +57,12 @@ export default function PaginationReportes({ rows, categorias }) {
                         <tr key={row.id}>
                             <td>{row.id}</td>
                             <td>{row.user_name}</td>
-                            <td>
-                                <div className='tag categoria'>
-                                    {categorias[row.categories[0]].name} 
-                                </div>
+                            <td className='categories-list'>
+                                {row.categories.map(category =>
+                                    <div className='tag categoria'>
+                                        {categorias[category-1].name} 
+                                    </div>
+                                )}
                             </td>
                             <td>
                                 <div className={`tag ${estadoClass[row.status] || ''}`}>
