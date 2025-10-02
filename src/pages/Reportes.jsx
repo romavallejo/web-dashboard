@@ -141,6 +141,18 @@ export default function Reportes(){
         }
     );
 
+    const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
+
+    //PAGINATION
+    const [pagination,setPagination] = useState({
+        currentPage: 1,
+        totalPages: 1
+    });
+    const reportsPerPage = 20;
+    const startIndex = (pagination.currentPage - 1) * reportsPerPage;
+    const endIndex = (startIndex + reportsPerPage);
+    const paginatedReports = filteredReports.slice(startIndex,endIndex);
+
     useEffect(() => {
         let result = reports;
 
@@ -150,18 +162,23 @@ export default function Reportes(){
         if (filters.categoryFilter !== 0)
             result = result.filter(rep => rep.categories.includes(filters.categoryFilter));
 
-        if (filters.textFilter.trim() !== "") 
-            result = result.filter(rep => rep.user_name.toLocaleLowerCase().includes(filters.textFilter.toLocaleLowerCase()));
+        if (filters.textFilter.trim() !== "")
+            result = result.filter(rep => rep.user_name.toLocaleLowerCase().includes(filters.textFilter.toLocaleLowerCase()) ||
+            rep.id.toString().includes(filters.textFilter.toLocaleLowerCase())
+        );
 
         if (filters.dateFilter !== "")
             result = result.filter(rep => formatDate(rep.created_at) === formatDate(filters.dateFilter));
             
         setFilteredReports(result);
+        
+        setPagination({
+            totalPages:Math.ceil(result.length/reportsPerPage),
+            currentPage: 1
+        });
+
     },[filters]);
-
-    const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
     
-
     //STATES FOR CREATING NEW REPORTES
     const [reportInfo,setReportInfo] = useState({
         id: 1,
@@ -231,10 +248,25 @@ export default function Reportes(){
                                 onChange={e => setFilters(prev => {return {...prev, dateFilter: e.target.value}})}
                                 />
                         </div>
-                        <PaginationReportes rows={filteredReports} categorias={categories}/>
-                        {
-
-                        }
+                        <PaginationReportes rows={paginatedReports} categorias={categories}/>
+                        <div className='pagination-buttons'>
+                            {
+                                pagination.currentPage > 1 ? (
+                                    <button onClick={() => setPagination(prev => {return {...prev, currentPage: prev.currentPage - 1}})}>
+                                        <img src="/icons/arrow-left-highlight.svg" alt="left arrow icon" />
+                                    </button>
+                                ) : pagination.totalPages !== 1 ?
+                                <div className='space-filler' /> : null
+                            }
+                            {
+                                pagination.currentPage < pagination.totalPages ? (
+                                    <button onClick={() => setPagination(prev => {return {...prev, currentPage: prev.currentPage + 1}})}>
+                                        <img src="/icons/arrow-right-highlight.svg" alt="right arrow icon" />
+                                    </button>
+                                ) : pagination.totalPages !== 1 ?
+                                <div className='space-filler' /> : null
+                            }
+                        </div>
                     </Card>
                 </div>
             </div>
@@ -248,7 +280,7 @@ export default function Reportes(){
                         <div className="text-holder edit-report-text">
                             <h4>Titulo del Reporte</h4>
                             <input placeholder='Titulo' value={reportInfo.title} onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}/>
-                            <p className='user-holder'>{reportInfo.user}</p>
+                            <p className='user-holder'>{reportInfo.user}DEFINE WHICH USER IN THIS CASE</p>
                             <h4>Categorias</h4>
                             <select className='toggle-select' onChange={e => {
                                 setReportInfo(prev => {
