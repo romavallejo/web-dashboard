@@ -13,7 +13,9 @@
 .image-holder {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 /**/

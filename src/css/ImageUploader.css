@@ -1,0 +1,15 @@
+.image-upload input[type="file"]::file-selector-button {
+    padding: 10px;
+    border: 2px solid var(--margin-color);
+    padding: 10px;
+    border-radius: 1rem;
+}
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.error-message {
+    font-weight: 700;
+    color: var(--red-color);
+}

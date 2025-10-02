@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Window from './Window';
 import CategoryTag from './CategoryTag';
+import ImageUploader from './ImageUploader.jsx';
 import '../css/Pagination.css'
 import '../css/PaginationReportes.css'
 import { formatDate } from '../utils/formatDate.js'
@@ -151,7 +152,13 @@ export default function PaginationReportes({ rows, categorias }) {
                                 </div>
                             </div>
                             <div className="image-holder">
-                                <img className='report-image' src={reportInfo.image}/>
+                                {reportInfo.image && 
+                                    <img className='report-image' src={reportInfo.image}/>
+                                }
+                                <h4>Seleccionar Imagen</h4>
+                                <ImageUploader setImageLink={(prev, newImageLink)=>{
+                                    {return {...prev, image: newImageLink}}
+                                }}/>
                             </div>
                         </div>
                         <div className='save-changes'>
