@@ -3,6 +3,7 @@ import Window from './Window';
 import CategoryTag from './CategoryTag';
 import '../css/Pagination.css'
 import '../css/PaginationReportes.css'
+import { formatDate } from '../utils/formatDate.js'
 
 export default function PaginationReportes({ rows, categorias }) {
 
@@ -69,7 +70,7 @@ export default function PaginationReportes({ rows, categorias }) {
                                     {row.status === 1 ? 'Pendiente' : row.status === 2 ? 'Aprobado' : 'Rechazado'}
                                 </div>
                             </td>
-                            <td>{row.created_at}</td>
+                            <td>{formatDate(row.created_at)}</td>
                             <td className='actions'>
                                 <button onClick={()=>{
                                     handleSetReportInfo(row);
@@ -127,9 +128,7 @@ export default function PaginationReportes({ rows, categorias }) {
                                                 onDelete={() => {
                                                     setReportInfo(prev =>{
                                                         return {...prev, categories: prev.categories.filter(el => el !== id)}
-                                                    }
-                                                        
-                                                    )
+                                                    })
                                                 }}
                                             />
                                         })

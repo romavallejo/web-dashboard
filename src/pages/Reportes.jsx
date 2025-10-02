@@ -4,6 +4,7 @@ import PaginationReportes from '../components/PaginationReportes.jsx'
 import SearchBar from '../components/SearchBar.jsx'
 import CategoryTag from '../components/CategoryTag.jsx'
 import { useEffect, useState } from 'react'
+import { formatDate } from '../utils/formatDate.js'
 import '../css/pageBase.css'
 import '../css/Reportes.css'
 
@@ -147,10 +148,14 @@ export default function Reportes(){
             result = result.filter(rep => rep.status === filters.status);
 
         if (filters.categoryFilter !== 0)
-            result = result.filter(rep => rep.categories.includes(filters.categoryFilter))
+            result = result.filter(rep => rep.categories.includes(filters.categoryFilter));
 
-        
+        if (filters.textFilter.trim() !== "") 
+            result = result.filter(rep => rep.user_name.toLocaleLowerCase().includes(filters.textFilter.toLocaleLowerCase()));
 
+        if (filters.dateFilter !== "")
+            result = result.filter(rep => formatDate(rep.created_at) === formatDate(filters.dateFilter));
+            
         setFilteredReports(result);
     },[filters]);
 
@@ -227,7 +232,9 @@ export default function Reportes(){
                                 />
                         </div>
                         <PaginationReportes rows={filteredReports} categorias={categories}/>
-                        {}
+                        {
+
+                        }
                     </Card>
                 </div>
             </div>
