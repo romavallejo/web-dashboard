@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../css/SearchBar.css'
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, holder }) {
 
     const [query,setQuery] = useState("")
 
@@ -16,7 +16,7 @@ export default function SearchBar({ onSearch }) {
         <img src='/icons/search.svg' />
         <input
         type="text"
-        placeholder="ID, Usuario"
+        placeholder={holder}
         value={query}
         onChange={handleChange}
         />

@@ -18,6 +18,10 @@
 
 /**/
 
+.text-input {
+    font-size: 1rem;
+}
+
 .user-holder {
     font-style: italic;
     padding-left: 1rem;

@@ -1,0 +1,35 @@
+.window-content {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+
+.window-content input {
+    padding: 10px;
+    border: 2px solid var(--margin-color);
+    padding: 10px;
+    border-radius: 1rem;
+}
+
+.delete-category {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    align-items: center;
+}
+
+.delete-category button:hover {
+    background-color: var(--red-color-hover);
+}
+
+.delete-category button {
+    background-color: var(--red-color);
+    border: 0px;
+    padding: 10px;
+    border-radius: 1rem;
+    color: var(--background-color);
+}
+
+.filter-fields {
+    margin-bottom: 1rem;
+}

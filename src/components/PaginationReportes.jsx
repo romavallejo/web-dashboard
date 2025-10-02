@@ -1,4 +1,4 @@
-import { use, useState } from 'react';
+import { useState } from 'react';
 import Window from './Window';
 import CategoryTag from './CategoryTag';
 import '../css/Pagination.css'
@@ -100,7 +100,7 @@ export default function PaginationReportes({ rows, categorias }) {
                         <div className="window-layout">
                             <div className="text-holder edit-report-text">
                                 <h4>Titulo del Reporte</h4>
-                                <input placeholder='Titulo' value={reportInfo.title} onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}/>
+                                <input className='text-input' placeholder='Titulo' value={reportInfo.title} onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}/>
                                 <p className='user-holder'>{reportInfo.user}</p>
                                 <h4>Categorias</h4>
                                 <select className='toggle-select' onChange={e => {
@@ -142,7 +142,7 @@ export default function PaginationReportes({ rows, categorias }) {
                                     rows={5}/>
                                 <div className='liga-holder'>
                                     <h4>Liga Fraudulenta</h4>
-                                    <input placeholder='https://ejemplo.com' value={reportInfo.link} onChange={e => setReportInfo(prev => {return {...prev, link: e.target.value}})}/>
+                                    <input className='text-input' placeholder='https://ejemplo.com' value={reportInfo.link} onChange={e => setReportInfo(prev => {return {...prev, link: e.target.value}})}/>
                                 </div>
                                 <div className='categories-list report-state'>
                                     <button onClick={()=>setReportInfo(prev => {return {...prev, status: 2}})} className={`tag aceptado ${reportInfo.status === 2 ? 'selected' :''}`}>Aceptado</button>

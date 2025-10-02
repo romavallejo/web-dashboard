@@ -230,7 +230,7 @@ export default function Reportes(){
                     </Card>
                     <Card title='Lista de Reportes' size={[1,4]}>
                         <div className='search-bar'>
-                            <SearchBar onSearch={handleSearch} />
+                            <SearchBar onSearch={handleSearch} holder='ID, Usuario'/>
                             <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, status: Number(e.target.value)}})}>
                                 <option value={0}>Todos los Estados</option>
                                 <option value={1}>Pendientes</option>
@@ -279,7 +279,7 @@ export default function Reportes(){
                     <div className="window-layout">
                         <div className="text-holder edit-report-text">
                             <h4>Titulo del Reporte</h4>
-                            <input placeholder='Titulo' value={reportInfo.title} onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}/>
+                            <input className='text-input' placeholder='Titulo' value={reportInfo.title} onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}/>
                             <p className='user-holder'>{reportInfo.user}DEFINE WHICH USER IN THIS CASE</p>
                             <h4>Categorias</h4>
                             <select className='toggle-select' onChange={e => {
@@ -321,7 +321,7 @@ export default function Reportes(){
                                 rows={5}/>
                             <div className='liga-holder'>
                                 <h4>Liga Fraudulenta</h4>
-                                <input placeholder='https://ejemplo.com' value={reportInfo.link} onChange={e => setReportInfo(prev => {return {...prev, link: e.target.value}})}/>
+                                <input className='text-input' placeholder='https://ejemplo.com' value={reportInfo.link} onChange={e => setReportInfo(prev => {return {...prev, link: e.target.value}})}/>
                             </div>
                             <div className='categories-list report-state'>
                                 <button onClick={()=>setReportInfo(prev => {return {...prev, status: 2}})} className={`tag aceptado ${reportInfo.status === 2 ? 'selected' :''}`}>Aceptado</button>
