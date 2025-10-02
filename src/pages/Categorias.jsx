@@ -100,10 +100,10 @@ export default function Categorias() {
                         name: "",
                         description: ""
                     });
-                }}>+ Crear Categoria</button>
+                }}>+ Crear Categoría</button>
             </div>
             <div className="grid">
-                <Card title="Lista de Categorias" size={[1,4]}>
+                <Card title="Lista de Categorías" size={[1,4]}>
                     <div className='filter-fields'>
                         <SearchBar onSearch={handleSearch} holder='ID, Nombre'/>
                     </div>
@@ -132,9 +132,9 @@ export default function Categorias() {
             {isCreateCategoryOpen &&
                 <Window title='Crear Cateogría' onClose={()=>setIsCreateCategoryOpen(false)}>
                     <div className='window-content'>
-                            <h4>Titulo del Reporte</h4>
+                            <h4>Titulo de Categoría</h4>
                             <input placeholder='Nombre' value={categoryInfo.name} onChange={e => setCategoryInfo(prev => ({...prev, name: e.target.value}))}/>
-                            <h4>Descripción del reporte</h4>
+                            <h4>Descripción de Categoría</h4>
                             <textarea 
                                 className='edit-text' 
                                 value={categoryInfo.description} 

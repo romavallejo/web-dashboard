@@ -278,10 +278,10 @@ export default function Reportes(){
                 }}>
                     <div className="window-layout">
                         <div className="text-holder edit-report-text">
-                            <h4>Titulo del Reporte</h4>
+                            <h4>Título del Reporte</h4>
                             <input className='text-input' placeholder='Titulo' value={reportInfo.title} onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}/>
                             <p className='user-holder'>{reportInfo.user}DEFINE WHICH USER IN THIS CASE</p>
-                            <h4>Categorias</h4>
+                            <h4>Categorías</h4>
                             <select className='toggle-select' onChange={e => {
                                 setReportInfo(prev => {
                                     if (e.target.value == 0)

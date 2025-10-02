@@ -68,9 +68,9 @@ export default function PaginationCategories({ rows }) {
                 {isEditCategoryOpen &&
                     <Window title='Editar Cateogría' onClose={()=>setIsEditCategoryOpen(false)}>
                         <div className='window-content'>
-                            <h4>Titulo del Reporte</h4>
+                            <h4>Titulo de Categoría</h4>
                             <input placeholder='Nombre' value={categoryInfo.name} onChange={e => setCategoryInfo(prev => ({...prev, name: e.target.value}))}/>
-                            <h4>Descripción del reporte</h4>
+                            <h4>Descripción de Categoría</h4>
                             <textarea 
                                 className='edit-text' 
                                 value={categoryInfo.description} 
@@ -101,7 +101,7 @@ export default function PaginationCategories({ rows }) {
                             <div className='delete-category'>
                                 <button onClick={()=>{
                                 //llamado a funcion para eliminar reporte
-                                    
+
                             }}>Eliminar</button>
                             </div>
                             
