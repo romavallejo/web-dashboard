@@ -51,3 +51,10 @@ td, th {
     background-color: var(--secondary-highlight-color);
     border-radius: 5px;
 }
+
+/* error stye */
+.error-message {
+    color: var(--red-color);
+    font-weight:lighter !important;
+    margin-left: 1rem;
+}

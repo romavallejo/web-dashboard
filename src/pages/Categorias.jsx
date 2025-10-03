@@ -53,6 +53,29 @@ export default function Categorias() {
         setTextFilter(text);
     }
 
+    //ERROR HANDLING
+    const [errors,setErrors] = useState({});
+    function validateInfo() {
+        let newErrors = {};
+        if (!categoryInfo.name.trim())
+            newErrors.name = "El nombre de la categoría no puede estar vacío";
+        else if (categories.some(el => el.name.trim().toLowerCase() === categoryInfo.name.trim().toLowerCase() && el.id !== categoryInfo.id))
+            newErrors.name = "El nombre de la categoría ya existe";
+        if (!categoryInfo.description.trim())
+            newErrors.description = "La descripción de la categoría no puede estar vacía";
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    }
+
+    function createCategory() {
+        if (validateInfo()) {
+            console.log("Se puede subir la cateogira");
+            //fetch call here
+        } else {
+            //
+        }
+    }
+
     //PAGINATION
     const [pagination,setPagination] = useState({
         currentPage: 1,
@@ -130,20 +153,28 @@ export default function Categorias() {
             </div>
 
             {isCreateCategoryOpen &&
-                <Window title='Crear Cateogría' onClose={()=>setIsCreateCategoryOpen(false)}>
+                <Window title='Crear Cateogría' onClose={()=>{
+                    setIsCreateCategoryOpen(false);
+                    setErrors({});
+                }}>
                     <div className='window-content'>
                             <h4>Titulo de Categoría</h4>
                             <input placeholder='Nombre' value={categoryInfo.name} onChange={e => setCategoryInfo(prev => ({...prev, name: e.target.value}))}/>
+                            
+                            {errors.name && <p className='error-message'>* {errors.name}</p>}
+                            {errors.repeatedName && <p className='error-message'>* {errors.repeatedName}</p>}
+                            
                             <h4>Descripción de Categoría</h4>
                             <textarea 
                                 className='edit-text' 
                                 value={categoryInfo.description} 
                                 onChange={e => setCategoryInfo(prev => {return {...prev, description: e.target.value}})}
                                 rows={5}/>
+
+                            {errors.description && <p className='error-message'>* {errors.description}</p>}
+
                             <div className='save-changes'>
-                                <button onClick={ //call to save changes
-                                    console.log()
-                                }>Crear Categoría</button>
+                                <button onClick={createCategory}>Crear Categoría</button>
                             </div>
                         </div>
                 </Window>

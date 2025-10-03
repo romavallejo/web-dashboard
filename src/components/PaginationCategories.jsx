@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Window from './Window';
 import '../css/Pagination.css'
 import '../css/PaginationCategories.css'
@@ -20,6 +20,31 @@ export default function PaginationCategories({ rows }) {
             name: category.name,
             description: category.description
         });
+        setErrors({name:"",description:""});
+    }
+
+    //ERROR HANDLING
+    const [errors,setErrors] = useState({});
+
+    function validateInfo() {
+        let newErrors = {};
+        if (!categoryInfo.name.trim())
+            newErrors.name = "El nombre de la categoría no puede estar vacío";
+        else if (rows.some(el => el.name.trim().toLowerCase() === categoryInfo.name.trim().toLowerCase() && el.id !== categoryInfo.id))
+            newErrors.name = "El nombre de la categoría ya existe";
+        if (!categoryInfo.description.trim())
+            newErrors.description = "La descripción de la categoría no puede estar vacía";
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    }
+
+    function updateCategory() {
+        if (validateInfo()) {
+            console.log("Se puede updatear el reporte");
+            //FETCH HERE
+        } else {
+            console.log("Hay algun error");
+        }
     }
 
     const [isEditCategoryOpen,setIsEditCategoryOpen] = useState(false);
@@ -69,17 +94,26 @@ export default function PaginationCategories({ rows }) {
                     <Window title='Editar Cateogría' onClose={()=>setIsEditCategoryOpen(false)}>
                         <div className='window-content'>
                             <h4>Titulo de Categoría</h4>
-                            <input placeholder='Nombre' value={categoryInfo.name} onChange={e => setCategoryInfo(prev => ({...prev, name: e.target.value}))}/>
+                            <input className='text-input' placeholder='Nombre' value={categoryInfo.name} onChange={e => {
+                                setCategoryInfo(prev => ({...prev, name: e.target.value}));
+                            }}/>
+
+                            {errors.name && <p className='error-message'>* {errors.name}</p>}
+                            {errors.repeatedName && <p className='error-message'>* {errors.repeatedName}</p>}
+
                             <h4>Descripción de Categoría</h4>
                             <textarea 
                                 className='edit-text' 
                                 value={categoryInfo.description} 
-                                onChange={e => setCategoryInfo(prev => {return {...prev, description: e.target.value}})}
+                                onChange={e => {
+                                    setCategoryInfo(prev => ({...prev, description: e.target.value}));
+                                }}
                                 rows={5}/>
+
+                            {errors.description && <p className='error-message'>* {errors.description}</p>}
+
                             <div className='save-changes'>
-                                <button onClick={ //call to save changes
-                                    console.log()
-                                }>Guardar cambios</button>
+                                <button onClick={updateCategory}>Guardar cambios</button>
                             </div>
                         </div>
                     </Window>
@@ -97,14 +131,13 @@ export default function PaginationCategories({ rows }) {
                 {isDeleteCategoryOpen &&
                     <Window title='Eliminar Categoría' onClose={()=>setIsDeleteCategoryOpen(false)}>
                         <div className="window-content">
-                            <p>¿Seguro que desea eliminar el reporte con ID {categoryInfo.id}?</p>
+                            <p>¿Seguro que desea eliminar la categoría con ID {categoryInfo.id}?</p>
                             <div className='delete-category'>
                                 <button onClick={()=>{
-                                //llamado a funcion para eliminar reporte
+                                //LLAMADA PARA ELIMINAR CATEGORIA
 
                             }}>Eliminar</button>
                             </div>
-                            
                         </div>
                     </Window>
                 }

@@ -24,6 +24,11 @@ export default function ImageUploader({ setImageLink, errorLog }) {
         const formData = new FormData();
         formData.append("file",file);
 
+        /* temporal to check what im sending */
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+
         try {
             const res = await fetch("http://18.221.59.69/images/report-pictures",{
                 method: "POST",
