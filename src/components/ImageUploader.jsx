@@ -24,13 +24,8 @@ export default function ImageUploader({ setImageLink, errorLog }) {
         const formData = new FormData();
         formData.append("file",file);
 
-        /* temporal to check what im sending */
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
-
         try {
-            const res = await fetch("http://18.221.59.69/images/report-pictures",{
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/images/report-pictures`,{
                 method: "POST",
                 body: formData,
             });
@@ -38,6 +33,7 @@ export default function ImageUploader({ setImageLink, errorLog }) {
             if (!res.ok) throw new Error("Upload failed");
             // ! aqui ya se guarda el path :) - att: artie
             setImageLink(data.path);
+            console.log(data.path);
         } catch (err) {
             setErrorInUpload(true);
             console.log("Upload error: ", err);
