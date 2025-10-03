@@ -1,9 +1,11 @@
 import '../css/pageBase.css'
 import '../css/PaginationCategories.css'
 import Card from '../components/Card.jsx'
+import CategoryForm from '../components/CategoryForm.jsx';
 import PaginationCategories from '../components/PaginationCategories.jsx';
 import Window from '../components/Window.jsx';
 import SearchBar from '../components/SearchBar.jsx';
+import PaginationControls from '../components/PaginationControls.jsx';
 import { useState, useEffect } from 'react';
 
 export default function Categorias() {
@@ -81,9 +83,9 @@ export default function Categorias() {
         currentPage: 1,
         totalPages: 1
     });
-    const reportsPerPage = 20;
-    const startIndex = (pagination.currentPage - 1) * reportsPerPage;
-    const endIndex = (startIndex + reportsPerPage);
+    const categoriesPerPage = 20;
+    const startIndex = (pagination.currentPage - 1) * categoriesPerPage;
+    const endIndex = (startIndex + categoriesPerPage);
     const paginatedCategories = filteredCategories.slice(startIndex,endIndex);
 
     useEffect(()=>{
@@ -97,7 +99,7 @@ export default function Categorias() {
         setFilteredCategories(result);
 
         setPagination({
-            totalPages:Math.ceil(result.length/reportsPerPage),
+            totalPages:Math.ceil(result.length/categoriesPerPage),
             currentPage: 1
         });
         
@@ -130,25 +132,17 @@ export default function Categorias() {
                     <div className='filter-fields'>
                         <SearchBar onSearch={handleSearch} holder='ID, Nombre'/>
                     </div>
-                    <PaginationCategories rows={paginatedCategories}/>
-                    <div className='pagination-buttons'>
-                        {
-                            pagination.currentPage > 1 ? (
-                                <button onClick={() => setPagination(prev => {return {...prev, currentPage: prev.currentPage - 1}})}>
-                                    <img src="/icons/arrow-left-highlight.svg" alt="left arrow icon" />
-                                </button>
-                            ) : pagination.totalPages !== 1 ?
-                            <div className='space-filler' /> : null
-                        }
-                        {
-                            pagination.currentPage < pagination.totalPages ? (
-                                <button onClick={() => setPagination(prev => {return {...prev, currentPage: prev.currentPage + 1}})}>
-                                    <img src="/icons/arrow-right-highlight.svg" alt="right arrow icon" />
-                                </button>
-                            ) : pagination.totalPages !== 1 ?
-                            <div className='space-filler' /> : null
-                        }
-                    </div>
+                    <PaginationCategories 
+                        rows={paginatedCategories} 
+                        categoryInfoState={categoryInfo}
+                        setCategoryInfoState={setCategoryInfo}
+                        errorState={errors} 
+                        setErrorState={setErrors}
+                        validateInfoFunction={validateInfo}/>
+                    <PaginationControls 
+                        pagination={pagination}
+                        onPageChange={setPagination}
+                    />
                 </Card>
             </div>
 
@@ -157,26 +151,13 @@ export default function Categorias() {
                     setIsCreateCategoryOpen(false);
                     setErrors({});
                 }}>
-                    <div className='window-content'>
-                            <h4>Titulo de Categoría</h4>
-                            <input placeholder='Nombre' value={categoryInfo.name} onChange={e => setCategoryInfo(prev => ({...prev, name: e.target.value}))}/>
-                            
-                            {errors.name && <p className='error-message'>* {errors.name}</p>}
-                            {errors.repeatedName && <p className='error-message'>* {errors.repeatedName}</p>}
-                            
-                            <h4>Descripción de Categoría</h4>
-                            <textarea 
-                                className='edit-text' 
-                                value={categoryInfo.description} 
-                                onChange={e => setCategoryInfo(prev => {return {...prev, description: e.target.value}})}
-                                rows={5}/>
-
-                            {errors.description && <p className='error-message'>* {errors.description}</p>}
-
-                            <div className='save-changes'>
-                                <button onClick={createCategory}>Crear Categoría</button>
-                            </div>
-                        </div>
+                    <CategoryForm 
+                        categoryInfoState={categoryInfo}
+                        setCategoryInfoState={setCategoryInfo}
+                        onSubmit={createCategory}
+                        errorState={errors}
+                        submitLabel='Crear Categoría'
+                    />
                 </Window>
             }
         </div>

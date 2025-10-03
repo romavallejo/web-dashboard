@@ -1,50 +1,33 @@
 import { useState, useEffect } from 'react';
 import Window from './Window';
+import CategoryForm from './CategoryForm';
 import '../css/Pagination.css'
 import '../css/PaginationCategories.css'
 
-export default function PaginationCategories({ rows }) {
+export default function PaginationCategories({ rows, categoryInfoState, setCategoryInfoState, errorState, setErrorState, validateInfoFunction }) {
 
     const columns = ['ID','Nombre','Acciones']
 
-    //STATES FOR EDIT CATEGORY
-    const [categoryInfo,setCategoryInfo] = useState({
-        id: 0,
-        name: "",
-        description: ""
-    });
-
     function hanldeSetCategoryInfo(category) {
-        setCategoryInfo({
+        setCategoryInfoState({
             id: category.id,
             name: category.name,
             description: category.description
         });
-        setErrors({name:"",description:""});
-    }
-
-    //ERROR HANDLING
-    const [errors,setErrors] = useState({});
-
-    function validateInfo() {
-        let newErrors = {};
-        if (!categoryInfo.name.trim())
-            newErrors.name = "El nombre de la categoría no puede estar vacío";
-        else if (rows.some(el => el.name.trim().toLowerCase() === categoryInfo.name.trim().toLowerCase() && el.id !== categoryInfo.id))
-            newErrors.name = "El nombre de la categoría ya existe";
-        if (!categoryInfo.description.trim())
-            newErrors.description = "La descripción de la categoría no puede estar vacía";
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        setErrorState({name:"",description:""});
     }
 
     function updateCategory() {
-        if (validateInfo()) {
+        if (validateInfoFunction()) {
             console.log("Se puede updatear el reporte");
             //FETCH HERE
         } else {
             console.log("Hay algun error");
         }
+    }
+
+    function deleteCategory() {
+        // call to delete category here
     }
 
     const [isEditCategoryOpen,setIsEditCategoryOpen] = useState(false);
@@ -92,38 +75,21 @@ export default function PaginationCategories({ rows }) {
 
                 {isEditCategoryOpen &&
                     <Window title='Editar Cateogría' onClose={()=>setIsEditCategoryOpen(false)}>
-                        <div className='window-content'>
-                            <h4>Titulo de Categoría</h4>
-                            <input className='text-input' placeholder='Nombre' value={categoryInfo.name} onChange={e => {
-                                setCategoryInfo(prev => ({...prev, name: e.target.value}));
-                            }}/>
-
-                            {errors.name && <p className='error-message'>* {errors.name}</p>}
-                            {errors.repeatedName && <p className='error-message'>* {errors.repeatedName}</p>}
-
-                            <h4>Descripción de Categoría</h4>
-                            <textarea 
-                                className='edit-text' 
-                                value={categoryInfo.description} 
-                                onChange={e => {
-                                    setCategoryInfo(prev => ({...prev, description: e.target.value}));
-                                }}
-                                rows={5}/>
-
-                            {errors.description && <p className='error-message'>* {errors.description}</p>}
-
-                            <div className='save-changes'>
-                                <button onClick={updateCategory}>Guardar cambios</button>
-                            </div>
-                        </div>
+                        <CategoryForm 
+                            categoryInfoState={categoryInfoState}
+                            setCategoryInfoState={setCategoryInfoState}
+                            onSubmit={updateCategory}
+                            errorState={errorState}
+                            submitLabel='Guardar cambios'
+                        />
                     </Window>
                 }
 
                 {isViewCategoryOpen && 
                     <Window title='Categoría' onClose={()=>setIsViewCategoryOpen(false)}>
                         <div className="window-content">
-                            <h3>{categoryInfo.name}</h3>
-                            <p>{categoryInfo.description}</p>
+                            <h3>{categoryInfoState.name}</h3>
+                            <p>{categoryInfoState.description}</p>
                         </div>
                     </Window>
                 }
@@ -131,12 +97,9 @@ export default function PaginationCategories({ rows }) {
                 {isDeleteCategoryOpen &&
                     <Window title='Eliminar Categoría' onClose={()=>setIsDeleteCategoryOpen(false)}>
                         <div className="window-content">
-                            <p>¿Seguro que desea eliminar la categoría con ID {categoryInfo.id}?</p>
+                            <p>¿Seguro que desea eliminar la categoría con ID {categoryInfoState.id}?</p>
                             <div className='delete-category'>
-                                <button onClick={()=>{
-                                //LLAMADA PARA ELIMINAR CATEGORIA
-
-                            }}>Eliminar</button>
+                                <button onClick={deleteCategory}>Eliminar</button>
                             </div>
                         </div>
                     </Window>

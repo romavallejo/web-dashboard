@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import Window from './Window';
-import CategoryTag from './CategoryTag';
-import ImageUploader from './ImageUploader.jsx';
 import '../css/Pagination.css'
-import '../css/PaginationReportes.css'
+//import '../css/PaginationReportes.css'
 import { formatDate } from '../utils/formatDate.js'
+import ReportForm from './ReportForm.jsx';
 
-export default function PaginationReportes({ rows, categorias }) {
+export default function PaginationReportes({ rows, categorias, reportInfoState, setReportInfoState, errorState, setErrorState, validateInfoFunction }) {
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
@@ -14,21 +13,9 @@ export default function PaginationReportes({ rows, categorias }) {
         1: 'estado-revision',
         3: 'estado-rechazado'
     };
-   
-    //STATES FOR EDIT REPORTE
-    const [reportInfo,setReportInfo] = useState({
-        id: 1,
-        title: "",
-        image: "",
-        categories: [],
-        description: "",
-        link: "",
-        status: 1,
-        user: ""
-    });
     
     function handleSetReportInfo(report) {
-            setReportInfo({
+            setReportInfoState({
                 id: report.id,
                 title: report.title,
                 image: report.image,
@@ -44,27 +31,12 @@ export default function PaginationReportes({ rows, categorias }) {
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);
     const [isDeleteOpen,setIsDeleteOpen] = useState(false);
 
-    //ERROR HANDLING
-    const [errors,setErrors] = useState({});
-    function validateInfo() {
-        let newErrors = {};
+    function editReport() {
 
-        if (!reportInfo.title.trim())
-            newErrors.title = "";
-        if (!reportInfo.categories.length === 0)
-            newErrors.categories = "";
-        if (!reportInfo.description.trim())
-            newErrors.description = "";
-        /*
-        if (!categoryInfo.name.trim())
-            newErrors.name = "El nombre de la categoría no puede estar vacío";
-        else if (categories.some(el => el.name.trim().toLowerCase() === categoryInfo.name.trim().toLowerCase() && el.id !== categoryInfo.id))
-            newErrors.name = "El nombre de la categoría ya existe";
-        if (!categoryInfo.description.trim())
-            newErrors.description = "La descripción de la categoría no puede estar vacía";
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-        */
+    }
+
+    function deleteReport() {
+
     }
 
     return (
@@ -121,74 +93,14 @@ export default function PaginationReportes({ rows, categorias }) {
 
                 {isEditReportOpen && 
                     <Window title='Editar Reporte' onClose={()=>{setIsEditReportOpen(false);}}>
-                        <div className="window-layout">
-                            <div className="text-holder edit-report-text">
-                                <h4>Título del Reporte</h4>
-                                <input className='text-input' placeholder='Titulo' value={reportInfo.title} onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}/>
-                                <p className='user-holder'>{reportInfo.user}</p>
-                                <h4>Categorías</h4>
-                                <select className='toggle-select' onChange={e => {
-                                    setReportInfo(prev => {
-                                        if (e.target.value == 0)
-                                            return {...prev}
-                                        if (!prev.categories.includes(e.target.value))
-                                            return {...prev, categories: [...prev.categories, e.target.value]}
-                                        return {...prev}
-                                    });
-                                }}>
-                                    <option value={0}>Selecionar Cateogiras</option>
-                                    {
-                                        categorias.map(category =>
-                                            <option key={category.id} value={category.id}>{category.name}</option>
-                                        )
-                                    }
-                                </select>
-                                <div className='categories-list'>
-                                    {
-                                        reportInfo.categories.map(id => {
-                                            return <CategoryTag 
-                                                key={id} 
-                                                categoryName={categorias[id-1].name} 
-                                                onDelete={() => {
-                                                    setReportInfo(prev =>{
-                                                        return {...prev, categories: prev.categories.filter(el => el !== id)}
-                                                    })
-                                                }}
-                                            />
-                                        })
-                                    }
-                                </div>
-                                <h4>Descripción del reporte</h4>
-                                <textarea 
-                                    className='edit-text' 
-                                    value={reportInfo.description} 
-                                    onChange={e => setReportInfo(prev => {return {...prev, description: e.target.value}})}
-                                    rows={5}/>
-                                <div className='liga-holder'>
-                                    <h4>Liga Fraudulenta</h4>
-                                    <input className='text-input' placeholder='https://ejemplo.com' value={reportInfo.link} onChange={e => setReportInfo(prev => {return {...prev, link: e.target.value}})}/>
-                                </div>
-                                <div className='categories-list report-state'>
-                                    <button onClick={()=>setReportInfo(prev => {return {...prev, status: 2}})} className={`tag aceptado ${reportInfo.status === 2 ? 'selected' :''}`}>Aceptado</button>
-                                    <button onClick={()=>setReportInfo(prev => {return {...prev, status: 3}})} className={`tag rechazado ${reportInfo.status === 3 ? 'selected' : ''}`}>Rechazado</button>
-                                    <button onClick={()=>setReportInfo(prev => {return {...prev, status: 1}})} className={`tag revision ${reportInfo.status === 1 ? 'selected' : ''}`}>Pendiente</button>
-                                </div>
-                            </div>
-                            <div className="image-holder">
-                                {reportInfo.image && 
-                                    <img className='report-image' src={reportInfo.image}/>
-                                }
-                                <h4>Seleccionar Imagen</h4>
-                                <ImageUploader setImageLink={(prev, newImageLink)=>{
-                                    {return {...prev, image: newImageLink}}
-                                }}/>
-                            </div>
-                        </div>
-                        <div className='save-changes'>
-                            <button onClick={
-                                console.log()
-                            }>Guardar cambios</button>
-                        </div>
+                        <ReportForm 
+                            reportInfoState={reportInfoState}
+                            setReportInfoState={setReportInfoState}
+                            onSubmit={editReport}
+                            errorState={null}
+                            submitLabel='Guardar cambios'
+                            categories={categorias}
+                        />
                     </Window>
                 }
 
@@ -196,28 +108,28 @@ export default function PaginationReportes({ rows, categorias }) {
                     <Window title='Reporte' onClose={()=>{setIsViewReportOpen(false)}}>
                         <div className='window-layout'>
                             <div className='text-holder'>
-                                <h3>{reportInfo.title}</h3>
-                                <p className='user-holder'>{reportInfo.user}</p>
+                                <h3>{reportInfoState.title}</h3>
+                                <p className='user-holder'>{reportInfoState.user}</p>
                                 <div className='categories-list'>
-                                    {reportInfo.categories.map(selectedCategory => {
+                                    {reportInfoState.categories.map(selectedCategory => {
                                         return (<p key={categorias[selectedCategory-1].name} className='tag'>{categorias[selectedCategory-1].name}</p>);
                                     })}
                                 </div>
-                                <p>{reportInfo.description}</p>
+                                <p>{reportInfoState.description}</p>
                                 <div className='liga-holder'>
                                     <h4>Liga Fraudulenta</h4>
-                                    <p>{reportInfo.link}</p>
+                                    <p>{reportInfoState.link}</p>
                                 </div>
                                 <div className='report-state'>
                                     {
-                                        reportInfo.status === 1 ? <p className='tag revision'>Pendiente</p> :
-                                        reportInfo.status === 2 ? <p className='tag aceptado'>Aprobado</p> : 
+                                        reportInfoState.status === 1 ? <p className='tag revision'>Pendiente</p> :
+                                        reportInfoState.status === 2 ? <p className='tag aceptado'>Aprobado</p> : 
                                         <p className='tag rechazado'>Aceptado</p>
                                     }
                                 </div>
                             </div>
                             <div className='image-holder'>
-                                <img className='report-image' src={reportInfo.image}/>
+                                <img className='report-image' src={reportInfoState.image}/>
                             </div>
                         </div>
                     </Window>
@@ -226,11 +138,8 @@ export default function PaginationReportes({ rows, categorias }) {
                 {isDeleteOpen && 
                     <Window title='Eliminar Reporte' onClose={()=>setIsDeleteOpen(false)}>
                         <div className='delete-report'>
-                            <p>¿Seguro que desea eliminar el reporte con ID {reportInfo.id}?</p>
-                            <button onClick={()=>{
-                                //llamado a funcion para eliminar reporte
-
-                            }}>Eliminar</button>
+                            <p>¿Seguro que desea eliminar el reporte con ID {reportInfoState.id}?</p>
+                            <button onClick={deleteReport}>Eliminar</button>
                         </div>
                     </Window>
                 }

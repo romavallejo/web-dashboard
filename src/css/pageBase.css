@@ -40,28 +40,3 @@
     margin: 1rem;
     gap: 2rem;
 }
-
-.pagination-buttons  {
-    display: flex;
-    justify-content: center;
-    gap:1rem;
-    margin-top: 1rem;
-}
-
-.pagination-buttons button {
-    border: 0px;
-    background-color: var(--secondary-highlight-color);
-    border-radius: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pagination-buttons button:hover {
-    outline: 2px var(--secondary-highlight-color) solid;
-}
-
-.space-filler {
-    width: 24px;
-    height: 24px;
-}
