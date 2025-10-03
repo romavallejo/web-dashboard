@@ -30,11 +30,9 @@ export default function ImageUploader({ setImageLink, errorLog }) {
                 body: formData,
             });
             const data = await res.json();
-            console.log(data);
             if (!res.ok) throw new Error("Upload failed");
-            console.log("Upload successful");
-            //ONCE I KNOW WHAT I GET IN RETURN WHEN SUCCESSFULL
-            //setImageLink(data.image)
+            // ! aqui ya se guarda el path :) - att: artie
+            setImageLink(data.path);
         } catch (err) {
             setErrorInUpload(true);
             console.log("Upload error: ", err);
