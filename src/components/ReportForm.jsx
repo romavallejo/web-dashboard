@@ -66,7 +66,7 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                     <h4>Seleccionar Imagen</h4>
                     <ImageUploader 
                         setImageLink={newImage => {
-                            setReportInfoState(prev => ({...prev, image: newImage}))
+                            setReportInfoState(prev => ({...prev, image: "http://18.221.59.69/"+newImage}))
                         }}
                     />
                 </div>
