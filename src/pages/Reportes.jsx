@@ -220,7 +220,7 @@ export default function Reportes(){
             setReportInfo({
                 id: 0,
                 title: "",
-                image: "",
+                image: null,
                 categories: [],
                 description: "",
                 link: "",
@@ -242,7 +242,10 @@ export default function Reportes(){
             <div className="page">
                 <div className='header'>
                     <h1>Reportes</h1>
-                    <button onClick={()=>setIsCreateReportOpen(true)}>+ Crear Reporte</button>
+                    <button onClick={()=>{
+                        handleSetReportInfo();
+                        setIsCreateReportOpen(true);
+                    }}>+ Crear Reporte</button>
                 </div>
                 <div className="grid">
                     <Card title='Total Reportes'>
@@ -297,7 +300,6 @@ export default function Reportes(){
             {isCreateReportOpen &&
                 <Window title="Crear Reporte" onClose={()=>{
                     setIsCreateReportOpen(false);
-                    handleSetReportInfo();
                 }}>
                     <ReportForm 
                         reportInfoState={reportInfo}

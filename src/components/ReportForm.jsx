@@ -61,7 +61,7 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                 </div>
                 <div className="image-holder">
                     {reportInfoState.image && 
-                        <img className='report-image' src={reportInfoState.image}/>
+                        <img className='report-image' src={`${import.meta.env.VITE_BACKEND_URL}/${reportInfoState.image}`}/>
                     }
                     <h4>Seleccionar Imagen</h4>
                     <ImageUploader 

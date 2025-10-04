@@ -4,6 +4,7 @@ import '../css/Pagination.css'
 //import '../css/PaginationReportes.css'
 import { formatDate } from '../utils/formatDate.js'
 import ReportForm from './ReportForm.jsx';
+import ViewReport from './ViewReport.jsx';
 
 export default function PaginationReportes({ rows, categorias, reportInfoState, setReportInfoState, errorState, setErrorState, validateInfoFunction }) {
 
@@ -106,32 +107,10 @@ export default function PaginationReportes({ rows, categorias, reportInfoState, 
 
                 {isViewReportOpen && 
                     <Window title='Reporte' onClose={()=>{setIsViewReportOpen(false)}}>
-                        <div className='window-layout'>
-                            <div className='text-holder'>
-                                <h3>{reportInfoState.title}</h3>
-                                <p className='user-holder'>{reportInfoState.user}</p>
-                                <div className='categories-list'>
-                                    {reportInfoState.categories.map(selectedCategory => {
-                                        return (<p key={categorias[selectedCategory-1].name} className='tag'>{categorias[selectedCategory-1].name}</p>);
-                                    })}
-                                </div>
-                                <p>{reportInfoState.description}</p>
-                                <div className='liga-holder'>
-                                    <h4>Liga Fraudulenta</h4>
-                                    <p>{reportInfoState.link}</p>
-                                </div>
-                                <div className='report-state'>
-                                    {
-                                        reportInfoState.status === 1 ? <p className='tag revision'>Pendiente</p> :
-                                        reportInfoState.status === 2 ? <p className='tag aceptado'>Aprobado</p> : 
-                                        <p className='tag rechazado'>Aceptado</p>
-                                    }
-                                </div>
-                            </div>
-                            <div className='image-holder'>
-                                <img className='report-image' src={reportInfoState.image}/>
-                            </div>
-                        </div>
+                        <ViewReport 
+                            reportInfoState={reportInfoState}
+                            categories={categorias}
+                        />
                     </Window>
                 }
                 
