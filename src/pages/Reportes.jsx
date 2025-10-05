@@ -132,29 +132,28 @@ export default function Reportes(){
     }
 ]
 
-    /*
     //ERROR HANDLING
     const [errors,setErrors] = useState({});
+
     function validateInfo() {
         let newErrors = {};
 
         if (!reportInfo.title.trim())
-            newErrors.title = "";
-        if (!reportInfo.categories.length === 0)
-            newErrors.categories = "";
+            newErrors.title = "El reporte debe tener un título";
+        if (reportInfo.categories.length === 0)
+            newErrors.categories = "El reporte debe pertenecer por lo menos a una categoría";
         if (!reportInfo.description.trim())
-            newErrors.description = "";
-        if (!categoryInfo.name.trim())
-            newErrors.name = "El nombre de la categoría no puede estar vacío";
-        else if (categories.some(el => el.name.trim().toLowerCase() === categoryInfo.name.trim().toLowerCase() && el.id !== categoryInfo.id))
-            newErrors.name = "El nombre de la categoría ya existe";
-        if (!categoryInfo.description.trim())
-            newErrors.description = "La descripción de la categoría no puede estar vacía";
+            newErrors.description = "El reporte debe contar con una descripción";
+        if (!reportInfo.link.trim())
+            newErrors.link = "El reporte debe incluir el link relacionado"
+        if (reportInfo.status === 0)
+            newErrors.status = "El reporte debe encontrarse en algún estado"
+        if (!reportInfo.image)
+            newErrors.image = "El reporte debe contar con una imagen"
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
-        
     }
-    */
 
     const [filteredReports,setFilteredReports] = useState([]);
     const [filters,setFilters] = useState(
@@ -208,7 +207,7 @@ export default function Reportes(){
     const [reportInfo,setReportInfo] = useState({
         id: 0,
         title: "",
-        image: "",
+        image: null,
         categories: [],
         description: "",
         link: "",
@@ -234,7 +233,11 @@ export default function Reportes(){
     }
 
     function createReport () {
-        //call here
+        if (validateInfo()) {
+            //fetch here
+        } else {
+
+        }
     }
         
     return (
@@ -285,9 +288,9 @@ export default function Reportes(){
                             categorias={categories}
                             reportInfoState={reportInfo} 
                             setReportInfoState={setReportInfo}
-                            errorState={null}
-                            setErrorState={null}
-                            validateInfoFunction={null}
+                            errorState={errors}
+                            setErrorState={setErrors}
+                            validateInfoFunction={validateInfo}
                         />
                         <PaginationControls 
                             pagination={pagination}
@@ -307,6 +310,7 @@ export default function Reportes(){
                         onSubmit={createReport}
                         submitLabel='Crear Reporte'
                         categories={categories}
+                        errorState={errors}
                     />
                 </Window>
             }

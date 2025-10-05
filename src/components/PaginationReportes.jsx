@@ -6,7 +6,7 @@ import { formatDate } from '../utils/formatDate.js'
 import ReportForm from './ReportForm.jsx';
 import ViewReport from './ViewReport.jsx';
 
-export default function PaginationReportes({ rows, categorias, reportInfoState, setReportInfoState, errorState, setErrorState, validateInfoFunction }) {
+export default function PaginationReportes({ rows, categorias, reportInfoState, setReportInfoState, errorState, validateInfoFunction }) {
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
@@ -16,7 +16,7 @@ export default function PaginationReportes({ rows, categorias, reportInfoState, 
     };
     
     function handleSetReportInfo(report) {
-            setReportInfoState({
+            setReportInfoState(prev=>({
                 id: report.id,
                 title: report.title,
                 image: report.image,
@@ -25,7 +25,7 @@ export default function PaginationReportes({ rows, categorias, reportInfoState, 
                 link: report.report_url,
                 status: report.status,
                 user: report.user_name
-            });
+            }));
     }
 
     const [isEditReportOpen,setIsEditReportOpen] = useState(false);
@@ -33,7 +33,11 @@ export default function PaginationReportes({ rows, categorias, reportInfoState, 
     const [isDeleteOpen,setIsDeleteOpen] = useState(false);
 
     function editReport() {
+        if (validateInfoFunction()) {
 
+        } else {
+            
+        }
     }
 
     function deleteReport() {
@@ -98,7 +102,7 @@ export default function PaginationReportes({ rows, categorias, reportInfoState, 
                             reportInfoState={reportInfoState}
                             setReportInfoState={setReportInfoState}
                             onSubmit={editReport}
-                            errorState={null}
+                            errorState={errorState}
                             submitLabel='Guardar cambios'
                             categories={categorias}
                         />
