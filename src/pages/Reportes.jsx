@@ -12,87 +12,77 @@ import '../css/Reportes.css'
 export default function Reportes(){
 
     const reports = [
-    {
-        "id": 1,
-        "title": "Reporte de sitio fraudulento",
-        "image": "prueba.jpg",
-        "description": "Este sitio web solicita datos bancarios sin medidas de seguridad y redirige a páginas falsas.",
-        "created_at": "2025-09-27T23:50:39.000Z",
-        "updated_at": "2025-09-27T23:50:39.000Z",
-        "user_name": "Skibidi Toilet",
-        "created_by": 1,
-        "status": 1,
-        "report_url": "http://banco-seguro-falso.com",
-        "categories": [
-        1,
-        5
-        ]
-    },
-    {
-        "id": 2,
-        "title": "Página de phishing detectada",
-        "image": "prueba.jpg",
-        "description": "El portal imita la interfaz de una empresa de envíos para robar credenciales de acceso.",
-        "created_at": "2025-09-27T23:51:32.000Z",
-        "updated_at": "2025-09-27T23:51:32.000Z",
-        "user_name": "Dr. Sahur",
-        "created_by": 2,
-        "status": 1,
-        "report_url": "http://envios-gratis-seguro.net",
-        "categories": [
-        2,
-        5
-        ]
-    },
-    {
-        "id": 3,
-        "title": "Sitio de ventas falsas",
-        "image": "prueba.jpg",
-        "description": "La página ofrece productos electrónicos a precios demasiado bajos y nunca realiza las entregas.",
-        "created_at": "2025-09-27T23:51:51.000Z",
-        "updated_at": "2025-09-27T23:51:51.000Z",
-        "user_name": "Dr. Sahur",
-        "created_by": 3,
-        "status": 2,
-        "report_url": "http://ofertas-electronica-barata.org",
-        "categories": [
-        3,
-        5
-        ]
-    },
-    {
-        "id": 5,
-        "title": "Plataforma de inversión fraudulenta",
-        "image": "prueba.jpg",
-        "description": "El sitio promete ganancias irreales en criptomonedas y exige depósitos sin garantía alguna.",
-        "created_at": "2025-09-27T23:52:29.000Z",
-        "updated_at": "2025-09-27T23:52:29.000Z",
-        "user_name": "Dr. Sahur",
-        "created_by": 2,
-        "status": 3,
-        "report_url": "http://crypto-ganancias-rapidas.info",
-        "categories": [
-        4,
-        5
-        ]
-    },
-    {
-        "id": 7,
-        "title": "Portal falso de soporte técnico",
-        "image": "prueba.jpg",
-        "description": "La web se hace pasar por un servicio de soporte oficial y pide pagos por reparaciones inexistentes.",
-        "created_at": "2025-09-27T23:52:50.000Z",
-        "updated_at": "2025-09-27T23:52:50.000Z",
-        "user_name": "Skibidi Toilet",
-        "created_by": 1,
-        "status": 2,
-        "report_url": "http://soporte-oficial-falso.com",
-        "categories": [
-        1,
-        4
-        ]
-    }
-    ]
+  {
+    "id": 1,
+    "title": "Reporte de sitio fraudulento",
+    "image": "report-pictures/1d92a0a7cbb8f6a32b6ff1a98ecf2af4f13293be20e38e7db23ccfca9a412b8a.jpg",
+    "description": "Este sitio web solicita datos bancarios sin medidas de seguridad y redirige a páginas falsas.",
+    "created_at": "2025-09-27T23:50:39.000Z",
+    "updated_at": "2025-09-27T23:50:39.000Z",
+    "user_name": "Skibidi Toilet",
+    "created_by": 1,
+    "user_image": "profile-pictures/default.jpg",
+    "status_id": 1,
+    "report_url": "http://banco-seguro-falso.com",
+    "categories": [1, 5]
+  },
+  {
+    "id": 2,
+    "title": "Página de phishing detectada",
+    "image": "report-pictures/34baf3de9a5ef873b432bd723d9e0d45a4c2b79f915a86d2a7b5419ccf78d66c.jpg",
+    "description": "El portal imita la interfaz de una empresa de envíos para robar credenciales de acceso.",
+    "created_at": "2025-09-27T23:51:32.000Z",
+    "updated_at": "2025-09-27T23:51:32.000Z",
+    "user_name": "Dr. Sahur",
+    "created_by": 2,
+    "user_image": "profile-pictures/default.jpg",
+    "status_id": 1,
+    "report_url": "http://envios-gratis-seguro.net",
+    "categories": [2, 5]
+  },
+  {
+    "id": 3,
+    "title": "Sitio de ventas falsas",
+    "image": "report-pictures/57c0a3a48e923d8bb9e94b3a8ff743a58e9c4e71d4ccf0e6e2e3d513a7f49fdd.jpg",
+    "description": "La página ofrece productos electrónicos a precios demasiado bajos y nunca realiza las entregas.",
+    "created_at": "2025-09-27T23:51:51.000Z",
+    "updated_at": "2025-09-27T23:51:51.000Z",
+    "user_name": "Dr. Sahur",
+    "created_by": 3,
+    "user_image": "profile-pictures/default.jpg",
+    "status_id": 2,
+    "report_url": "http://ofertas-electronica-barata.org",
+    "categories": [3, 5]
+  },
+  {
+    "id": 5,
+    "title": "Plataforma de inversión fraudulenta",
+    "image": "report-pictures/b9237d0f30ecb0a7dc2f84e6a1cc3af324ea742b93a56f5dd8f0cb11e629bf5e.jpg",
+    "description": "El sitio promete ganancias irreales en criptomonedas y exige depósitos sin garantía alguna.",
+    "created_at": "2025-09-27T23:52:29.000Z",
+    "updated_at": "2025-09-27T23:52:29.000Z",
+    "user_name": "Dr. Sahur",
+    "created_by": 2,
+    "user_image": "profile-pictures/default.jpg",
+    "status_id": 3,
+    "report_url": "http://crypto-ganancias-rapidas.info",
+    "categories": [4, 5]
+  },
+  {
+    "id": 7,
+    "title": "Portal falso de soporte técnico",
+    "image": "report-pictures/ccf0a7bb2e9d9a4b8347ff291c4b731ddf28573c4a2a5b5d67e3bc111f0a89f3.jpg",
+    "description": "La web se hace pasar por un servicio de soporte oficial y pide pagos por reparaciones inexistentes.",
+    "created_at": "2025-09-27T23:52:50.000Z",
+    "updated_at": "2025-09-27T23:52:50.000Z",
+    "user_name": "Skibidi Toilet",
+    "created_by": 1,
+    "user_image": "profile-pictures/default.jpg",
+    "status_id": 2,
+    "report_url": "http://soporte-oficial-falso.com",
+    "categories": [1, 4]
+  }
+]
 
     let categories = [
     {
@@ -147,8 +137,8 @@ export default function Reportes(){
             newErrors.description = "El reporte debe contar con una descripción";
         if (!reportInfo.link.trim())
             newErrors.link = "El reporte debe incluir el link relacionado"
-        if (reportInfo.status === 0)
-            newErrors.status = "El reporte debe encontrarse en algún estado"
+        if (reportInfo.status_id === 0)
+            newErrors.status_id = "El reporte debe encontrarse en algún estado"
         if (!reportInfo.image)
             newErrors.image = "El reporte debe contar con una imagen"
 
@@ -160,7 +150,7 @@ export default function Reportes(){
     const [filters,setFilters] = useState(
         {
             textFilter: "",
-            status: 0,
+            status_id: 0,
             categoryFilter: 0,
             dateFilter: ""
         }
@@ -181,8 +171,8 @@ export default function Reportes(){
     useEffect(() => {
         let result = reports;
 
-        if (filters.status !== 0)
-            result = result.filter(rep => rep.status === filters.status);
+        if (filters.status_id !== 0)
+            result = result.filter(rep => rep.status_id === filters.status_id);
 
         if (filters.categoryFilter !== 0)
             result = result.filter(rep => rep.categories.includes(filters.categoryFilter));
@@ -212,7 +202,7 @@ export default function Reportes(){
         categories: [],
         description: "",
         link: "",
-        status: 0,
+        status_id: 0,
         user: ""
     });
 
@@ -224,7 +214,7 @@ export default function Reportes(){
                 categories: [],
                 description: "",
                 link: "",
-                status: 0,
+                status_id: 0,
                 user: ""
             });
     }
@@ -267,7 +257,7 @@ export default function Reportes(){
                     <Card title='Lista de Reportes' size={[1,4]}>
                         <div className='search-bar'>
                             <SearchBar onSearch={handleSearch} holder='ID, Usuario'/>
-                            <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, status: Number(e.target.value)}})}>
+                            <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, status_id: Number(e.target.value)}})}>
                                 <option value={0}>Todos los Estados</option>
                                 <option value={1}>Pendientes</option>
                                 <option value={2}>Aprobados</option>

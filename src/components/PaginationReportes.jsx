@@ -23,7 +23,7 @@ export default function PaginationReportes({ rows, categorias, categoryMap, repo
                 categories: report.categories,
                 description: report.description,
                 link: report.report_url,
-                status: report.status,
+                status_id: report.status_id,
                 user: report.user_name
             }));
     }
@@ -67,8 +67,8 @@ export default function PaginationReportes({ rows, categorias, categoryMap, repo
                                 )}
                             </td>
                             <td>
-                                <div className={`tag ${estadoClass[row.status] || ''}`}>
-                                    {row.status === 1 ? 'Pendiente' : row.status === 2 ? 'Aprobado' : 'Rechazado'}
+                                <div className={`tag ${estadoClass[row.status_id] || ''}`}>
+                                    {row.status_id === 1 ? 'Pendiente' : row.status_id === 2 ? 'Aprobado' : 'Rechazado'}
                                 </div>
                             </td>
                             <td>{formatDate(row.created_at)}</td>

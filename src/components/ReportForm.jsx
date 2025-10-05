@@ -78,12 +78,12 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                     {errorState.link && <p className='error-message'>* {errorState.link}</p>}
 
                     <div className='categories-list report-state'>
-                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status: 2}})} className={`tag aceptado ${reportInfoState.status === 2 ? 'selected' :''}`}>Aceptado</button>
-                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status: 3}})} className={`tag rechazado ${reportInfoState.status === 3 ? 'selected' : ''}`}>Rechazado</button>
-                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status: 1}})} className={`tag revision ${reportInfoState.status === 1 ? 'selected' : ''}`}>Pendiente</button>
+                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status_id: 2}})} className={`tag aceptado ${reportInfoState.status_id === 2 ? 'selected' :''}`}>Aceptado</button>
+                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status_id: 3}})} className={`tag rechazado ${reportInfoState.status_id === 3 ? 'selected' : ''}`}>Rechazado</button>
+                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status_id: 1}})} className={`tag revision ${reportInfoState.status_id === 1 ? 'selected' : ''}`}>Pendiente</button>
                     </div>
 
-                    {errorState.status && <p className='error-message'>* {errorState.status}</p>}
+                    {errorState.status_id && <p className='error-message'>* {errorState.status_id}</p>}
 
                 </div>
                 <div className="image-holder">
