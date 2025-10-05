@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom"
 import Sidebar from "./pages/Sidebar"
+import { ReportProvider } from "./context/ReportContext"
 import './css/dashboard.css'
 
 
@@ -11,7 +12,9 @@ function App() {
     <>
       <div className="dashboard">
         <Sidebar current={location.pathname}/>
-        <Outlet/>
+        <ReportProvider>
+          <Outlet/>
+        </ReportProvider>
       </div>
     </>
   )
