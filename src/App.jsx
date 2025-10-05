@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom"
 import Sidebar from "./pages/Sidebar"
 import { ReportProvider } from "./context/ReportContext"
+import { CategoryProvider } from "./context/CategoryContext"
 import './css/dashboard.css'
 
 
@@ -13,7 +14,9 @@ function App() {
       <div className="dashboard">
         <Sidebar current={location.pathname}/>
         <ReportProvider>
-          <Outlet/>
+          <CategoryProvider>
+            <Outlet/>
+          </CategoryProvider>
         </ReportProvider>
       </div>
     </>

@@ -6,6 +6,7 @@ import PaginationControls from '../components/PaginationControls.jsx'
 import ReportForm from '../components/ReportForm.jsx'
 import { useEffect, useState } from 'react'
 import { formatDate } from '../utils/formatDate.js'
+import { useReport } from '../context/ReportContext.jsx'
 import '../css/pageBase.css'
 import '../css/Reportes.css'
 
@@ -121,40 +122,10 @@ export default function Reportes(){
         "description": "Equipo, ropa y accesorios relacionados con la práctica y disfrute de actividades deportivas."
     }
 ]
+
+    const { reportInfo, setReportInfo, errors, validateInfo, filteredReports, setFilteredReports, filters, setFilters } = useReport();
+
     const categoryMap = Object.fromEntries(categories.map(cat=>[cat.id, cat.name]));
-
-    //ERROR HANDLING
-    const [errors,setErrors] = useState({});
-
-    function validateInfo() {
-        let newErrors = {};
-
-        if (!reportInfo.title.trim())
-            newErrors.title = "El reporte debe tener un título";
-        if (reportInfo.categories.length === 0)
-            newErrors.categories = "El reporte debe pertenecer por lo menos a una categoría";
-        if (!reportInfo.description.trim())
-            newErrors.description = "El reporte debe contar con una descripción";
-        if (!reportInfo.link.trim())
-            newErrors.link = "El reporte debe incluir el link relacionado"
-        if (reportInfo.status_id === 0)
-            newErrors.status_id = "El reporte debe encontrarse en algún estado"
-        if (!reportInfo.image)
-            newErrors.image = "El reporte debe contar con una imagen"
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    }
-
-    const [filteredReports,setFilteredReports] = useState([]);
-    const [filters,setFilters] = useState(
-        {
-            textFilter: "",
-            status_id: 0,
-            categoryFilter: 0,
-            dateFilter: ""
-        }
-    );
 
     const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
 
@@ -173,15 +144,12 @@ export default function Reportes(){
 
         if (filters.status_id !== 0)
             result = result.filter(rep => rep.status_id === filters.status_id);
-
         if (filters.categoryFilter !== 0)
             result = result.filter(rep => rep.categories.includes(filters.categoryFilter));
-
         if (filters.textFilter.trim() !== "")
             result = result.filter(rep => rep.user_name.toLocaleLowerCase().includes(filters.textFilter.toLocaleLowerCase()) ||
             rep.id.toString().includes(filters.textFilter.toLocaleLowerCase())
         );
-
         if (filters.dateFilter !== "")
             result = result.filter(rep => formatDate(rep.created_at) === formatDate(filters.dateFilter));
             
@@ -193,18 +161,6 @@ export default function Reportes(){
         });
 
     },[filters]);
-    
-    //STATES FOR REPORT FORM
-    const [reportInfo,setReportInfo] = useState({
-        id: 0,
-        title: "",
-        image: null,
-        categories: [],
-        description: "",
-        link: "",
-        status_id: 0,
-        user: ""
-    });
 
     function handleSetReportInfo(report) {
             setReportInfo({
@@ -275,13 +231,8 @@ export default function Reportes(){
                                 />
                         </div>
                         <PaginationReportes 
-                            rows={paginatedReports} 
                             categorias={categories}
                             categoryMap={categoryMap}
-                            reportInfoState={reportInfo} 
-                            setReportInfoState={setReportInfo}
-                            errorState={errors}
-                            validateInfoFunction={validateInfo}
                         />
                         <PaginationControls 
                             pagination={pagination}
@@ -296,13 +247,10 @@ export default function Reportes(){
                     setIsCreateReportOpen(false);
                 }}>
                     <ReportForm 
-                        reportInfoState={reportInfo}
-                        setReportInfoState={setReportInfo}
                         onSubmit={createReport}
                         submitLabel='Crear Reporte'
                         categories={categories}
                         categoryMap={categoryMap}
-                        errorState={errors}
                     />
                 </Window>
             }

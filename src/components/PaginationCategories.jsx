@@ -1,24 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Window from './Window';
 import CategoryForm from './CategoryForm';
+import { useCategory } from '../context/CategoryContext';
 import '../css/Pagination.css'
 import '../css/PaginationCategories.css'
 
-export default function PaginationCategories({ rows, categoryInfoState, setCategoryInfoState, errorState, setErrorState, validateInfoFunction }) {
+export default function PaginationCategories() {
+
+    const { filteredCategories, categoryInfo, setCategoryInfo, validateInfo, setErrors } = useCategory();
 
     const columns = ['ID','Nombre','Acciones']
 
     function hanldeSetCategoryInfo(category) {
-        setCategoryInfoState({
+        setCategoryInfo({
             id: category.id,
             name: category.name,
             description: category.description
         });
-        setErrorState({name:"",description:""});
+        setErrors({});
     }
 
     function updateCategory() {
-        if (validateInfoFunction()) {
+        if (validateInfo()) {
             console.log("Se puede updatear el reporte");
             //FETCH HERE
         } else {
@@ -45,7 +48,7 @@ export default function PaginationCategories({ rows, categoryInfoState, setCateg
                     </tr>
                 </thead>
                 <tbody>
-                    {rows && rows.map(row => (
+                    {filteredCategories && filteredCategories.map(row => (
                         <tr key={row.id}>
                             <td>{row.id}</td>
                             <td>{row.name}</td>
@@ -64,7 +67,7 @@ export default function PaginationCategories({ rows, categoryInfoState, setCateg
                                 </button>
                                 <button onClick={()=>{
                                     hanldeSetCategoryInfo(row);
-                                    setIsDeleteCategoryOpen(true)
+                                    setIsDeleteCategoryOpen(true);
                                 }}>
                                     <img src='/icons/delete.svg'/>
                                 </button>
@@ -76,10 +79,7 @@ export default function PaginationCategories({ rows, categoryInfoState, setCateg
                 {isEditCategoryOpen &&
                     <Window title='Editar Cateogría' onClose={()=>setIsEditCategoryOpen(false)}>
                         <CategoryForm 
-                            categoryInfoState={categoryInfoState}
-                            setCategoryInfoState={setCategoryInfoState}
                             onSubmit={updateCategory}
-                            errorState={errorState}
                             submitLabel='Guardar cambios'
                         />
                     </Window>
@@ -88,8 +88,8 @@ export default function PaginationCategories({ rows, categoryInfoState, setCateg
                 {isViewCategoryOpen && 
                     <Window title='Categoría' onClose={()=>setIsViewCategoryOpen(false)}>
                         <div className="window-content">
-                            <h3>{categoryInfoState.name}</h3>
-                            <p>{categoryInfoState.description}</p>
+                            <h3>{categoryInfo.name}</h3>
+                            <p>{categoryInfo.description}</p>
                         </div>
                     </Window>
                 }
@@ -97,7 +97,7 @@ export default function PaginationCategories({ rows, categoryInfoState, setCateg
                 {isDeleteCategoryOpen &&
                     <Window title='Eliminar Categoría' onClose={()=>setIsDeleteCategoryOpen(false)}>
                         <div className="window-content">
-                            <p>¿Seguro que desea eliminar la categoría con ID {categoryInfoState.id}?</p>
+                            <p>¿Seguro que desea eliminar la categoría con ID {categoryInfo.id}?</p>
                             <div className='delete-category'>
                                 <button onClick={deleteCategory}>Eliminar</button>
                             </div>

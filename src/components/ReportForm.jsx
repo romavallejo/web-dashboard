@@ -1,9 +1,13 @@
 import ImageUploader from './ImageUploader';
 import CategoryTag from './CategoryTag';
+import { useReport } from '../context/ReportContext';
 import '../css/Reportes.css'
 import '../css/PaginationReportes.css'
 
-export default function ReportForm({ reportInfoState, setReportInfoState, onSubmit, errorState, submitLabel, categories, categoryMap}) {
+export default function ReportForm({ onSubmit, submitLabel, categories, categoryMap}) {
+    
+    const { reportInfo, setReportInfo, errors } = useReport();
+    
     return (
         <>
             <div className="window-layout">
@@ -11,17 +15,17 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                     <h4>Título del Reporte</h4>
                     <input className='text-input'
                         placeholder='Titulo' 
-                        value={reportInfoState.title} 
-                        onChange={e => setReportInfoState(prev => ({...prev, title: e.target.value}))}
+                        value={reportInfo.title} 
+                        onChange={e => setReportInfo(prev => ({...prev, title: e.target.value}))}
                         maxLength="100"
                         />
 
-                    {errorState.title && <p className='error-message'>* {errorState.title}</p>}
+                    {errors.title && <p className='error-message'>* {errors.title}</p>}
 
-                    <p className='user-holder'>{reportInfoState.user}</p>
+                    <p className='user-holder'>{reportInfo.user}</p>
                     <h4>Categorías</h4>
                     <select className='toggle-select' onChange={e => {
-                        setReportInfoState(prev => {
+                        setReportInfo(prev => {
                             if (e.target.value == 0)
                                 return {...prev}
                             if (!prev.categories.includes(e.target.value))
@@ -38,12 +42,12 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                     </select>
                     <div className='categories-list'>
                         {   
-                            reportInfoState.categories.map(id => {
+                            reportInfo.categories.map(id => {
                                 return <CategoryTag 
                                     key={categoryMap[id]} 
                                     categoryName={categoryMap[id]} 
                                     onDelete={() => {
-                                        setReportInfoState(prev =>{
+                                        setReportInfo(prev =>{
                                             return {...prev, categories: prev.categories.filter(el => el !== id)}
                                         })
                                     }}
@@ -52,48 +56,48 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                         }
                     </div>
 
-                    {errorState.categories && <p className='error-message'>* {errorState.categories}</p>}
+                    {errors.categories && <p className='error-message'>* {errors.categories}</p>}
 
                     <h4>Descripción del reporte</h4>
                     <textarea 
                         className='edit-text' 
-                        value={reportInfoState.description} 
-                        onChange={e => setReportInfoState(prev => {return {...prev, description: e.target.value}})}
+                        value={reportInfo.description} 
+                        onChange={e => setReportInfo(prev => {return {...prev, description: e.target.value}})}
                         rows={5}
                         maxLength="4294967295"
                     />
 
-                    {errorState.description && <p className='error-message'>* {errorState.description}</p>}
+                    {errors.description && <p className='error-message'>* {errors.description}</p>}
 
                     <div className='liga-holder'>
                         <h4>Liga Fraudulenta</h4>
                         <input className='text-input' 
                             placeholder='https://ejemplo.com' 
-                            value={reportInfoState.link} 
-                            onChange={e => setReportInfoState(prev => {return {...prev, link: e.target.value}})}
+                            value={reportInfo.link} 
+                            onChange={e => setReportInfo(prev => {return {...prev, link: e.target.value}})}
                             maxLength="100"
                         />
                     </div>
 
-                    {errorState.link && <p className='error-message'>* {errorState.link}</p>}
+                    {errors.link && <p className='error-message'>* {errors.link}</p>}
 
                     <div className='categories-list report-state'>
-                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status_id: 2}})} className={`tag aceptado ${reportInfoState.status_id === 2 ? 'selected' :''}`}>Aceptado</button>
-                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status_id: 3}})} className={`tag rechazado ${reportInfoState.status_id === 3 ? 'selected' : ''}`}>Rechazado</button>
-                        <button onClick={()=>setReportInfoState(prev => {return {...prev, status_id: 1}})} className={`tag revision ${reportInfoState.status_id === 1 ? 'selected' : ''}`}>Pendiente</button>
+                        <button onClick={()=>setReportInfo(prev => {return {...prev, status_id: 2}})} className={`tag aceptado ${reportInfo.status_id === 2 ? 'selected' :''}`}>Aceptado</button>
+                        <button onClick={()=>setReportInfo(prev => {return {...prev, status_id: 3}})} className={`tag rechazado ${reportInfo.status_id === 3 ? 'selected' : ''}`}>Rechazado</button>
+                        <button onClick={()=>setReportInfo(prev => {return {...prev, status_id: 1}})} className={`tag revision ${reportInfo.status_id === 1 ? 'selected' : ''}`}>Pendiente</button>
                     </div>
 
-                    {errorState.status_id && <p className='error-message'>* {errorState.status_id}</p>}
+                    {errors.status_id && <p className='error-message'>* {errors.status_id}</p>}
 
                 </div>
                 <div className="image-holder">
-                    {reportInfoState.image && 
-                        <img className='report-image' src={`${import.meta.env.VITE_BACKEND_URL}/${reportInfoState.image}`}/>
+                    {reportInfo.image && 
+                        <img className='report-image' src={`${import.meta.env.VITE_BACKEND_URL}/${reportInfo.image}`}/>
                     }
                     <h4>Seleccionar Imagen</h4>
                     <ImageUploader 
                         setImageLink={newImage => {
-                            setReportInfoState(prev => (
+                            setReportInfoe(prev => (
                                 {...prev, 
                                     image: newImage
                                 }
@@ -101,7 +105,7 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                         }}
                     />
 
-                    {errorState.image && <p className='error-message'>* {errorState.image}</p>}
+                    {errors.image && <p className='error-message'>* {errors.image}</p>}
                     
                 </div>
             </div>

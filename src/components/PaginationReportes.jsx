@@ -5,8 +5,11 @@ import '../css/Pagination.css'
 import { formatDate } from '../utils/formatDate.js'
 import ReportForm from './ReportForm.jsx';
 import ViewReport from './ViewReport.jsx';
+import { useReport } from '../context/ReportContext.jsx';
 
-export default function PaginationReportes({ rows, categorias, categoryMap, reportInfoState, setReportInfoState, errorState, validateInfoFunction }) {
+export default function PaginationReportes({ categorias, categoryMap }) {
+
+    const { setReportInfo, validateInfo, filteredReports } = useReport();
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
@@ -16,7 +19,7 @@ export default function PaginationReportes({ rows, categorias, categoryMap, repo
     };
     
     function handleSetReportInfo(report) {
-            setReportInfoState(prev=>({
+            setReportInfo(prev=>({
                 id: report.id,
                 title: report.title,
                 image: report.image,
@@ -33,7 +36,7 @@ export default function PaginationReportes({ rows, categorias, categoryMap, repo
     const [isDeleteOpen,setIsDeleteOpen] = useState(false);
 
     function editReport() {
-        if (validateInfoFunction()) {
+        if (validateInfo()) {
 
         } else {
             
@@ -55,7 +58,7 @@ export default function PaginationReportes({ rows, categorias, categoryMap, repo
                     </tr>
                 </thead>
                 <tbody>
-                    {rows && rows.map(row => (
+                    {filteredReports && filteredReports.map(row => (
                         <tr key={row.id}>
                             <td>{row.id}</td>
                             <td>{row.user_name}</td>
@@ -99,10 +102,7 @@ export default function PaginationReportes({ rows, categorias, categoryMap, repo
                 {isEditReportOpen && 
                     <Window title='Editar Reporte' onClose={()=>{setIsEditReportOpen(false);}}>
                         <ReportForm 
-                            reportInfoState={reportInfoState}
-                            setReportInfoState={setReportInfoState}
                             onSubmit={editReport}
-                            errorState={errorState}
                             submitLabel='Guardar cambios'
                             categories={categorias}
                             categoryMap={categoryMap}
@@ -113,7 +113,6 @@ export default function PaginationReportes({ rows, categorias, categoryMap, repo
                 {isViewReportOpen && 
                     <Window title='Reporte' onClose={()=>{setIsViewReportOpen(false)}}>
                         <ViewReport 
-                            reportInfoState={reportInfoState}
                             categoryMap={categoryMap}
                         />
                     </Window>

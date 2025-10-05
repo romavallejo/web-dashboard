@@ -36,11 +36,23 @@ export function ReportProvider({ children }) {
         return Object.keys(newErrors).length === 0;
     }
 
+    const [filteredReports,setFilteredReports] = useState([]);
+    const [filters,setFilters] = useState(
+        {
+            textFilter: "",
+            status_id: 0,
+            categoryFilter: 0,
+            dateFilter: ""
+        }
+    );
+
     return (
         <ReportContext.Provider value={{
             reportInfo, setReportInfo,
             errors, setErrors,
-            validateInfo
+            validateInfo,
+            filteredReports, setFilteredReports,
+            filters, setFilters,
         }}>
         {children}
         </ReportContext.Provider>

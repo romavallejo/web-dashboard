@@ -7,6 +7,7 @@ import Window from '../components/Window.jsx';
 import SearchBar from '../components/SearchBar.jsx';
 import PaginationControls from '../components/PaginationControls.jsx';
 import { useState, useEffect } from 'react';
+import { useCategory } from '../context/CategoryContext.jsx';
 
 export default function Categorias() {
 
@@ -48,37 +49,17 @@ export default function Categorias() {
     }
 ]
 
-    //FILTER TEXT
+    const { setCategoryInfo, setErrors, validateInfo, filteredCategories,setFilteredCategories, setAllCategories} = useCategory();
+
+    useEffect(()=>{
+        setAllCategories(categories);
+    },[]);
+
+    //FILTER TEXT PAGINATION
     const [textFilter,setTextFilter] = useState("");
-    const [filteredCategories,setFilteredCategories] = useState([]);
     const handleSearch = text => {
         setTextFilter(text);
     }
-
-    //ERROR HANDLING
-    const [errors,setErrors] = useState({});
-    function validateInfo() {
-        let newErrors = {};
-        if (!categoryInfo.name.trim())
-            newErrors.name = "El nombre de la categoría no puede estar vacío";
-        else if (categories.some(el => el.name.trim().toLowerCase() === categoryInfo.name.trim().toLowerCase() && el.id !== categoryInfo.id))
-            newErrors.name = "El nombre de la categoría ya existe";
-        if (!categoryInfo.description.trim())
-            newErrors.description = "La descripción de la categoría no puede estar vacía";
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    }
-
-    function createCategory() {
-        if (validateInfo()) {
-            console.log("Se puede subir la cateogira");
-            //fetch call here
-        } else {
-            //
-        }
-    }
-
-    //PAGINATION
     const [pagination,setPagination] = useState({
         currentPage: 1,
         totalPages: 1
@@ -87,7 +68,6 @@ export default function Categorias() {
     const startIndex = (pagination.currentPage - 1) * categoriesPerPage;
     const endIndex = (startIndex + categoriesPerPage);
     const paginatedCategories = filteredCategories.slice(startIndex,endIndex);
-
     useEffect(()=>{
         let result = categories;
 
@@ -105,12 +85,14 @@ export default function Categorias() {
         
     },[textFilter]);
 
-    //STATES FOR EDIT CATEGORY
-    const [categoryInfo,setCategoryInfo] = useState({
-        id: 0,
-        name: "",
-        description: ""
-    });
+        function createCategory() {
+        if (validateInfo()) {
+            console.log("Se puede subir la cateogira");
+            //fetch call here
+        } else {
+            //
+        }
+    }
 
     const [isCreateCategoryOpen,setIsCreateCategoryOpen] = useState(false);
 
@@ -125,6 +107,7 @@ export default function Categorias() {
                         name: "",
                         description: ""
                     });
+                    setErrors({});
                 }}>+ Crear Categoría</button>
             </div>
             <div className="grid">
@@ -132,13 +115,7 @@ export default function Categorias() {
                     <div className='filter-fields'>
                         <SearchBar onSearch={handleSearch} holder='ID, Nombre'/>
                     </div>
-                    <PaginationCategories 
-                        rows={paginatedCategories} 
-                        categoryInfoState={categoryInfo}
-                        setCategoryInfoState={setCategoryInfo}
-                        errorState={errors} 
-                        setErrorState={setErrors}
-                        validateInfoFunction={validateInfo}/>
+                    <PaginationCategories/>
                     <PaginationControls 
                         pagination={pagination}
                         onPageChange={setPagination}
@@ -149,13 +126,9 @@ export default function Categorias() {
             {isCreateCategoryOpen &&
                 <Window title='Crear Cateogría' onClose={()=>{
                     setIsCreateCategoryOpen(false);
-                    setErrors({});
                 }}>
-                    <CategoryForm 
-                        categoryInfoState={categoryInfo}
-                        setCategoryInfoState={setCategoryInfo}
+                    <CategoryForm
                         onSubmit={createCategory}
-                        errorState={errors}
                         submitLabel='Crear Categoría'
                     />
                 </Window>

@@ -10,13 +10,13 @@ export function CategoryProvider({ children }) {
         description: ""
     });
 
-    //ERROR HANDLING
     const [errors,setErrors] = useState({});
+    const [allCategories, setAllCategories] = useState([]);
     function validateInfo() {
         let newErrors = {};
         if (!categoryInfo.name.trim())
             newErrors.name = "El nombre de la categoría no puede estar vacío";
-        else if (categories.some(el => el.name.trim().toLowerCase() === categoryInfo.name.trim().toLowerCase() && el.id !== categoryInfo.id))
+        else if (allCategories.some(el => el.name.trim().toLowerCase() === categoryInfo.name.trim().toLowerCase() && el.id !== categoryInfo.id))
             newErrors.name = "El nombre de la categoría ya existe";
         if (!categoryInfo.description.trim())
             newErrors.description = "La descripción de la categoría no puede estar vacía";
@@ -24,11 +24,15 @@ export function CategoryProvider({ children }) {
         return Object.keys(newErrors).length === 0;
     }
 
+    const [filteredCategories,setFilteredCategories] = useState([]);
+
     return (
         <CategoryContext.Provider value={{
             categoryInfo, setCategoryInfo,
             errors, setErrors,
-            validateInfo
+            validateInfo,
+            filteredCategories, setFilteredCategories,
+            allCategories, setAllCategories
         }}>
         {children}
         </CategoryContext.Provider>
