@@ -6,7 +6,7 @@ import { formatDate } from '../utils/formatDate.js'
 import ReportForm from './ReportForm.jsx';
 import ViewReport from './ViewReport.jsx';
 
-export default function PaginationReportes({ rows, categorias, reportInfoState, setReportInfoState, errorState, validateInfoFunction }) {
+export default function PaginationReportes({ rows, categorias, categoryMap, reportInfoState, setReportInfoState, errorState, validateInfoFunction }) {
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
@@ -60,9 +60,9 @@ export default function PaginationReportes({ rows, categorias, reportInfoState, 
                             <td>{row.id}</td>
                             <td>{row.user_name}</td>
                             <td className='categories-list'>
-                                {row.categories.map(category =>
-                                    <div className='tag categoria'>
-                                        {categorias[category-1].name} 
+                                {row.categories.map(categoryId =>
+                                    <div key={categoryId} className='tag categoria'>
+                                        {categoryMap[categoryId] || "Desconocida"}
                                     </div>
                                 )}
                             </td>
@@ -105,6 +105,7 @@ export default function PaginationReportes({ rows, categorias, reportInfoState, 
                             errorState={errorState}
                             submitLabel='Guardar cambios'
                             categories={categorias}
+                            categoryMap={categoryMap}
                         />
                     </Window>
                 }
@@ -113,7 +114,7 @@ export default function PaginationReportes({ rows, categorias, reportInfoState, 
                     <Window title='Reporte' onClose={()=>{setIsViewReportOpen(false)}}>
                         <ViewReport 
                             reportInfoState={reportInfoState}
-                            categories={categorias}
+                            categoryMap={categoryMap}
                         />
                     </Window>
                 }

@@ -1,13 +1,13 @@
 
-export default function ViewReport({ reportInfoState, categories}) {
+export default function ViewReport({ reportInfoState, categoryMap}) {
     return (
         <div className='window-layout'>
             <div className='text-holder'>
                 <h3>{reportInfoState.title}</h3>
                 <p className='user-holder'>{reportInfoState.user}</p>
                 <div className='categories-list'>
-                    {reportInfoState.categories.map(selectedCategory => {
-                        return (<p key={categories[selectedCategory-1].name} className='tag'>{categories[selectedCategory-1].name}</p>);
+                    {reportInfoState.categories.map(id => {
+                        return (<p key={categoryMap[id]} className='tag'>{categoryMap[id]}</p>);
                     })}
                 </div>
                 <p>{reportInfoState.description}</p>

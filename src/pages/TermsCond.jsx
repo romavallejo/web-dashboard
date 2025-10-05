@@ -4,6 +4,8 @@ import Card from '../components/Card.jsx'
 import '../css/TermsCond.css'
 
 export default function TermsCond() {
+    
+    const [isFieldEmpty,setIsFieldEmpty] = useState(false);
 
     const [terms,setTerms] = useState("Lorem ipsum dolor sit, amet consectetur adipisicing elit...");
     const [isEditing,setIsEditing] = useState(false);
@@ -17,11 +19,17 @@ export default function TermsCond() {
     function cancel(){
         setDraftTerms(terms);
         setIsEditing(false);
+        setIsFieldEmpty(false);
     }
 
     function save(){
-        setTerms(draftTerms);
-        setIsEditing(false);
+        if (draftTerms.trim()) {
+            //fetch call here
+            setTerms(draftTerms);
+            setIsEditing(false);
+        } else {
+            setIsFieldEmpty(true);
+        }  
     }
     
     return (
@@ -42,6 +50,9 @@ export default function TermsCond() {
                         value={draftTerms} 
                         onChange={e => setDraftTerms(e.target.value)}
                         rows={15}/>)}
+
+                    {isFieldEmpty && <p className='error-message'>* Los términos y condiciones no pueden estar vacios</p>}
+
                 </Card>
             </div>
         </div>

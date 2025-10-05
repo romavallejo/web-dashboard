@@ -3,7 +3,7 @@ import CategoryTag from './CategoryTag';
 import '../css/Reportes.css'
 import '../css/PaginationReportes.css'
 
-export default function ReportForm({ reportInfoState, setReportInfoState, onSubmit, errorState, submitLabel, categories}) {
+export default function ReportForm({ reportInfoState, setReportInfoState, onSubmit, errorState, submitLabel, categories, categoryMap}) {
     return (
         <>
             <div className="window-layout">
@@ -25,18 +25,18 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                         });
                     }}>
                         <option value={0}>Selecionar Cateogiras</option>
-                        {
+                        {   //
                             categories.map(category =>
                                 <option key={category.id} value={category.id}>{category.name}</option>
                             )
                         }
                     </select>
                     <div className='categories-list'>
-                        {
+                        {   //
                             reportInfoState.categories.map(id => {
                                 return <CategoryTag 
-                                    key={id} 
-                                    categoryName={categories[id-1].name} 
+                                    key={categoryMap[id]} 
+                                    categoryName={categoryMap[id]} 
                                     onDelete={() => {
                                         setReportInfoState(prev =>{
                                             return {...prev, categories: prev.categories.filter(el => el !== id)}

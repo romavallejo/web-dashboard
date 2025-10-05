@@ -131,6 +131,7 @@ export default function Reportes(){
         "description": "Equipo, ropa y accesorios relacionados con la práctica y disfrute de actividades deportivas."
     }
 ]
+    const categoryMap = Object.fromEntries(categories.map(cat=>[cat.id, cat.name]));
 
     //ERROR HANDLING
     const [errors,setErrors] = useState({});
@@ -286,10 +287,10 @@ export default function Reportes(){
                         <PaginationReportes 
                             rows={paginatedReports} 
                             categorias={categories}
+                            categoryMap={categoryMap}
                             reportInfoState={reportInfo} 
                             setReportInfoState={setReportInfo}
                             errorState={errors}
-                            setErrorState={setErrors}
                             validateInfoFunction={validateInfo}
                         />
                         <PaginationControls 
@@ -310,6 +311,7 @@ export default function Reportes(){
                         onSubmit={createReport}
                         submitLabel='Crear Reporte'
                         categories={categories}
+                        categoryMap={categoryMap}
                         errorState={errors}
                     />
                 </Window>
