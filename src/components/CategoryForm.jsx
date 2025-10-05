@@ -5,9 +5,15 @@ export default function CategoryForm({ categoryInfoState, setCategoryInfoState, 
     return(
         <div className='window-content'>
             <h4>Nombre de Categoría</h4>
-            <input className='text-input' placeholder='Nombre' value={categoryInfoState.name} onChange={e => {
-                setCategoryInfoState(prev => ({...prev, name: e.target.value}));
-            }}/>
+            <input 
+                className='text-input' 
+                placeholder='Nombre' 
+                value={categoryInfoState.name} 
+                onChange={e => {
+                    setCategoryInfoState(prev => ({...prev, name: e.target.value}));
+                }}
+                maxLength={32}
+            />
 
             {errorState.name && <p className='error-message'>* {errorState.name}</p>}
             {errorState.repeatedName && <p className='error-message'>* {errorState.repeatedName}</p>}
@@ -19,7 +25,9 @@ export default function CategoryForm({ categoryInfoState, setCategoryInfoState, 
                 onChange={e => {
                     setCategoryInfoState(prev => ({...prev, description: e.target.value}));
                 }}
-                rows={5}/>
+                rows={5}
+                maxLength="2"
+            />
 
             {errorState.description && <p className='error-message'>* {errorState.description}</p>}
 

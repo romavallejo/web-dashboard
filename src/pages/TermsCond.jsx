@@ -49,7 +49,9 @@ export default function TermsCond() {
                         className='edit-text' 
                         value={draftTerms} 
                         onChange={e => setDraftTerms(e.target.value)}
-                        rows={15}/>)}
+                        rows={15}
+                        maxLength="16777215"
+                    />)}
 
                     {isFieldEmpty && <p className='error-message'>* Los términos y condiciones no pueden estar vacios</p>}
 

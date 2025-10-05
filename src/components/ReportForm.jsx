@@ -9,7 +9,12 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
             <div className="window-layout">
                 <div className="text-holder edit-report-text">
                     <h4>Título del Reporte</h4>
-                    <input className='text-input' placeholder='Titulo' value={reportInfoState.title} onChange={e => setReportInfoState(prev => ({...prev, title: e.target.value}))}/>
+                    <input className='text-input'
+                        placeholder='Titulo' 
+                        value={reportInfoState.title} 
+                        onChange={e => setReportInfoState(prev => ({...prev, title: e.target.value}))}
+                        maxLength="100"
+                        />
 
                     {errorState.title && <p className='error-message'>* {errorState.title}</p>}
 
@@ -25,14 +30,14 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                         });
                     }}>
                         <option value={0}>Selecionar Cateogiras</option>
-                        {   //
+                        {   
                             categories.map(category =>
                                 <option key={category.id} value={category.id}>{category.name}</option>
                             )
                         }
                     </select>
                     <div className='categories-list'>
-                        {   //
+                        {   
                             reportInfoState.categories.map(id => {
                                 return <CategoryTag 
                                     key={categoryMap[id]} 
@@ -54,13 +59,20 @@ export default function ReportForm({ reportInfoState, setReportInfoState, onSubm
                         className='edit-text' 
                         value={reportInfoState.description} 
                         onChange={e => setReportInfoState(prev => {return {...prev, description: e.target.value}})}
-                        rows={5}/>
+                        rows={5}
+                        maxLength="4294967295"
+                    />
 
                     {errorState.description && <p className='error-message'>* {errorState.description}</p>}
 
                     <div className='liga-holder'>
                         <h4>Liga Fraudulenta</h4>
-                        <input className='text-input' placeholder='https://ejemplo.com' value={reportInfoState.link} onChange={e => setReportInfoState(prev => {return {...prev, link: e.target.value}})}/>
+                        <input className='text-input' 
+                            placeholder='https://ejemplo.com' 
+                            value={reportInfoState.link} 
+                            onChange={e => setReportInfoState(prev => {return {...prev, link: e.target.value}})}
+                            maxLength="100"
+                        />
                     </div>
 
                     {errorState.link && <p className='error-message'>* {errorState.link}</p>}
