@@ -8,52 +8,31 @@ import SearchBar from '../components/SearchBar.jsx';
 import PaginationControls from '../components/PaginationControls.jsx';
 import { useState, useEffect } from 'react';
 import { useCategory } from '../context/CategoryContext.jsx';
+import { getCategories } from '../api/categoryServices.js';
 
 export default function Categorias() {
 
-        let categories = [
-    {
-        "id": 1,
-        "name": "Electrodomésticos",
-        "description": "Aparatos para el hogar que facilitan las tareas diarias, como refrigeradores, lavadoras o microondas."
-    },
-    {
-        "id": 2,
-        "name": "Muebles",
-        "description": "Artículos para amueblar y decorar espacios, incluyendo mesas, sillas, sofás y camas."
-    },
-    {
-        "id": 3,
-        "name": "Ropa",
-        "description": "Prendas de vestir para diferentes estilos, climas y ocasiones."
-    },
-    {
-        "id": 4,
-        "name": "Electrónica",
-        "description": "Dispositivos tecnológicos como celulares, computadoras, televisores y accesorios."
-    },
-    {
-        "id": 5,
-        "name": "Libros",
-        "description": "Obras impresas o digitales que abarcan géneros de ficción, no ficción, educación y más."
-    },
-    {
-        "id": 6,
-        "name": "Juguetes",
-        "description": "Artículos diseñados para la diversión y el aprendizaje de niños de todas las edades."
-    },
-    {
-        "id": 7,
-        "name": "Deportes",
-        "description": "Equipo, ropa y accesorios relacionados con la práctica y disfrute de actividades deportivas."
-    }
-]
+    const [categories,setCategories] = useState([]);
+
+    useEffect(()=>{
+    
+            const fetchCategories = async () => {
+                try {
+                    const reportsRes = await getCategories();
+                    setCategories(reportsRes);
+                } catch (err) {
+                    console.error("Failed to fetch reports:", err);
+                }
+            }
+            fetchCategories();
+    
+        },[])
 
     const { setCategoryInfo, setErrors, validateInfo, filteredCategories,setFilteredCategories, setAllCategories} = useCategory();
 
     useEffect(()=>{
         setAllCategories(categories);
-    },[]);
+    },[categories]);
 
     //FILTER TEXT PAGINATION
     const [textFilter,setTextFilter] = useState("");
@@ -83,7 +62,7 @@ export default function Categorias() {
             currentPage: 1
         });
         
-    },[textFilter]);
+    },[textFilter, categories]);
 
         function createCategory() {
         if (validateInfo()) {

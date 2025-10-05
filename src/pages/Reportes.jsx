@@ -8,121 +8,39 @@ import { useEffect, useState } from 'react'
 import { formatDate } from '../utils/formatDate.js'
 import { useReport } from '../context/ReportContext.jsx'
 import { onCommittingReport, onCancelReport} from '../utils/imageLogic.js'
+import { getReports } from '../api/reportServices.js'
+import { getCategories } from '../api/categoryServices.js'
 import '../css/pageBase.css'
 import '../css/Reportes.css'
 
 export default function Reportes(){
 
-    const reports = [
-  {
-    "id": 1,
-    "title": "Reporte de sitio fraudulento",
-    "image": "report-pictures/1d92a0a7cbb8f6a32b6ff1a98ecf2af4f13293be20e38e7db23ccfca9a412b8a.jpg",
-    "description": "Este sitio web solicita datos bancarios sin medidas de seguridad y redirige a páginas falsas.",
-    "created_at": "2025-09-27T23:50:39.000Z",
-    "updated_at": "2025-09-27T23:50:39.000Z",
-    "user_name": "Skibidi Toilet",
-    "created_by": 1,
-    "user_image": "profile-pictures/default.jpg",
-    "status_id": 1,
-    "report_url": "http://banco-seguro-falso.com",
-    "categories": [1, 5]
-  },
-  {
-    "id": 2,
-    "title": "Página de phishing detectada",
-    "image": "report-pictures/34baf3de9a5ef873b432bd723d9e0d45a4c2b79f915a86d2a7b5419ccf78d66c.jpg",
-    "description": "El portal imita la interfaz de una empresa de envíos para robar credenciales de acceso.",
-    "created_at": "2025-09-27T23:51:32.000Z",
-    "updated_at": "2025-09-27T23:51:32.000Z",
-    "user_name": "Dr. Sahur",
-    "created_by": 2,
-    "user_image": "profile-pictures/default.jpg",
-    "status_id": 1,
-    "report_url": "http://envios-gratis-seguro.net",
-    "categories": [2, 5]
-  },
-  {
-    "id": 3,
-    "title": "Sitio de ventas falsas",
-    "image": "report-pictures/57c0a3a48e923d8bb9e94b3a8ff743a58e9c4e71d4ccf0e6e2e3d513a7f49fdd.jpg",
-    "description": "La página ofrece productos electrónicos a precios demasiado bajos y nunca realiza las entregas.",
-    "created_at": "2025-09-27T23:51:51.000Z",
-    "updated_at": "2025-09-27T23:51:51.000Z",
-    "user_name": "Dr. Sahur",
-    "created_by": 3,
-    "user_image": "profile-pictures/default.jpg",
-    "status_id": 2,
-    "report_url": "http://ofertas-electronica-barata.org",
-    "categories": [3, 5]
-  },
-  {
-    "id": 5,
-    "title": "Plataforma de inversión fraudulenta",
-    "image": "report-pictures/b9237d0f30ecb0a7dc2f84e6a1cc3af324ea742b93a56f5dd8f0cb11e629bf5e.jpg",
-    "description": "El sitio promete ganancias irreales en criptomonedas y exige depósitos sin garantía alguna.",
-    "created_at": "2025-09-27T23:52:29.000Z",
-    "updated_at": "2025-09-27T23:52:29.000Z",
-    "user_name": "Dr. Sahur",
-    "created_by": 2,
-    "user_image": "profile-pictures/default.jpg",
-    "status_id": 3,
-    "report_url": "http://crypto-ganancias-rapidas.info",
-    "categories": [4, 5]
-  },
-  {
-    "id": 7,
-    "title": "Portal falso de soporte técnico",
-    "image": "report-pictures/ccf0a7bb2e9d9a4b8347ff291c4b731ddf28573c4a2a5b5d67e3bc111f0a89f3.jpg",
-    "description": "La web se hace pasar por un servicio de soporte oficial y pide pagos por reparaciones inexistentes.",
-    "created_at": "2025-09-27T23:52:50.000Z",
-    "updated_at": "2025-09-27T23:52:50.000Z",
-    "user_name": "Skibidi Toilet",
-    "created_by": 1,
-    "user_image": "profile-pictures/default.jpg",
-    "status_id": 2,
-    "report_url": "http://soporte-oficial-falso.com",
-    "categories": [1, 4]
-  }
-]
+    const [reports,setReports] = useState([]);
+    const [categories,setCategories] = useState([]);
 
-    let categories = [
-    {
-        "id": 1,
-        "name": "Electrodomésticos",
-        "description": "Aparatos para el hogar que facilitan las tareas diarias, como refrigeradores, lavadoras o microondas."
-    },
-    {
-        "id": 2,
-        "name": "Muebles",
-        "description": "Artículos para amueblar y decorar espacios, incluyendo mesas, sillas, sofás y camas."
-    },
-    {
-        "id": 3,
-        "name": "Ropa",
-        "description": "Prendas de vestir para diferentes estilos, climas y ocasiones."
-    },
-    {
-        "id": 4,
-        "name": "Electrónica",
-        "description": "Dispositivos tecnológicos como celulares, computadoras, televisores y accesorios."
-    },
-    {
-        "id": 5,
-        "name": "Libros",
-        "description": "Obras impresas o digitales que abarcan géneros de ficción, no ficción, educación y más."
-    },
-    {
-        "id": 6,
-        "name": "Juguetes",
-        "description": "Artículos diseñados para la diversión y el aprendizaje de niños de todas las edades."
-    },
-    {
-        "id": 7,
-        "name": "Deportes",
-        "description": "Equipo, ropa y accesorios relacionados con la práctica y disfrute de actividades deportivas."
-    }
-]
+    useEffect(()=>{
+
+        const fetchReports = async () => {
+            try {
+                const reportsRes = await getReports();
+                setReports(reportsRes);
+            } catch (err) {
+                console.error("Failed to fetch reports:", err);
+            }
+        }
+        fetchReports();
+
+        const fetchCategories = async () => {
+            try {
+                const reportsRes = await getCategories();
+                setCategories(reportsRes);
+            } catch (err) {
+                console.error("Failed to fetch reports:", err);
+            }
+        }
+        fetchCategories();
+
+    },[])
 
     const { reportInfo ,setReportInfo, setErrors, validateInfo, filteredReports, setFilteredReports, filters, setFilters } = useReport();
 
@@ -161,7 +79,7 @@ export default function Reportes(){
             currentPage: 1
         });
 
-    },[filters]);
+    },[filters, reports, categories]);
 
     function handleSetReportInfo(report) {
             setReportInfo({
