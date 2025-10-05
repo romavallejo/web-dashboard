@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import { uploadImage } from "../api/imageServices";
 import '../css/ImageUploader.css'
 
-export default function ImageUploader({ setImageLink, errorLog }) {
+export default function ImageUploader({ setImageLink }) {
 
     const [isUploading,setIsUploading] = useState(false);
     const [errorInUpload,setErrorInUpload] = useState(false);
@@ -21,24 +22,14 @@ export default function ImageUploader({ setImageLink, errorLog }) {
         setIsUploading(true);
         setErrorInUpload(false);
 
-        const formData = new FormData();
-        formData.append("file",file);
-
         try {
-            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/images/report-pictures`,{
-                method: "POST",
-                body: formData,
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error("Upload failed");
-            // ! aqui ya se guarda el path :) - att: artie
+            const data = await uploadImage(file);
             setImageLink(data.path);
-            console.log(data.path);
-        } catch (err) {
-            setErrorInUpload(true);
-            console.log("Upload error: ", err);
-        }
-        finally {
+            console.log("Uploaded image with path: ", data.path);
+        } catch(err) {
+            console.error("Upload error:", err);
+        setErrorInUpload(true);
+        } finally {
             setIsUploading(false);
         }
     };

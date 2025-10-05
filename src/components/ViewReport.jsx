@@ -21,9 +21,9 @@ export default function ViewReport({ categoryMap }) {
                 </div>
                 <div className='report-state'>
                     {
-                        reportInfo.status === 1 ? <p className='tag revision'>Pendiente</p> :
-                        reportInfo.status === 2 ? <p className='tag aceptado'>Aprobado</p> : 
-                        <p className='tag rechazado'>Aceptado</p>
+                        reportInfo.status_id === 1 ? <p className='tag revision'>Pendiente</p> :
+                        reportInfo.status_id === 2 ? <p className='tag aceptado'>Aprobado</p> :
+                        <p className='tag rechazado'>Rechazado</p>
                     }
                 </div>
             </div>

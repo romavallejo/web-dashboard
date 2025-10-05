@@ -1,12 +1,44 @@
 import ImageUploader from './ImageUploader';
 import CategoryTag from './CategoryTag';
 import { useReport } from '../context/ReportContext';
+import { deleteImage } from '../api/imageServices';
 import '../css/Reportes.css'
 import '../css/PaginationReportes.css'
 
 export default function ReportForm({ onSubmit, submitLabel, categories, categoryMap}) {
     
     const { reportInfo, setReportInfo, errors } = useReport();
+
+    async function onUploadImage(newImage) {
+        // CASE 1: New report, no start image
+        if (!reportInfo.startImage) {
+            if (reportInfo.image) // If an unsaved temp image already exists, delete it first
+                await deleteImage(reportInfo.image);
+
+            setReportInfo(prev=>({
+                ...prev,
+                image: newImage
+            }));
+            return;
+        } 
+        // CASE 2: Editing existing report with a start image
+        // First time user uploads a new image → save the original as savedImage
+        if (reportInfo.startImage === reportInfo.image) {
+            setReportInfo(prev=>({
+                ...prev,
+                image: newImage
+            }));
+            return;
+        }   
+        // If user uploads again (already replaced before)
+        if (reportInfo.image)
+            await deleteImage(reportInfo.image)
+        
+        setReportInfo(prev=>({
+            ...prev,
+            image: newImage
+        }));
+    }
     
     return (
         <>
@@ -96,13 +128,7 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
                     }
                     <h4>Seleccionar Imagen</h4>
                     <ImageUploader 
-                        setImageLink={newImage => {
-                            setReportInfoe(prev => (
-                                {...prev, 
-                                    image: newImage
-                                }
-                            ))
-                        }}
+                        setImageLink={onUploadImage}
                     />
 
                     {errors.image && <p className='error-message'>* {errors.image}</p>}

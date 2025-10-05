@@ -7,6 +7,7 @@ import ReportForm from '../components/ReportForm.jsx'
 import { useEffect, useState } from 'react'
 import { formatDate } from '../utils/formatDate.js'
 import { useReport } from '../context/ReportContext.jsx'
+import { onCommittingReport, onCancelReport} from '../utils/imageLogic.js'
 import '../css/pageBase.css'
 import '../css/Reportes.css'
 
@@ -123,7 +124,7 @@ export default function Reportes(){
     }
 ]
 
-    const { reportInfo, setReportInfo, errors, validateInfo, filteredReports, setFilteredReports, filters, setFilters } = useReport();
+    const { reportInfo ,setReportInfo, setErrors, validateInfo, filteredReports, setFilteredReports, filters, setFilters } = useReport();
 
     const categoryMap = Object.fromEntries(categories.map(cat=>[cat.id, cat.name]));
 
@@ -179,9 +180,10 @@ export default function Reportes(){
         setFilters(prev => {return {...prev, textFilter: text}})
     }
 
-    function createReport () {
+    async function createReport () {
         if (validateInfo()) {
-            //fetch here
+            await onCommittingReport(reportInfo);
+            //
         } else {
 
         }
@@ -195,6 +197,7 @@ export default function Reportes(){
                     <button onClick={()=>{
                         handleSetReportInfo();
                         setIsCreateReportOpen(true);
+                        setErrors({});
                     }}>+ Crear Reporte</button>
                 </div>
                 <div className="grid">
@@ -245,6 +248,7 @@ export default function Reportes(){
             {isCreateReportOpen &&
                 <Window title="Crear Reporte" onClose={()=>{
                     setIsCreateReportOpen(false);
+                    onCancelReport(reportInfo);
                 }}>
                     <ReportForm 
                         onSubmit={createReport}

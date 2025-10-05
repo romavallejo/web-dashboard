@@ -6,10 +6,11 @@ import { formatDate } from '../utils/formatDate.js'
 import ReportForm from './ReportForm.jsx';
 import ViewReport from './ViewReport.jsx';
 import { useReport } from '../context/ReportContext.jsx';
+import { onCommittingReport, onCancelReport} from '../utils/imageLogic.js'
 
 export default function PaginationReportes({ categorias, categoryMap }) {
 
-    const { setReportInfo, validateInfo, filteredReports } = useReport();
+    const { reportInfo ,setReportInfo, setErrors, validateInfo, filteredReports } = useReport();
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
@@ -23,6 +24,7 @@ export default function PaginationReportes({ categorias, categoryMap }) {
                 id: report.id,
                 title: report.title,
                 image: report.image,
+                startImage: report.image,
                 categories: report.categories,
                 description: report.description,
                 link: report.report_url,
@@ -35,9 +37,10 @@ export default function PaginationReportes({ categorias, categoryMap }) {
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);
     const [isDeleteOpen,setIsDeleteOpen] = useState(false);
 
-    function editReport() {
+    async function editReport() {
         if (validateInfo()) {
-
+            await onCommittingReport(reportInfo);
+            //
         } else {
             
         }
@@ -85,12 +88,14 @@ export default function PaginationReportes({ categorias, categoryMap }) {
                                 <button onClick={()=>{
                                     handleSetReportInfo(row);
                                     setIsEditReportOpen(true);
+                                    setErrors({});
                                 }}>
                                     <img src='/icons/edit.svg'/>
                                 </button>
                                 <button onClick={()=>{
                                     handleSetReportInfo(row);
                                     setIsDeleteOpen(true);
+
                                 }}>
                                     <img src='/icons/delete.svg'/>
                                 </button>
@@ -100,7 +105,10 @@ export default function PaginationReportes({ categorias, categoryMap }) {
                 </tbody>
 
                 {isEditReportOpen && 
-                    <Window title='Editar Reporte' onClose={()=>{setIsEditReportOpen(false);}}>
+                    <Window title='Editar Reporte' onClose={()=>{
+                        setIsEditReportOpen(false);
+                        onCancelReport(reportInfo);
+                    }}>
                         <ReportForm 
                             onSubmit={editReport}
                             submitLabel='Guardar cambios'
@@ -121,7 +129,7 @@ export default function PaginationReportes({ categorias, categoryMap }) {
                 {isDeleteOpen && 
                     <Window title='Eliminar Reporte' onClose={()=>setIsDeleteOpen(false)}>
                         <div className='delete-report'>
-                            <p>¿Seguro que desea eliminar el reporte con ID {reportInfoState.id}?</p>
+                            <p>¿Seguro que desea eliminar el reporte con ID {reportInfo.id}?</p>
                             <button onClick={deleteReport}>Eliminar</button>
                         </div>
                     </Window>
