@@ -53,7 +53,7 @@ export default function Reportes(){
         currentPage: 1,
         totalPages: 1
     });
-    const reportsPerPage = 2;
+    const reportsPerPage = 20;
     const startIndex = (pagination.currentPage - 1) * reportsPerPage;
     const endIndex = (startIndex + reportsPerPage);
     const paginatedReports = filteredReports.slice(startIndex,endIndex);
@@ -110,12 +110,27 @@ export default function Reportes(){
     // STAT INFO
     const [reportStats,setReportStats] = useState({});
     useEffect(()=>{
-        setReportStats({
-            totalReports: filteredReports.length,
-            totalAproved: filteredReports.filter(report => report.status_id === 1).length,
-            totalRejected: filteredReports.filter(report => report.status_id === 3).length,
-            totalPending: filteredReports.filter(report => report.status_id === 2).length
-        });
+        const stats = filteredReports.reduce(
+        (acc, report) => {
+            acc.totalReports++;
+            switch (report.status_id) {
+                case 2:
+                acc.totalAproved++;
+                break;
+                case 1:
+                acc.totalPending++;
+                break;
+                case 3:
+                acc.totalRejected++;
+                break;
+                default:
+                break;
+            }
+            return acc;
+        },{ totalReports: 0, totalAproved: 0, totalRejected: 0, totalPending: 0 }
+  );
+
+  setReportStats(stats);
     },[filteredReports])
         
     return (
@@ -163,6 +178,7 @@ export default function Reportes(){
                                 />
                         </div>
                         <PaginationReportes 
+                        rows={paginatedReports}
                             categorias={categories}
                             categoryMap={categoryMap}
                         />

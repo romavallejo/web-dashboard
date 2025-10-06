@@ -47,6 +47,7 @@ export default function Categorias() {
     const startIndex = (pagination.currentPage - 1) * categoriesPerPage;
     const endIndex = (startIndex + categoriesPerPage);
     const paginatedCategories = filteredCategories.slice(startIndex,endIndex);
+
     useEffect(()=>{
         let result = categories;
 
@@ -94,7 +95,9 @@ export default function Categorias() {
                     <div className='filter-fields'>
                         <SearchBar onSearch={handleSearch} holder='ID, Nombre'/>
                     </div>
-                    <PaginationCategories/>
+                    <PaginationCategories
+                        rows={paginatedCategories}
+                    />
                     <PaginationControls 
                         pagination={pagination}
                         onPageChange={setPagination}

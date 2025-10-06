@@ -5,9 +5,9 @@ import { useCategory } from '../context/CategoryContext';
 import '../css/Pagination.css'
 import '../css/PaginationCategories.css'
 
-export default function PaginationCategories() {
+export default function PaginationCategories({ rows }) {
 
-    const { filteredCategories, categoryInfo, setCategoryInfo, validateInfo, setErrors } = useCategory();
+    const { categoryInfo, setCategoryInfo, validateInfo, setErrors } = useCategory();
 
     const columns = ['ID','Nombre','Acciones']
 
@@ -48,7 +48,7 @@ export default function PaginationCategories() {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredCategories && filteredCategories.map(row => (
+                    {rows && rows.map(row => (
                         <tr key={row.id}>
                             <td>{row.id}</td>
                             <td>{row.name}</td>

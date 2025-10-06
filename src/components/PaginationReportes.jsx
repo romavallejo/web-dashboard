@@ -8,9 +8,9 @@ import ViewReport from './ViewReport.jsx';
 import { useReport } from '../context/ReportContext.jsx';
 import { onCommittingReport, onCancelReport} from '../utils/imageLogic.js'
 
-export default function PaginationReportes({ categorias, categoryMap }) {
+export default function PaginationReportes({ rows, categorias, categoryMap }) {
 
-    const { reportInfo ,setReportInfo, setErrors, validateInfo, filteredReports } = useReport();
+    const { reportInfo ,setReportInfo, setErrors, validateInfo } = useReport();
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
@@ -61,7 +61,7 @@ export default function PaginationReportes({ categorias, categoryMap }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredReports && filteredReports.map(row => (
+                    {rows && rows.map(row => (
                         <tr key={row.id}>
                             <td>{row.id}</td>
                             <td>{row.user_name}</td>
