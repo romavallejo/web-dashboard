@@ -18,6 +18,7 @@ export async function createNewReport(reportInfo) {
             description: reportInfo.description,
             status_id: reportInfo.status_id,
             category: reportInfo.categories,
+            created_by: 1,
             report_url: reportInfo.link
         }))
 
@@ -29,6 +30,7 @@ export async function createNewReport(reportInfo) {
             image: reportInfo.image,
             description: reportInfo.description,
             status_id: reportInfo.status_id,
+            created_by: 1,
             category: reportInfo.categories,
             report_url: reportInfo.link
         })
