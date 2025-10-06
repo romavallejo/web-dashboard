@@ -9,3 +9,55 @@ export async function getReports() {
 
     return data;
 }
+
+export async function createNewReport(reportInfo) {
+
+    console.log(JSON.stringify({
+            title: reportInfo.title,
+            image: reportInfo.image,
+            description: reportInfo.description,
+            status_id: reportInfo.status_id,
+            category: reportInfo.categories,
+            report_url: reportInfo.link
+        }))
+
+    const res = await fetch(`${BASE_URL}/reports`,{
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            title: reportInfo.title,
+            image: reportInfo.image,
+            description: reportInfo.description,
+            status_id: reportInfo.status_id,
+            category: reportInfo.categories,
+            report_url: reportInfo.link
+        })
+    })
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.message || "Error creating report");
+
+    return true;
+}
+
+export async function updateReport(reportInfo) {
+
+    const res = await fetch(`${BASE_URL}/reports/${reportInfo.id}`,{
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            title: reportInfo.title,
+            image: reportInfo.image,
+            description: reportInfo.description,
+            created_by: reportInfo.created_by,
+            status_id: reportInfo.status_id,
+            category: reportInfo.categories,
+            report_url: reportInfo.link
+        })
+    })
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.message || "Error updating report");
+
+    return true;
+}

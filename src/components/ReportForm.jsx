@@ -2,6 +2,7 @@ import ImageUploader from './ImageUploader';
 import CategoryTag from './CategoryTag';
 import { useReport } from '../context/ReportContext';
 import { deleteImage } from '../api/imageServices';
+import { updateReport } from '../api/reportServices';
 import '../css/Reportes.css'
 import '../css/PaginationReportes.css'
 
@@ -58,10 +59,10 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
                     <h4>Categorías</h4>
                     <select className='toggle-select' onChange={e => {
                         setReportInfo(prev => {
-                            if (e.target.value == 0)
+                            if (Number(e.target.value) == 0)
                                 return {...prev}
-                            if (!prev.categories.includes(e.target.value))
-                                return {...prev, categories: [...prev.categories, e.target.value]}
+                            if (!prev.categories.includes(Number(e.target.value)))
+                                return {...prev, categories: [...prev.categories, Number(e.target.value)]}
                             return {...prev}
                         });
                     }}>
@@ -137,6 +138,9 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
             </div>
             <div className='save-changes'>
                 <button onClick={onSubmit}>{submitLabel}</button>
+
+                {errors.submit && <p className='error-message'>* {errors.creation}</p>}
+
             </div>
         </>
     );

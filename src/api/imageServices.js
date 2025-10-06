@@ -10,6 +10,7 @@ export async function uploadImage(file) {
     });
 
     const data = await res.json();
+    
     if (!res.ok) throw new Error(data?.message || "Image upload failed");
     
     return data;

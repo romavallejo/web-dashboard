@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { formatDate } from '../utils/formatDate.js'
 import { useReport } from '../context/ReportContext.jsx'
 import { onCommittingReport, onCancelReport} from '../utils/imageLogic.js'
-import { getReports } from '../api/reportServices.js'
+import { getReports, createNewReport } from '../api/reportServices.js'
 import { getCategories } from '../api/categoryServices.js'
 import '../css/pageBase.css'
 import '../css/Reportes.css'
@@ -16,11 +16,7 @@ import '../css/Reportes.css'
 export default function Reportes(){
 
     const [reports,setReports] = useState([]);
-    const [categories,setCategories] = useState([]);
-
-    useEffect(()=>{
-
-        const fetchReports = async () => {
+    const fetchReports = async () => {
             try {
                 const reportsRes = await getReports();
                 setReports(reportsRes);
@@ -28,9 +24,9 @@ export default function Reportes(){
                 console.error("Failed to fetch reports:", err);
             }
         }
-        fetchReports();
 
-        const fetchCategories = async () => {
+    const [categories,setCategories] = useState([]);
+    const fetchCategories = async () => {
             try {
                 const reportsRes = await getCategories();
                 setCategories(reportsRes);
@@ -38,8 +34,10 @@ export default function Reportes(){
                 console.error("Failed to fetch reports:", err);
             }
         }
-        fetchCategories();
 
+    useEffect(()=>{
+        fetchReports();
+        fetchCategories();
     },[])
 
     const { reportInfo ,setReportInfo, setErrors, validateInfo, filteredReports, setFilteredReports, filters, setFilters } = useReport();
@@ -47,6 +45,7 @@ export default function Reportes(){
     const categoryMap = Object.fromEntries(categories.map(cat=>[cat.id, cat.name]));
 
     const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
+    const [isCreateLoading,setIsCreateLoading] = useState(false);
 
     //PAGINATION
     const [pagination,setPagination] = useState({
@@ -99,12 +98,17 @@ export default function Reportes(){
     }
 
     async function createReport () {
-        if (validateInfo()) {
-            await onCommittingReport(reportInfo);
-            //
-        } else {
-
+        if (!validateInfo())
+            return;
+        setIsCreateLoading(true);
+        await onCommittingReport(reportInfo);
+        if (await createNewReport(reportInfo)) {
+            isCreateReportOpen(false);
+            fetchReports();
         }
+        else
+            setErrors(prev=>({...prev, submit: "Error al momento de crear"}))
+        setIsCreateLoading(false);
     }
 
     // STAT INFO
@@ -178,7 +182,8 @@ export default function Reportes(){
                                 />
                         </div>
                         <PaginationReportes 
-                        rows={paginatedReports}
+                            rows={paginatedReports}
+                            uponUpload={fetchReports}
                             categorias={categories}
                             categoryMap={categoryMap}
                         />
@@ -201,6 +206,9 @@ export default function Reportes(){
                         categories={categories}
                         categoryMap={categoryMap}
                     />
+
+                    {isCreateLoading && <p>Creando Reporte...</p>}
+
                 </Window>
             }
         </div>

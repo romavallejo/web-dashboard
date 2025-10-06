@@ -7,8 +7,9 @@ import ReportForm from './ReportForm.jsx';
 import ViewReport from './ViewReport.jsx';
 import { useReport } from '../context/ReportContext.jsx';
 import { onCommittingReport, onCancelReport} from '../utils/imageLogic.js'
+import { updateReport } from '../api/reportServices.js';
 
-export default function PaginationReportes({ rows, categorias, categoryMap }) {
+export default function PaginationReportes({ rows, uponUpload, categorias, categoryMap }) {
 
     const { reportInfo ,setReportInfo, setErrors, validateInfo } = useReport();
 
@@ -21,6 +22,7 @@ export default function PaginationReportes({ rows, categorias, categoryMap }) {
     
     function handleSetReportInfo(report) {
             setReportInfo(prev=>({
+                ...prev,
                 id: report.id,
                 title: report.title,
                 image: report.image,
@@ -37,13 +39,19 @@ export default function PaginationReportes({ rows, categorias, categoryMap }) {
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);
     const [isDeleteOpen,setIsDeleteOpen] = useState(false);
 
+    const [isEditLoading,setIsEditLoading] = useState(false);
     async function editReport() {
-        if (validateInfo()) {
-            await onCommittingReport(reportInfo);
-            //
-        } else {
-            
+        if (!validateInfo())
+            return;
+        setIsEditLoading(true);
+        await onCommittingReport(reportInfo);
+        if (await updateReport(reportInfo)) {
+            isEditReportOpen(false);
+            uponUpload();
         }
+        else
+            setErrors(prev=>({...prev, submit: "Error al momento de subir"}))
+        setIsEditLoading(false);
     }
 
     function deleteReport() {
@@ -115,6 +123,9 @@ export default function PaginationReportes({ rows, categorias, categoryMap }) {
                             categories={categorias}
                             categoryMap={categoryMap}
                         />
+
+                        {isEditLoading && <p>Editando reporte...</p>}
+
                     </Window>
                 }
 
@@ -132,6 +143,7 @@ export default function PaginationReportes({ rows, categorias, categoryMap }) {
                             <p>¿Seguro que desea eliminar el reporte con ID {reportInfo.id}?</p>
                             <button onClick={deleteReport}>Eliminar</button>
                         </div>
+
                     </Window>
                 }
             </table>
