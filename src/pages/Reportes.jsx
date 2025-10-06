@@ -53,7 +53,7 @@ export default function Reportes(){
         currentPage: 1,
         totalPages: 1
     });
-    const reportsPerPage = 20;
+    const reportsPerPage = 2;
     const startIndex = (pagination.currentPage - 1) * reportsPerPage;
     const endIndex = (startIndex + reportsPerPage);
     const paginatedReports = filteredReports.slice(startIndex,endIndex);
@@ -106,6 +106,17 @@ export default function Reportes(){
 
         }
     }
+
+    // STAT INFO
+    const [reportStats,setReportStats] = useState({});
+    useEffect(()=>{
+        setReportStats({
+            totalReports: filteredReports.length,
+            totalAproved: filteredReports.filter(report => report.status_id === 1).length,
+            totalRejected: filteredReports.filter(report => report.status_id === 3).length,
+            totalPending: filteredReports.filter(report => report.status_id === 2).length
+        });
+    },[filteredReports])
         
     return (
         <div>
@@ -120,16 +131,16 @@ export default function Reportes(){
                 </div>
                 <div className="grid">
                     <Card title='Total Reportes'>
-                        <p className="number">27</p>
+                        <p className="number">{reportStats.totalReports}</p>
                     </Card>
                     <Card title='Aprobado'>
-                        <p className="number aceptado">8</p>
+                        <p className="number aceptado">{reportStats.totalAproved}</p>
                     </Card>
                     <Card title='Rechazados'>
-                        <p className="number rechazado">19</p>
+                        <p className="number rechazado">{reportStats.totalRejected}</p>
                     </Card>
                     <Card title='Pendiente'>
-                        <p className="number revision">0</p>
+                        <p className="number revision">{reportStats.totalPending}</p>
                     </Card>
                     <Card title='Lista de Reportes' size={[1,4]}>
                         <div className='search-bar'>
