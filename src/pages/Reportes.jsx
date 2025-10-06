@@ -104,7 +104,7 @@ export default function Reportes(){
         await onCommittingReport(reportInfo);
 
         if (await createNewReport(reportInfo)) {
-            isCreateReportOpen(false);
+            setIsCreateReportOpen(false);
             fetchReports();
         }
         else

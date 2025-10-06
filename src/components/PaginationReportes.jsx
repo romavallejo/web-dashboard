@@ -46,7 +46,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
         setIsEditLoading(true);
         await onCommittingReport(reportInfo);
         if (await updateReport(reportInfo)) {
-            isEditReportOpen(false);
+            setIsEditReportOpen(false);
             uponUpload();
         }
         else

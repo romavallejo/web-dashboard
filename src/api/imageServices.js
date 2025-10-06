@@ -31,6 +31,8 @@ export async function deleteImage(path) {
     })
 
     if (!res.ok) throw new Error(`Failed to delete image (status ${res.status})`);
+    
+    console.log("Deleted: ",path)
 
     return true;
 }
