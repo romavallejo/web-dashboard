@@ -2,11 +2,10 @@ import ImageUploader from './ImageUploader';
 import CategoryTag from './CategoryTag';
 import { useReport } from '../context/ReportContext';
 import { deleteImage } from '../api/imageServices';
-import { updateReport } from '../api/reportServices';
 import '../css/Reportes.css'
 import '../css/PaginationReportes.css'
 
-export default function ReportForm({ onSubmit, submitLabel, categories, categoryMap}) {
+export default function ReportForm({ onSubmit, submitLabel, categories, categoryMap, isUploading}) {
     
     const { reportInfo, setReportInfo, errors } = useReport();
 
@@ -137,7 +136,10 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
                 </div>
             </div>
             <div className='save-changes'>
-                <button onClick={onSubmit}>{submitLabel}</button>
+                <button 
+                    onClick={onSubmit}
+                    disabled={isUploading}
+                >{submitLabel}</button>
 
                 {errors.submit && <p className='error-message'>* {errors.submit}</p>}
 

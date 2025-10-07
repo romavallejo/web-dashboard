@@ -46,6 +46,7 @@ export default function Reportes(){
 
     const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
     const [isCreateLoading,setIsCreateLoading] = useState(false);
+    const [isUploading,setIsUploading] = useState(false);
 
     //PAGINATION
     const [pagination,setPagination] = useState({
@@ -101,16 +102,22 @@ export default function Reportes(){
         if (!validateInfo())
             return;
         setIsCreateLoading(true);
+        setIsUploading(true);
         try {
             await createNewReport(reportInfo);
             await onCommittingReport(reportInfo);
             await fetchReports();
-            setIsEditReportOpen(false);
+            setIsCreateReportOpen(false);
         } catch(err) {
             console.log(err);
+            if (err.message?.includes("report_url must be a URL address")){
+                setErrors(prev=>({...prev, link: "Debe ser una URL válida"}));
+                return;
+            }
             setErrors(prev=>({...prev, submit:"Error al momento de subir"}));
         } finally {
             setIsCreateLoading(false);
+            setIsUploading(false);
         }
     }
 
@@ -208,6 +215,7 @@ export default function Reportes(){
                         submitLabel='Crear Reporte'
                         categories={categories}
                         categoryMap={categoryMap}
+                        isUploading={isUploading}
                     />
 
                     {isCreateLoading && <p>Creando Reporte...</p>}

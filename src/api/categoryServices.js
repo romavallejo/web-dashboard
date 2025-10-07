@@ -9,3 +9,11 @@ export async function getCategories() {
 
     return data;
 }
+
+export async function updateCategory() {
+
+}
+
+export async function deleteCategory() {
+    
+}
