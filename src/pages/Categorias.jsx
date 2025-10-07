@@ -8,27 +8,24 @@ import SearchBar from '../components/SearchBar.jsx';
 import PaginationControls from '../components/PaginationControls.jsx';
 import { useState, useEffect } from 'react';
 import { useCategory } from '../context/CategoryContext.jsx';
-import { getCategories } from '../api/categoryServices.js';
+import { getCategories, createNewCategory } from '../api/categoryServices.js';
 
 export default function Categorias() {
 
     const [categories,setCategories] = useState([]);
-
-    useEffect(()=>{
-    
-            const fetchCategories = async () => {
-                try {
-                    const reportsRes = await getCategories();
-                    setCategories(reportsRes);
-                } catch (err) {
-                    console.error("Failed to fetch reports:", err);
-                }
-            }
-            fetchCategories();
-    
+    const fetchCategories = async () => {
+        try {
+            const reportsRes = await getCategories();
+            setCategories(reportsRes);
+        } catch (err) {
+            console.error("Failed to fetch reports:", err);
+        }
+    }
+    useEffect(()=>{    
+        fetchCategories();
         },[])
 
-    const { setCategoryInfo, setErrors, validateInfo, filteredCategories,setFilteredCategories, setAllCategories} = useCategory();
+    const { categoryInfo ,setCategoryInfo, setErrors, validateInfo, filteredCategories,setFilteredCategories, setAllCategories} = useCategory();
 
     useEffect(()=>{
         setAllCategories(categories);
@@ -65,16 +62,25 @@ export default function Categorias() {
         
     },[textFilter, categories]);
 
-        function createCategory() {
-        if (validateInfo()) {
-            console.log("Se puede subir la cateogira");
-            //fetch call here
-        } else {
-            //
-        }
-    }
-
     const [isCreateCategoryOpen,setIsCreateCategoryOpen] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
+
+    async function createCategory() {
+        if (!validateInfo())
+            return;
+        setIsLoading(true);
+        try {
+            await createNewCategory(categoryInfo);
+            await fetchCategories();
+            setIsCreateCategoryOpen(false);
+        } catch(err) {
+            console.log(err);
+            setErrors(prev=>({...prev,submit:"Error al momento de subir"}));
+        } finally {
+            setIsLoading(false);
+        }
+        
+    }
 
     return (
         <div className="page">
@@ -97,6 +103,7 @@ export default function Categorias() {
                     </div>
                     <PaginationCategories
                         rows={paginatedCategories}
+                        uponUpload={fetchCategories}
                     />
                     <PaginationControls 
                         pagination={pagination}
@@ -112,6 +119,7 @@ export default function Categorias() {
                     <CategoryForm
                         onSubmit={createCategory}
                         submitLabel='Crear Categoría'
+                        isUploading={isLoading}
                     />
                 </Window>
             }

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Window from './Window';
 import '../css/Pagination.css'
-//import '../css/PaginationReportes.css'
 import { formatDate } from '../utils/formatDate.js'
 import ReportForm from './ReportForm.jsx';
 import ViewReport from './ViewReport.jsx';

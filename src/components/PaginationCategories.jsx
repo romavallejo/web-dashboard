@@ -2,10 +2,11 @@ import { useState } from 'react';
 import Window from './Window';
 import CategoryForm from './CategoryForm';
 import { useCategory } from '../context/CategoryContext';
+import { updateExistingCategory, deleteExistingCategory } from '../api/categoryServices';
 import '../css/Pagination.css'
 import '../css/PaginationCategories.css'
 
-export default function PaginationCategories({ rows }) {
+export default function PaginationCategories({ rows, uponUpload }) {
 
     const { categoryInfo, setCategoryInfo, validateInfo, setErrors } = useCategory();
 
@@ -20,22 +21,40 @@ export default function PaginationCategories({ rows }) {
         setErrors({});
     }
 
-    function updateCategory() {
-        if (validateInfo()) {
-            console.log("Se puede updatear el reporte");
-            //FETCH HERE
-        } else {
-            console.log("Hay algun error");
-        }
-    }
-
-    function deleteCategory() {
-        // call to delete category here
-    }
-
     const [isEditCategoryOpen,setIsEditCategoryOpen] = useState(false);
     const [isViewCategoryOpen,setIsViewCategoryOpen] = useState(false);
     const [isDeleteCategoryOpen,setIsDeleteCategoryOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    async function updateCategory() {
+        if (!validateInfo())
+            return;
+        setIsLoading(true);
+        try {
+            await updateExistingCategory(categoryInfo);
+            await uponUpload();
+            setIsEditCategoryOpen(false);
+        } catch(err) {
+            console.log(err);
+            setErrors(prev=>({...prev,submit:"Error al momento de editar categoría"}));
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function deleteCategory() {
+        setIsLoading(true);
+        try {
+            await deleteExistingCategory(categoryInfo);
+            await uponUpload();
+            setIsDeleteCategoryOpen(false);
+        } catch(err) {
+            console.log(err);
+            setErrors(prev=>({...prev,submit:"Error al momento de eliminar categoría"}));
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <>
@@ -81,6 +100,7 @@ export default function PaginationCategories({ rows }) {
                         <CategoryForm 
                             onSubmit={updateCategory}
                             submitLabel='Guardar cambios'
+                            isUploading={isLoading}
                         />
                     </Window>
                 }
@@ -97,10 +117,14 @@ export default function PaginationCategories({ rows }) {
                 {isDeleteCategoryOpen &&
                     <Window title='Eliminar Categoría' onClose={()=>setIsDeleteCategoryOpen(false)}>
                         <div className="window-content">
-                            <p>¿Seguro que desea eliminar la categoría con ID {categoryInfo.id}?</p>
                             <div className='delete-category'>
-                                <button onClick={deleteCategory}>Eliminar</button>
-                            </div>
+                                <p className='delete-text'>¿Seguro que desea eliminar la categoría con ID {categoryInfo.id}?</p>
+                                <button 
+                                    onClick={deleteCategory}
+                                    disabled={isLoading}
+                                >Eliminar</button>
+                                {isLoading && <p>Eliminando cateogría...</p>}
+                            </div>             
                         </div>
                     </Window>
                 }

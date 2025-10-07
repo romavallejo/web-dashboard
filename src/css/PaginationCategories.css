@@ -18,6 +18,10 @@
     align-items: center;
 }
 
+.delete-category .delete-text {
+    font-weight: 700;
+}
+
 .delete-category button:hover {
     background-color: var(--red-color-hover);
 }

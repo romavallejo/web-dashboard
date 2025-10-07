@@ -2,7 +2,7 @@ import { useCategory } from '../context/CategoryContext';
 import '../css/Pagination.css'
 import '../css/PaginationCategories.css'
 
-export default function CategoryForm({ onSubmit, submitLabel }) {
+export default function CategoryForm({ onSubmit, submitLabel, isUploading }) {
 
     const {categoryInfo, setCategoryInfo, errors} = useCategory();
 
@@ -29,13 +29,20 @@ export default function CategoryForm({ onSubmit, submitLabel }) {
                     setCategoryInfo(prev => ({...prev, description: e.target.value}));
                 }}
                 rows={5}
-                maxLength="2"
+                maxLength="65535"
             />
 
             {errors.description && <p className='error-message'>* {errors.description}</p>}
 
             <div className='save-changes'>
-                <button onClick={onSubmit}>{submitLabel}</button>
+                <button 
+                    onClick={onSubmit}
+                    disabled={isUploading}
+                >{submitLabel}</button>
+
+                {isUploading && <p>Creando cateogría...</p>}
+                {errors.submit && <p className='error-message'>* {errors.submit}</p>}
+
             </div>
         </div>
     );
