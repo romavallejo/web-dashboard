@@ -7,11 +7,11 @@ import ReportForm from './ReportForm.jsx';
 import ViewReport from './ViewReport.jsx';
 import { useReport } from '../context/ReportContext.jsx';
 import { onCommittingReport, onCancelReport} from '../utils/imageLogic.js'
-import { updateReport } from '../api/reportServices.js';
+import { updateReport, deleteReportService } from '../api/reportServices.js';
 
 export default function PaginationReportes({ rows, uponUpload, categorias, categoryMap }) {
 
-    const { reportInfo ,setReportInfo, setErrors, validateInfo } = useReport();
+    const { reportInfo ,setReportInfo, errors, setErrors, validateInfo } = useReport();
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
@@ -39,23 +39,36 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
     const [isViewReportOpen,setIsViewReportOpen] = useState(false);
     const [isDeleteOpen,setIsDeleteOpen] = useState(false);
 
-    const [isEditLoading,setIsEditLoading] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
+
     async function editReport() {
         if (!validateInfo())
             return;
-        setIsEditLoading(true);
-        await onCommittingReport(reportInfo);
-        if (await updateReport(reportInfo)) {
+        setIsLoading(true);
+        try {
+            await updateReport(reportInfo);
+            await onCommittingReport(reportInfo);
             setIsEditReportOpen(false);
-            uponUpload();
+        } catch(err) {
+            console.log(err);
+            setErrors(prev=>({...prev, submit:"Error al momento de subir"}));
+        } finally {
+            setIsLoading(false);
         }
-        else
-            setErrors(prev=>({...prev, submit: "Error al momento de subir"}))
-        setIsEditLoading(false);
     }
 
-    function deleteReport() {
-
+    async function deleteReport() {
+        setIsLoading(true);
+        try {
+            const res = await deleteReportService(reportInfo);
+            console.log(res);
+            setIsDeleteOpen(false);
+            uponUpload();
+        } catch(err) {
+            setErrors(prev=>({...prev,submit:"Error al momento de subir"}));
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -103,7 +116,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                                 <button onClick={()=>{
                                     handleSetReportInfo(row);
                                     setIsDeleteOpen(true);
-
+                                    setErrors({});
                                 }}>
                                     <img src='/icons/delete.svg'/>
                                 </button>
@@ -124,7 +137,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                             categoryMap={categoryMap}
                         />
 
-                        {isEditLoading && <p>Editando reporte...</p>}
+                        {isLoading && <p>Editando reporte...</p>}
 
                     </Window>
                 }
@@ -140,10 +153,13 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 {isDeleteOpen && 
                     <Window title='Eliminar Reporte' onClose={()=>setIsDeleteOpen(false)}>
                         <div className='delete-report'>
-                            <p>¿Seguro que desea eliminar el reporte con ID {reportInfo.id}?</p>
+                            <p className='delete-text'>¿Seguro que desea eliminar el reporte con ID {reportInfo.id}?</p>
                             <button onClick={deleteReport}>Eliminar</button>
-                        </div>
 
+                            {isLoading && <p>Eliminando reporte...</p>}
+                            {errors.submit && <p className='error-message'>* {errors.submit}</p>}
+
+                        </div>
                     </Window>
                 }
             </table>

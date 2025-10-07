@@ -139,7 +139,7 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
             <div className='save-changes'>
                 <button onClick={onSubmit}>{submitLabel}</button>
 
-                {errors.submit && <p className='error-message'>* {errors.creation}</p>}
+                {errors.submit && <p className='error-message'>* {errors.submit}</p>}
 
             </div>
         </>

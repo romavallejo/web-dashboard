@@ -3,6 +3,7 @@ import { useReport } from "../context/ReportContext";
 export default function ViewReport({ categoryMap }) {
 
     const {reportInfo} = useReport();
+    console.log("view report image: ", reportInfo.image)
 
     return (
         <div className='window-layout'>

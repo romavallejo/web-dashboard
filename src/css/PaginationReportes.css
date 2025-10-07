@@ -71,7 +71,7 @@
     align-items: center;
 }
 
-.delete-report p {
+.delete-report .delete-text {
     font-weight: 700;
 }
 

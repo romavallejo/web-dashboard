@@ -56,5 +56,4 @@ td, th {
 .error-message {
     color: var(--red-color);
     font-weight:lighter !important;
-    margin-left: 1rem;
 }

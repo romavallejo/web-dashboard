@@ -19,9 +19,6 @@ export async function uploadImage(file) {
 export async function deleteImage(path) {
     const toSend = {path:path};
 
-    console.log(BASE_URL);
-    console.log(path);
-    console.log(JSON.stringify(toSend));
     const res = await fetch(`${BASE_URL}/images/`,{
         method: "DELETE",
         headers: {
@@ -31,8 +28,6 @@ export async function deleteImage(path) {
     })
 
     if (!res.ok) throw new Error(`Failed to delete image (status ${res.status})`);
-    
-    console.log("Deleted: ",path)
 
     return true;
 }
