@@ -101,15 +101,17 @@ export default function Reportes(){
         if (!validateInfo())
             return;
         setIsCreateLoading(true);
-        await onCommittingReport(reportInfo);
-
-        if (await createNewReport(reportInfo)) {
-            setIsCreateReportOpen(false);
-            fetchReports();
+        try {
+            await createNewReport(reportInfo);
+            await onCommittingReport(reportInfo);
+            await fetchReports();
+            setIsEditReportOpen(false);
+        } catch(err) {
+            console.log(err);
+            setErrors(prev=>({...prev, submit:"Error al momento de subir"}));
+        } finally {
+            setIsCreateLoading(false);
         }
-        else
-            setErrors(prev=>({...prev, submit: "Error al momento de crear"}))
-        setIsCreateLoading(false);
     }
 
     // STAT INFO

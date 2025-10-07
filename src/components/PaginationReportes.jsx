@@ -48,6 +48,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
         try {
             await updateReport(reportInfo);
             await onCommittingReport(reportInfo);
+            await uponUpload();
             setIsEditReportOpen(false);
         } catch(err) {
             console.log(err);
@@ -60,11 +61,11 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
     async function deleteReport() {
         setIsLoading(true);
         try {
-            const res = await deleteReportService(reportInfo);
-            console.log(res);
+            await deleteReportService(reportInfo);
             setIsDeleteOpen(false);
-            uponUpload();
+            await uponUpload();
         } catch(err) {
+            console.log(err);
             setErrors(prev=>({...prev,submit:"Error al momento de subir"}));
         } finally {
             setIsLoading(false);
@@ -126,7 +127,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 </tbody>
 
                 {isEditReportOpen && 
-                    <Window title='Editar Reporte' onClose={()=>{
+                    <Window title={`Editar Reporte | ID ${reportInfo.id}`} onClose={()=>{
                         setIsEditReportOpen(false);
                         onCancelReport(reportInfo);
                     }}>
@@ -143,7 +144,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 }
 
                 {isViewReportOpen && 
-                    <Window title='Reporte' onClose={()=>{setIsViewReportOpen(false)}}>
+                    <Window title={`Reporte | ID ${reportInfo.id}`} onClose={()=>{setIsViewReportOpen(false)}}>
                         <ViewReport 
                             categoryMap={categoryMap}
                         />
@@ -151,7 +152,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 }
                 
                 {isDeleteOpen && 
-                    <Window title='Eliminar Reporte' onClose={()=>setIsDeleteOpen(false)}>
+                    <Window title={`Eliminar Reporte | ID ${reportInfo.id}`} onClose={()=>setIsDeleteOpen(false)}>
                         <div className='delete-report'>
                             <p className='delete-text'>¿Seguro que desea eliminar el reporte con ID {reportInfo.id}?</p>
                             <button onClick={deleteReport}>Eliminar</button>

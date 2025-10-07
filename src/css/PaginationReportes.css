@@ -127,6 +127,7 @@
 .save-changes {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .save-changes button {
