@@ -205,6 +205,15 @@ export default function Estadisticas() {
                     ))
                   }
                 </div>
+                <div className='category-list-small'>
+                  {stats.mostFrequentCategories && 
+                    stats.mostFrequentCategories.slice(0, 5).map(cat => (
+                      <div key={cat.id}>
+                        <strong className='cat-name'>{cat.name}</strong> <strong className='cat-num'>{cat.count}</strong> 
+                      </div>
+                    ))
+                  }
+                </div>
               </Card>
 
           </div>

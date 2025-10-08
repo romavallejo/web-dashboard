@@ -1,0 +1,34 @@
+div.top-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    border: 2px solid var(--margin-color);
+    margin: 1rem;
+}
+
+div.top-bar > :first-child {
+    display: flex;
+    justify-content: center;
+    margin:1rem;
+    margin-right: auto;
+}
+
+.logo-small {
+    width: 75px;
+}
+
+.menu-holder {
+    margin-right: 1rem;
+}
+
+.menu-button {
+    background-color: var(--background-color);
+    border: 0;
+    padding: 1rem;
+}
+
+.menu-button:hover {
+    background-color: var(--secondary-highlight-color);
+    border-radius: 1rem;
+    border: 0;
+}

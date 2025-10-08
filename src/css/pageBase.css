@@ -40,3 +40,11 @@
     margin: 1rem;
     gap: 2rem;
 }
+
+@media (max-width: 900px) {
+    .page h1 {
+        margin-top: 0;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+    }
+}

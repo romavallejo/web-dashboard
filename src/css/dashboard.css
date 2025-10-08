@@ -13,3 +13,24 @@
 .dashboard > :last-child {
   flex: 3; 
 }
+
+/* media queries*/
+
+@media (max-width:900px) {
+
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .dashboard > :first-child {
+    display: none;
+  }
+}
+
+@media (min-width:900px) {
+
+  .dashboard > :nth-child(2) {
+    display: none;
+  }
+
+}
