@@ -25,7 +25,7 @@ export default function Estadisticas() {
         ]);
         setReports(reportsRes);
         setCategories(categoriesRes);
-        setUsers(usersRes);
+        setUsers(usersRes.count);
       } catch (err) {
         console.error("Failed to fetch data:", err);
       }
@@ -88,7 +88,8 @@ export default function Estadisticas() {
     const categoryCounts = reports.reduce((acc, report) => {
       if (!report.categories) return acc;
       for (const catId of report.categories) {
-        acc[catId] = (acc[catId] || 0) + 1;
+        if (acc.catId) acc.catId++;
+        else acc.catID = 1;
       }
       return acc;
     }, {});
@@ -99,7 +100,8 @@ export default function Estadisticas() {
     if (reports.length === 0 || categories.length === 0) return;
     const counts = reports.reduce((acc, report) => {
       for (const catId of report.categories || []) {
-        acc[catId] = (acc[catId] || 0) + 1;
+        if (acc[catId]) acc[catId]++;
+        else acc[catId] = 1
       }
       return acc;
     }, {});
@@ -163,7 +165,7 @@ export default function Estadisticas() {
           <div className='grid'>
 
               <Card title='Usuarios Registrados'>
-                  <p className="number">{users.length}</p>
+                  <p className="number">{users}</p>
               </Card>
 
               <Card title='Reportes Totales'>
