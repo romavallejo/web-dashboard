@@ -141,8 +141,8 @@ export default function Reportes(){
                 break;
             }
             return acc;
-        },{ totalReports: 0, totalAproved: 0, totalRejected: 0, totalPending: 0 }
-  );
+            },{ totalReports: 0, totalAproved: 0, totalRejected: 0, totalPending: 0 }
+        );
 
   setReportStats(stats);
     },[filteredReports])

@@ -14,8 +14,8 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
 
     const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
-        2: 'estado-aceptado',
         1: 'estado-revision',
+        2: 'estado-aceptado',
         3: 'estado-rechazado'
     };
     
