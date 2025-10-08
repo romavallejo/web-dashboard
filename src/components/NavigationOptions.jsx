@@ -1,4 +1,5 @@
 import SideBarLink from '../components/SideBarLink';
+import '../css/NavigationOptions.css'
 
 const links = [
   ["/", "Estadísticas", "/icons/barchart.svg", "/icons/barchart-current.svg"],
@@ -8,14 +9,21 @@ const links = [
   ["/configuracion", "Configuración", "/icons/config.svg", "/icons/config-current.svg"],
 ];
 
-export default function NavigationOptions({ current }) {
+export default function NavigationOptions({ current, onClose }) {
     return (
         <div className='navigation-overlay'>
           <div className="navigation">
               <ul className='links'>
-                  {links.map(link => {
-                      return <SideBarLink target={link[0]} label={link[1]} key={link[0]} icon={current === link[0] ? link[3] : link[2]} isCurrent={current === link[0]}/>;
-                  })}
+                    <button 
+                        onClick={onClose}
+                        className='close'> 
+                        <li>
+                            <img src="/icons/close.svg" alt="close"/>
+                        </li>
+                    </button>
+                    {links.map(link => {
+                        return <SideBarLink target={link[0]} label={link[1]} key={link[0]} icon={current === link[0] ? link[3] : link[2]} isCurrent={current === link[0]}/>;
+                    })}
               </ul>
           </div>
         </div>

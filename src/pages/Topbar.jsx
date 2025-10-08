@@ -25,7 +25,9 @@ export default function Topbar({ current }) {
                 </div>
 
                 {areOptionsOpen &&
-                    <NavigationOptions current={current}/>
+                    <NavigationOptions 
+                        current={current} 
+                        onClose={()=>{setAreOptionsOpen(false)}}/>
                 }
                 
             </nav>
