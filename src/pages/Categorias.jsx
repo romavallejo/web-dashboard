@@ -115,7 +115,9 @@ export default function Categorias() {
             {isCreateCategoryOpen &&
                 <Window title='Crear Cateogría' onClose={()=>{
                     setIsCreateCategoryOpen(false);
-                }}>
+                    }}
+                    disableButton={isLoading}
+                >
                     <CategoryForm
                         onSubmit={createCategory}
                         submitLabel='Crear Categoría'

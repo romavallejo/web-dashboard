@@ -96,7 +96,10 @@ export default function PaginationCategories({ rows, uponUpload }) {
                 </tbody>
 
                 {isEditCategoryOpen &&
-                    <Window title='Editar Cateogría' onClose={()=>setIsEditCategoryOpen(false)}>
+                    <Window title='Editar Cateogría' 
+                        onClose={()=>setIsEditCategoryOpen(false)}
+                        disableButton={isLoading}
+                    >
                         <CategoryForm 
                             onSubmit={updateCategory}
                             submitLabel='Guardar cambios'
@@ -115,7 +118,10 @@ export default function PaginationCategories({ rows, uponUpload }) {
                 }
 
                 {isDeleteCategoryOpen &&
-                    <Window title='Eliminar Categoría' onClose={()=>setIsDeleteCategoryOpen(false)}>
+                    <Window title='Eliminar Categoría' 
+                        onClose={()=>setIsDeleteCategoryOpen(false)}
+                        disableButton={isLoading}
+                    >
                         <div className="window-content">
                             <div className='delete-category'>
                                 <p className='delete-text'>¿Seguro que desea eliminar la categoría con ID {categoryInfo.id}?</p>

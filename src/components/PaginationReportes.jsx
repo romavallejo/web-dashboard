@@ -39,13 +39,11 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
     const [isDeleteOpen,setIsDeleteOpen] = useState(false);
 
     const [isLoading,setIsLoading] = useState(false);
-    const [isUploading,setIsUploading] = useState(false);
 
     async function editReport() {
         if (!validateInfo())
             return;
         setIsLoading(true);
-        setIsUploading(true);
         try {
             await updateReport(reportInfo);
             await onCommittingReport(reportInfo);
@@ -60,13 +58,11 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
             setErrors(prev=>({...prev, submit:"Error al momento de subir"}));
         } finally {
             setIsLoading(false);
-            setIsUploading(false);
         }
     }
 
     async function deleteReport() {
         setIsLoading(true);
-        setIsUploading(true);
         try {
             await deleteReportService(reportInfo);
             setIsDeleteOpen(false);
@@ -76,7 +72,6 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
             setErrors(prev=>({...prev,submit:"Error al momento de subir"}));
         } finally {
             setIsLoading(false);
-            setIsUploading(false);
         }
     }
 
@@ -138,13 +133,15 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                     <Window title={`Editar Reporte | ID ${reportInfo.id}`} onClose={()=>{
                         setIsEditReportOpen(false);
                         onCancelReport(reportInfo);
-                    }}>
+                        }}
+                        disableButton={isLoading}
+                    >
                         <ReportForm 
                             onSubmit={editReport}
                             submitLabel='Guardar cambios'
                             categories={categorias}
                             categoryMap={categoryMap}
-                            isUploading={isUploading}
+                            isUploading={isLoading}
                         />
 
                         {isLoading && <p>Editando reporte...</p>}
@@ -161,12 +158,15 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 }
                 
                 {isDeleteOpen && 
-                    <Window title={`Eliminar Reporte | ID ${reportInfo.id}`} onClose={()=>setIsDeleteOpen(false)}>
+                    <Window title={`Eliminar Reporte | ID ${reportInfo.id}`} 
+                        onClose={()=>setIsDeleteOpen(false)}
+                        disableButton={isLoading}
+                    >
                         <div className='delete-report'>
                             <p className='delete-text'>¿Seguro que desea eliminar el reporte con ID {reportInfo.id}?</p>
                             <button 
                                 onClick={deleteReport}
-                                disabled={isUploading}
+                                disabled={isLoading}
                                 >Eliminar</button>
 
                             {isLoading && <p>Eliminando reporte...</p>}

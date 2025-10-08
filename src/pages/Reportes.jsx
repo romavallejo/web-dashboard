@@ -46,7 +46,7 @@ export default function Reportes(){
 
     const [isCreateReportOpen,setIsCreateReportOpen] = useState(false);
     const [isCreateLoading,setIsCreateLoading] = useState(false);
-    const [isUploading,setIsUploading] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
 
     //PAGINATION
     const [pagination,setPagination] = useState({
@@ -102,7 +102,7 @@ export default function Reportes(){
         if (!validateInfo())
             return;
         setIsCreateLoading(true);
-        setIsUploading(true);
+        setIsLoading(true);
         try {
             await createNewReport(reportInfo);
             await onCommittingReport(reportInfo);
@@ -117,7 +117,7 @@ export default function Reportes(){
             setErrors(prev=>({...prev, submit:"Error al momento de subir"}));
         } finally {
             setIsCreateLoading(false);
-            setIsUploading(false);
+            setIsLoading(false);
         }
     }
 
@@ -206,16 +206,19 @@ export default function Reportes(){
             </div>
 
             {isCreateReportOpen &&
-                <Window title="Crear Reporte" onClose={()=>{
+                <Window title="Crear Reporte" 
+                    onClose={()=>{
                     setIsCreateReportOpen(false);
                     onCancelReport(reportInfo);
-                }}>
+                    }}
+                    disableButton={isLoading}
+                >
                     <ReportForm 
                         onSubmit={createReport}
                         submitLabel='Crear Reporte'
                         categories={categories}
                         categoryMap={categoryMap}
-                        isUploading={isUploading}
+                        isUploading={isLoading}
                     />
 
                     {isCreateLoading && <p>Creando Reporte...</p>}
