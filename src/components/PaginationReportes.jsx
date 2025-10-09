@@ -29,7 +29,8 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 description: report.description,
                 link: report.report_url,
                 status_id: report.status_id,
-                user: report.user_name
+                user: report.user_name,
+                created_at: report.created_at
             }));
     }
 
@@ -132,7 +133,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 </tbody>
 
                 {isEditReportOpen && 
-                    <Window title={`Editar Reporte | ID ${reportInfo.id}`} onClose={()=>{
+                    <Window title={`Editar Reporte | ID ${reportInfo.id} | ${formatDate(reportInfo.created_at)}`} onClose={()=>{
                         setIsEditReportOpen(false);
                         onCancelReport(reportInfo);
                         }}
@@ -152,7 +153,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 }
 
                 {isViewReportOpen && 
-                    <Window title={`Reporte | ID ${reportInfo.id}`} onClose={()=>{setIsViewReportOpen(false)}}>
+                    <Window title={`Reporte | ID ${reportInfo.id} | ${formatDate(reportInfo.created_at)}`} onClose={()=>{setIsViewReportOpen(false)}}>
                         <ViewReport 
                             categoryMap={categoryMap}
                         />
@@ -160,7 +161,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 }
                 
                 {isDeleteOpen && 
-                    <Window title={`Eliminar Reporte | ID ${reportInfo.id}`} 
+                    <Window title={`Eliminar Reporte | ID ${reportInfo.id} | ${formatDate(reportInfo.created_at)}`} 
                         onClose={()=>setIsDeleteOpen(false)}
                         disableButton={isLoading}
                     >
