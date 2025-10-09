@@ -1,15 +1,29 @@
-import { useState } from 'react';
-import '../css/pageBase.css'
+import { useState, useEffect } from 'react';
 import Card from '../components/Card.jsx'
+import { getTermsCond, updateTermsCond } from '../api/termsCondServices.js';
+import '../css/pageBase.css'
 import '../css/TermsCond.css'
 
 export default function TermsCond() {
-    
-    const [isFieldEmpty,setIsFieldEmpty] = useState(false);
 
-    const [terms,setTerms] = useState("Lorem ipsum dolor sit, amet consectetur adipisicing elit...");
+    const [terms,setTerms] = useState("");
+    async function fetchTerms(){
+        try {
+            const data = await getTermsCond();
+            setTerms(data);
+        } catch(err) { 
+            console.log(err)
+        }
+    }
+    useEffect(()=>{
+        //fetchTerms();
+    },[]);
+
+    const [isFieldEmpty,setIsFieldEmpty] = useState(false);
+    const [errorInUplaod,setErrorInUpload] = useState(false);
     const [isEditing,setIsEditing] = useState(false);
     const [draftTerms,setDraftTerms] = useState(terms);
+    const [isLoading,setIsLoading] = useState(false);
 
     function editing(){
         setDraftTerms(terms);
@@ -20,16 +34,27 @@ export default function TermsCond() {
         setDraftTerms(terms);
         setIsEditing(false);
         setIsFieldEmpty(false);
+        setErrorInUpload(false);
     }
 
-    function save(){
-        if (draftTerms.trim()) {
-            //fetch call here
-            setTerms(draftTerms);
-            setIsEditing(false);
-        } else {
+    async function save() {
+        setErrorInUpload(false);
+        setIsFieldEmpty(false);
+        if (!draftTerms.trim()) {
             setIsFieldEmpty(true);
-        }  
+            return;
+        }
+        setIsLoading(true);
+        try {
+            await updateTermsCond(draftTerms);
+            await fetchTerms();
+            setIsEditing(false);
+        } catch(err) {
+            console.log(err);
+            setErrorInUpload(true);
+        } finally {
+            setIsLoading(false);
+        }
     }
     
     return (
@@ -38,8 +63,16 @@ export default function TermsCond() {
                 <h1>Términos y Condiciones</h1>
                 {!isEditing ? (<button onClick={editing}>Actualizar T&C</button>) : 
                 (<div>
-                    <button className='green' onClick={save}>Guardar</button>
-                    <button className='red' onClick={cancel}>X</button>
+                    <button 
+                        className='green' 
+                        onClick={save}
+                        disabled={false}
+                    >Guardar</button>
+                    <button 
+                        className='red' 
+                        onClick={cancel}
+                        disabled={false}
+                    >X</button>
                 </div>)}
             </div>
             <div className="grid">
@@ -54,6 +87,8 @@ export default function TermsCond() {
                     />)}
 
                     {isFieldEmpty && <p className='error-message'>* Los términos y condiciones no pueden estar vacios</p>}
+                    {errorInUplaod && <p className='error-message'>* Error al momento de actualizar</p>}
+                    {isLoading && <p>Actualizando...</p>}
 
                 </Card>
             </div>
