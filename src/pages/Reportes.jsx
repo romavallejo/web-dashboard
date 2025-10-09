@@ -158,38 +158,45 @@ export default function Reportes(){
                         setErrors({});
                     }}>+ Crear Reporte</button>
                 </div>
-                <div className="grid">
+                <div className="grid grid-reports">
+
                     <Card title='Total Reportes'>
                         <p className="number">{reportStats.totalReports}</p>
                     </Card>
+
                     <Card title='Aprobado'>
                         <p className="number aceptado">{reportStats.totalAproved}</p>
                     </Card>
+
                     <Card title='Rechazados'>
                         <p className="number rechazado">{reportStats.totalRejected}</p>
                     </Card>
+
                     <Card title='Pendiente'>
                         <p className="number revision">{reportStats.totalPending}</p>
                     </Card>
+
                     <Card title='Lista de Reportes' size={[1,4]}>
-                        <div className='search-bar'>
+                        <div className='filter-bar'>
                             <SearchBar onSearch={handleSearch} holder='ID, Usuario'/>
-                            <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, status_id: Number(e.target.value)}})}>
-                                <option value={0}>Todos los Estados</option>
-                                <option value={1}>Pendientes</option>
-                                <option value={2}>Aprobados</option>
-                                <option value={3}>Rechazados</option>
-                            </select>
-                            <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, categoryFilter: Number(e.target.value)}})}>
-                                <option value={0}>Todas las Categorias</option>
-                                {categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
-                            </select>
-                            <input 
-                                className='toggle-select' 
-                                type="date" 
-                                value={filters.dateFilter}
-                                onChange={e => setFilters(prev => {return {...prev, dateFilter: e.target.value}})}
+                            <div className='filter-options'>
+                                <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, status_id: Number(e.target.value)}})}>
+                                    <option value={0}>Todos los Estados</option>
+                                    <option value={1}>Pendientes</option>
+                                    <option value={2}>Aprobados</option>
+                                    <option value={3}>Rechazados</option>
+                                </select>
+                                <select className='toggle-select' onChange={e => setFilters(prev => {return {...prev, categoryFilter: Number(e.target.value)}})}>
+                                    <option value={0}>Todas las Categorias</option>
+                                    {categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
+                                </select>
+                                <input 
+                                    className='toggle-select' 
+                                    type="date" 
+                                    value={filters.dateFilter}
+                                    onChange={e => setFilters(prev => {return {...prev, dateFilter: e.target.value}})}
                                 />
+                            </div>
                         </div>
                         <PaginationReportes 
                             rows={paginatedReports}
@@ -202,6 +209,7 @@ export default function Reportes(){
                             onPageChange={setPagination}
                         />
                     </Card>
+                    
                 </div>
             </div>
 

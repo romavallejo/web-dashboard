@@ -61,16 +61,16 @@ export default function PaginationCategories({ rows, uponUpload }) {
             <table>
                 <thead>
                     <tr>
-                        {columns.map(col => (
-                            <th key={col}>{col}</th>
-                        ))}
+                        <th className='id-col'>ID</th>
+                        <th className='name-col'>Nombre</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {rows && rows.map(row => (
                         <tr key={row.id}>
-                            <td>{row.id}</td>
-                            <td>{row.name}</td>
+                            <td className='id-col'>{row.id}</td>
+                            <td className='name-col'>{row.name}</td>
                             <td className='actions'>
                                 <button onClick={()=>{
                                     hanldeSetCategoryInfo(row);

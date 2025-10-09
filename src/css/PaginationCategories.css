@@ -37,3 +37,10 @@
 .filter-fields {
     margin-bottom: 1rem;
 }
+
+/* media queries */
+@media (max-width: 400px) {
+    .name-col {
+        display: none;
+    }
+}

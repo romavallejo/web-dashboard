@@ -6,8 +6,8 @@ const links = [
   ["/categorias", "Categorías", "/icons/category.svg", "/icons/category-current.svg"],
   ["/reportes", "Reportes", "/icons/report.svg", "/icons/report-current.svg"],
   ["/t&c", "T&C","/icons/terms.svg","/icons/terms-current.svg"],
-  ["/configuracion", "Configuración", "/icons/config.svg", "/icons/config-current.svg"],
 ];
+//  ["/configuracion", "Configuración", "/icons/config.svg", "/icons/config-current.svg"],
 
 export default function NavigationOptions({ current, onClose }) {
     return (

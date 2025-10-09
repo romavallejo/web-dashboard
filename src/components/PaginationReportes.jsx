@@ -12,7 +12,6 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
 
     const { reportInfo ,setReportInfo, errors, setErrors, validateInfo } = useReport();
 
-    const columns = ['ID','Usuario','Categoría','Estado','Fecha de Creación','Acciones'];
     const estadoClass = {
         1: 'estado-revision',
         2: 'estado-aceptado',
@@ -80,17 +79,20 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
             <table>
                 <thead>
                     <tr>
-                        {columns.map(col => (
-                            <th key={col}>{col}</th>
-                        ))}
+                        <th>ID</th>
+                        <th className='user-col'>Usuario</th>
+                        <th className='category-col'>Categoría</th>
+                        <th>Estado</th>
+                        <th className='date-col'>Fecha de Cración</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {rows && rows.map(row => (
                         <tr key={row.id}>
                             <td>{row.id}</td>
-                            <td>{row.user_name}</td>
-                            <td className='categories-list'>
+                            <td className='user-col'>{row.user_name}</td>
+                            <td className='categories-list category-col'>
                                 {row.categories.map(categoryId =>
                                     <div key={categoryId} className='tag categoria'>
                                         {categoryMap[categoryId] || "Desconocida"}
@@ -102,7 +104,7 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                                     {row.status_id === 1 ? 'Pendiente' : row.status_id === 2 ? 'Aprobado' : 'Rechazado'}
                                 </div>
                             </td>
-                            <td>{formatDate(row.created_at)}</td>
+                            <td className='date-col'>{formatDate(row.created_at)}</td>
                             <td className='actions'>
                                 <button onClick={()=>{
                                     handleSetReportInfo(row);

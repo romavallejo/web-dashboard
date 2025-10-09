@@ -1,5 +1,3 @@
-import '../css/pageBase.css'
-import '../css/PaginationCategories.css'
 import Card from '../components/Card.jsx'
 import CategoryForm from '../components/CategoryForm.jsx';
 import PaginationCategories from '../components/PaginationCategories.jsx';
@@ -9,6 +7,8 @@ import PaginationControls from '../components/PaginationControls.jsx';
 import { useState, useEffect } from 'react';
 import { useCategory } from '../context/CategoryContext.jsx';
 import { getCategories, createNewCategory } from '../api/categoryServices.js';
+import '../css/pageBase.css'
+import '../css/PaginationCategories.css'
 
 export default function Categorias() {
 
