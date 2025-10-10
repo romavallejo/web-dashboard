@@ -2,6 +2,11 @@
     display: flex;
     height: 100vh;
     background-color: var(--background-color);
+    overflow: hidden;
+}
+
+.main-content {
+  overflow-y: auto;
 }
 
 .dashboard > :first-child {

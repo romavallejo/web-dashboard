@@ -140,7 +140,6 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
                     onClick={onSubmit}
                     disabled={isUploading}
                 >{submitLabel}</button>
-
                 {errors.submit && <p className='error-message'>* {errors.submit}</p>}
 
             </div>

@@ -15,11 +15,13 @@ function App() {
       <div className="dashboard">
         <Sidebar current={location.pathname}/>
         <Topbar current={location.pathname}/>
+        <div className="main-content">
         <ReportProvider>
           <CategoryProvider>
             <Outlet/>
           </CategoryProvider>
         </ReportProvider>
+        </div>
       </div>
     </>
   )
