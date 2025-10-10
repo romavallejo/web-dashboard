@@ -3,17 +3,19 @@ import Sidebar from "./pages/Sidebar"
 import Topbar from "./pages/TopBar"
 import { ReportProvider } from "./context/ReportContext"
 import { CategoryProvider } from "./context/CategoryContext"
+import { useState } from "react"
 import './css/dashboard.css'
 
 
 function App() {
 
   const location = useLocation()
+  const [isSidebarContracted,setIsSidebarContracted] = useState(false)
 
   return (
     <>
       <div className="dashboard">
-        <Sidebar current={location.pathname}/>
+        <Sidebar className={!isSidebarContracted ? "not-contracted" : "contracted"} isContracted={isSidebarContracted} setIsContracted={setIsSidebarContracted} current={location.pathname}/>
         <Topbar current={location.pathname}/>
         <div className="main-content">
         <ReportProvider>

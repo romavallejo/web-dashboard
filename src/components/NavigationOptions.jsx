@@ -1,13 +1,33 @@
 import SideBarLink from '../components/SideBarLink';
+import { Link } from 'react-router-dom';
 import '../css/NavigationOptions.css'
 
 const links = [
-  ["/", "Estadísticas", "/icons/barchart.svg", "/icons/barchart-current.svg"],
-  ["/categorias", "Categorías", "/icons/category.svg", "/icons/category-current.svg"],
-  ["/reportes", "Reportes", "/icons/report.svg", "/icons/report-current.svg"],
-  ["/t&c", "T&C","/icons/terms.svg","/icons/terms-current.svg"],
+  {
+    path: "/",
+    label: "Estadísticas",
+    icon: "/icons/barchart.svg",
+    iconCurrent: "/icons/barchart-current.svg"
+  },
+  {
+    path: "/categorias",
+    label: "Categorías",
+    icon: "/icons/category.svg",
+    iconCurrent: "/icons/category-current.svg"
+  },
+  {
+    path: "/reportes",
+    label: "Reportes",
+    icon: "/icons/report.svg",
+    iconCurrent: "/icons/report-current.svg"
+  },
+  {
+    path: "/t&c",
+    label: "T&C",
+    icon: "/icons/terms.svg",
+    iconCurrent: "/icons/terms-current.svg"
+  },
 ];
-//  ["/configuracion", "Configuración", "/icons/config.svg", "/icons/config-current.svg"],
 
 export default function NavigationOptions({ current, onClose }) {
     return (
@@ -18,12 +38,21 @@ export default function NavigationOptions({ current, onClose }) {
                         onClick={onClose}
                         className='close'> 
                         <li>
-                            <img src="/icons/close.svg" alt="close"/>
+                            <img src="/icons/x.svg" alt="close"/>
                         </li>
                     </button>
+
                     {links.map(link => {
-                        return <SideBarLink target={link[0]} label={link[1]} key={link[0]} icon={current === link[0] ? link[3] : link[2]} isCurrent={current === link[0]}/>;
+                        return <SideBarLink target={link.path} label={link.label} key={link.path} icon={current === link.path ? link.iconCurrent : link.icon} isCurrent={current === link.path}/>;
                     })}
+
+                    <li className={`bottom-options ${current === "/configuracion" ? 'current' : ''}`}>
+                        <Link className='link-button' to="/configuracion">
+                            <img src={current === "/configuracion" ? "/icons/config-current.svg" : "/icons/config.svg"}/>
+                            <p>Configuración</p>
+                        </Link>
+                    </li>
+
               </ul>
           </div>
         </div>

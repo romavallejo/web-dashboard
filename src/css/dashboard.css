@@ -9,10 +9,17 @@
   overflow-y: auto;
 }
 
-.dashboard > :first-child {
+.not-contracted  {
   flex: 1; 
   max-width: 250px; 
   min-width: 250px;
+}
+
+.contracted {
+  flex: 1; 
+  max-width: 50px; 
+  min-width: 50px;
+  overflow-x: hidden;
 }
 
 .dashboard > :last-child {

@@ -4,15 +4,20 @@ li {
 }
 
 li:hover {
-    outline: 2px var(--margin-color) solid;
+    outline: 2px var(--background-color) solid;
 }
 
 .current {
-    background-color: var(--secondary-highlight-color);
+    background-color: var(--background-color);
 }
 
+.current:hover {
+    outline: 0;
+}
+
+
 .current * {
-    color: var(--primary-highlight-color);
+    color: var(--primary-highlight-color) !important;
 }
 
 .link-button {
@@ -21,4 +26,12 @@ li:hover {
     align-items: center;
     padding: 1rem;
     gap:1rem;
+}
+
+.contracted .link-button {
+    padding: 1rem 0.5rem;
+}
+
+.link-button p {
+    color: var(--background-color);
 }

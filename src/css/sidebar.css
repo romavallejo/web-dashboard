@@ -1,10 +1,9 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    border-radius: 2rem;
-    border: 2px solid var(--margin-color);
-    margin: 1rem;
+    border-right: 4px solid var(--margin-color);
     overflow-y: auto;
+    background-color: var(--primary-highlight-color);
 }
 
 .sidebar > :first-child {
@@ -20,6 +19,7 @@
     gap: 1rem;
     margin: 1rem 2rem;
     list-style-type: none;
+    height: 100%;
 }
 
 .links * {
@@ -28,6 +28,26 @@
     font-weight: 700;
 }
 
+.bottom-options {
+    margin-top: auto;
+}
+
 .logo {
-    width: 125px;
+    width: 90px;
+    margin-bottom: 1rem;
+}
+
+.contracted .logo {
+    width: 30px;
+}
+
+.contracted .links {
+    margin: 0.3rem;
+    padding: 0;
+}
+
+button.link-button {
+    background-color: var(--primary-highlight-color);
+    border: 0;
+    font-size: 1rem;
 }

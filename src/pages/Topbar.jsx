@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import NavigationOptions from '../components/NavigationOptions';
 import '../css/Topbar.css'
-import logo from '/logo.png'
+import logo from '/logo-dark.png'
 import menu from '/icons/menu.svg'
 
 export default function Topbar({ current }) {

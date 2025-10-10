@@ -1,9 +1,8 @@
 div.top-bar {
     display: flex;
     align-items: center;
-    border-radius: 2rem;
-    border: 2px solid var(--margin-color);
-    margin: 1rem;
+    border-bottom: 4px solid var(--margin-color);
+    background-color: var(--primary-highlight-color);
 }
 
 div.top-bar > :first-child {
@@ -22,7 +21,7 @@ div.top-bar > :first-child {
 }
 
 .menu-button {
-    background-color: var(--background-color);
+    background-color: var(--primary-highlight-color);
     border: 0;
     padding: 1rem;
 }
