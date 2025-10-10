@@ -11,28 +11,7 @@ export default function LogIn() {
 
     function dataSubmit(e) {
         e.preventDefault();
-        console.log("Form submitted:", email);
         
-        //api call
-
-        /*
-        if (!response.ok) {
-            throw new Error("Invalid credentials");
-        }
-
-        const data = await response.json();
-        console.log("Login successful:", data);
-
-        // 👉 Save token (optional)
-        localStorage.setItem("token", data.token);
-
-        // 👉 Redirect to dashboard/home
-        navigate("/");
-        } catch (err) {
-        console.error("Login failed:", err);
-        setError(err.message);
-        }
-        */
     }
 
     return (

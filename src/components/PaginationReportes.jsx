@@ -147,7 +147,9 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                             isUploading={isLoading}
                         />
 
-                        {isLoading && <p>Editando reporte...</p>}
+                        <div className='delete-report'>
+                            {isLoading && <p>Editando reporte...</p>}
+                        </div>
 
                     </Window>
                 }

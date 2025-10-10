@@ -3,6 +3,10 @@
     gap: 1rem;
 }
 
+.text-holder {
+    width: 80%;
+}
+
 .text-holder * {
     margin-bottom: 1rem;
 }
