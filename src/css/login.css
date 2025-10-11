@@ -18,6 +18,10 @@
     background-color: var(--background-color);
 }
 
+.logo {
+    margin: 0 !important;
+}
+
 .field {
     display: flex;
     color: var(--primary-highlight-color);

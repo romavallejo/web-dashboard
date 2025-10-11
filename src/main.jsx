@@ -10,7 +10,6 @@ import Configuracion from './pages/Configuracion.jsx'
 import LogIn from './pages/LogIn.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import TermsCond from './pages/TermsCond.jsx'
-
 //imports for chartjs and reach-chartjs-2
 import {
   Chart as ChartJS,
@@ -35,6 +34,8 @@ ChartJS.register(
   Legend,
   ArcElement
 );
+import { AuthenticationProvider } from './context/AuthenticationContext'
+
 
 const router = createBrowserRouter([
   {path:"/",element:<App/>,children:[
@@ -51,6 +52,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthenticationProvider>
+      <RouterProvider router={router} />
+    </AuthenticationProvider>
   </StrictMode>,
 )
