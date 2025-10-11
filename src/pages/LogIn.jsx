@@ -7,7 +7,6 @@ export default function LogIn() {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
 
     function dataSubmit(e) {
         e.preventDefault();
@@ -16,7 +15,7 @@ export default function LogIn() {
 
     return (
         <div className="login-holder finisher-header">
-            <div className="login" onSubmit={dataSubmit}>
+            <div className="login">
                 <h1>Iniciar Sesión</h1>
                 {error && <p>Error</p>}
                 <div className="field">
@@ -27,7 +26,7 @@ export default function LogIn() {
                     <p>Contraseña:</p>
                     <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
                 </div>
-                <button className="submit" type="submit">Ingresar</button>
+                <button className="submit" onClick={dataSubmit}>Ingresar</button>
                 <div>
                     <img className="logo"src='/logo.png' alt='Logo'/>
                 </div>

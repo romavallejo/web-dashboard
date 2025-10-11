@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useMemo } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 import {authenticateCredentials,refreshAccessToken}  from "../api/authenticationServices.js"
 
 const AuthenticationContext = createContext();
@@ -11,7 +11,6 @@ export function AuthenticationProvider({ children }) {
 
     useEffect(() => {
         setLoadingTokens(true);
-        if (typeof window === "undefined") return;
         const storedAccessToken = localStorage.getItem("accessToken");
         const storedRefreshToken = localStorage.getItem("refreshToken");
         if (storedAccessToken && storedRefreshToken) {
@@ -41,56 +40,34 @@ export function AuthenticationProvider({ children }) {
         clearTokens();
     }, [clearTokens]);
 
-    /*
-    const login = useCallback(
-        async (email:, password: string) => {
-            const response = await axios.post("http://localhost:4000/auth/login", {
-                email,
-                password,
-            });
-            if (response.status !== 500) {
-                const tokens: Tokens = {
-                accessToken: response.data.access_token,
-                refreshToken: response.data.refresh_token,
-                };
-                setTokens(tokens);
-            } else {
-                throw new Error("Login failed");
-            }
-        }
-    ,[setTokens]);
-    */
-
-    /*
-    const tryRefreshToken = useCallback(async (): Promise<boolean> => {
-        if (!refreshToken) return false;
+    const login = useCallback(async (email, password) => {
         try {
-        const response = await axios.post("http://localhost:4000/auth/refresh", {
-            refreshToken,
-        });
-        if (response.status === 201) {
-            const tokens: Tokens = {
-            accessToken: response.data.access_token,
-            refreshToken: response.data.refresh_token,
-            };
+            const tokens = await authenticateCredentials(email,password);
             setTokens(tokens);
             return true;
-        } else {
+        } catch(err) {
+            console.log(err);
+            return false;
+        }
+    },[setTokens]);
+
+    const tryRefreshToken = useCallback(async () => {
+        if (!refreshToken) return false;
+        try {
+            const tokens = await refreshAccessToken(refreshToken)
+            setTokens(tokens);
+            return true
+        } catch(err) {
             clearTokens();
             return false;
         }
-        } catch (error) {
-        clearTokens();
-        return false;
-        }
-        }, [refreshToken, setTokens, clearTokens]);
-        */
+    }, [refreshToken, setTokens, clearTokens])
     
     const values = useMemo(() => ({
       accessToken,
       refreshToken,
       isAuthenticated: accessToken != null,
-      login: login,
+      login,
       logout,
       setTokens,
       tryRefreshToken,
@@ -118,7 +95,7 @@ export function AuthenticationProvider({ children }) {
 export const useAuthentication = () => {
     const context = useContext(AuthenticationContext);
     if (!context) {
-        throw new Error("useAuth must be used within an AuthProvider");
+        throw new Error("useAuthentication must be used within an AuthenticationProvider");
     }
     return context;
 };

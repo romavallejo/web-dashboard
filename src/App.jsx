@@ -5,8 +5,6 @@ import { ReportProvider } from "./context/ReportContext"
 import { CategoryProvider } from "./context/CategoryContext"
 import { useState } from "react"
 import './css/dashboard.css'
-
-
 function App() {
 
   const location = useLocation()
