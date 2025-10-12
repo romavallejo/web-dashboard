@@ -36,7 +36,7 @@
     border-radius: 5px;
 }
 
-.report-id .id-text, .report-upvotes .upvote-text {
+.report-id .id-text, .report-upvotes .upvote-text span{
     color: var(--background-color);
 }
 

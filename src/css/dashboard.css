@@ -22,6 +22,10 @@
   overflow-x: hidden;
 }
 
+.dashboard > :first-child {
+  overflow-x: hidden;
+}
+
 .dashboard > :last-child {
   flex: 3; 
 }

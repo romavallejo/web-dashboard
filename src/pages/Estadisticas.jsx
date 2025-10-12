@@ -4,6 +4,7 @@ import AlertListItem from '../components/AlertListItem.jsx';
 import { getYear, getMonth } from '../utils/formatDate.js';
 import { useEffect, useState } from 'react';
 import { getDashboardInformation } from '../api/dashboardServices.js';
+import AnimatedNumber from '../components/AnimatedNumber.jsx';
 import '../css/pageBase.css'
 import '../css/Estadisticas.css'
 
@@ -117,11 +118,11 @@ export default function Estadisticas() {
           <div className='grid'>
 
               <Card className={"center"} title='Usuarios Registrados' icon='/icons/user-sec.svg'>
-                  <p className="number">{data ? data.stats.total_users : 0}</p>
+                  <p className="number"><AnimatedNumber value={data ? data.stats.total_users : 0} /></p>
               </Card>
 
               <Card title='Reportes Totales' icon='/icons/reports-sec.svg'>
-                  <p className="number">{data ? data.stats.total_reports : 0}</p>
+                  <p className="number"><AnimatedNumber value={data ? data.stats.total_reports : 0}/></p>
               </Card>
 
               <Card title='Estado de Reportes' size={[2,2]} icon='/icons/status-sec.svg'>

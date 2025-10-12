@@ -48,6 +48,7 @@
 .contracted .links {
     margin: 0.3rem;
     padding: 0;
+    transform-origin: center;  /* Scale around center */
 }
 
 button.link-button {

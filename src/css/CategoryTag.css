@@ -5,13 +5,17 @@
     gap: 5px;
 }
 
+.edit-tag.tag p {
+    color: var(--background-color);
+}
+
 .edit-tag.tag p, .edit-tag.tag button {
     margin: 0px;
 }
 
 .edit-tag.tag button {
     color: var(--background-color);
-    background-color: var(--primary-highlight-color);
+    background-color: var(--third-highlight-color);
     border: 0px;
     border-radius: 10px;
     padding: 5px;

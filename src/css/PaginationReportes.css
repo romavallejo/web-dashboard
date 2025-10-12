@@ -44,7 +44,7 @@
 }
 
 .tag {
-    background-color: var(--primary-highlight-color);
+    background-color: var(--third-highlight-color);
     color: var(--background-color);
     padding: 7px;
     border-radius: 10px;

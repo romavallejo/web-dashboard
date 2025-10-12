@@ -1,5 +1,6 @@
 import SideBarLink from '../components/SideBarLink';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import '../css/NavigationOptions.css'
 
 const links = [
@@ -34,24 +35,34 @@ export default function NavigationOptions({ current, onClose }) {
         <div className='navigation-overlay'>
           <div className="navigation">
               <ul className='links'>
-                    <button 
+                    <motion.button 
                         onClick={onClose}
-                        className='close'> 
+                        className='close'
+                        whileHover={{scale: 1.1}}
+                    > 
                         <li>
                             <img src="/icons/x.svg" alt="close"/>
                         </li>
-                    </button>
+                    </motion.button>
 
                     {links.map(link => {
                         return <SideBarLink target={link.path} label={link.label} key={link.path} icon={current === link.path ? link.iconCurrent : link.icon} isCurrent={current === link.path}/>;
                     })}
 
-                    <li className={`bottom-options ${current === "/configuracion" ? 'current' : ''}`}>
+                    <motion.li 
+                      className={`bottom-options ${current === "/configuracion" ? 'current' : ''}`}
+                      initial={{ opacity: 0, x: -100, scale: 0 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      transition={{
+                          duration: 0.4,
+                          scale: { type: "spring", visualDuration: 0.8, bounce: 0.2 },
+                      }}
+                    >
                         <Link className='link-button' to="/configuracion">
                             <img src={current === "/configuracion" ? "/icons/config-current.svg" : "/icons/config.svg"}/>
                             <p>Configuración</p>
                         </Link>
-                    </li>
+                    </motion.li>
 
               </ul>
           </div>

@@ -1,12 +1,12 @@
- .number.aceptado {
+ .number.aceptado span {
     color: var(--green-color);
 }
 
- .number.rechazado {
+ .number.rechazado span {
     color: var(--red-color);
 }
 
- .number.revision {
+ .number.revision span {
     color: var(--orange-color);
 }
 

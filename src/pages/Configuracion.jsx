@@ -16,7 +16,7 @@ export default function Configuracion(){
         <div className="page">
             <h1>Configuración</h1>
             <div className="grid">
-                <Card title="Configuración de Sesión" >
+                <Card title="Configuración de Sesión" size={[2,2]}>
                     <Button 
                         icon="/icons/x.svg"
                         text="Cerrar Sesión"
