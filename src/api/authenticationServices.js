@@ -38,3 +38,22 @@ export async function refreshAccessToken(refToken) {
       refreshToken: res.data.refreshToken,
     };
 }
+
+export async function verifyToken(accessToken) {
+  const response = await fetch(`${BASE_URL}/auth/verify`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Token verification failed");
+      return res.json();
+    })
+    .then((data) => {
+      console.log("verifying token", data);
+      return data;
+    });
+
+  return response.data;
+}

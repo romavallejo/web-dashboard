@@ -3,6 +3,39 @@ import {authenticateCredentials,refreshAccessToken}  from "../api/authentication
 
 const AuthenticationContext = createContext();
 
+const VALID_ROLE = 2;
+
+function validateToken(token) {
+    if (!token || typeof token !== 'string') {
+        return { valid: false, reason: 'Invalid token format' };
+    }
+    
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+        return { valid: false, reason: 'Invalid JWT structure' };
+    }
+    
+    try {
+        const payload = JSON.parse(atob(parts[1]));
+        
+        if (!payload.exp) {
+            return { valid: false, reason: 'Missing expiration' };
+        }
+        
+        const now = Math.floor(Date.now() / 1000);
+        if (payload.exp < now) {
+            return { valid: false, reason: 'Token expired' };
+        }
+        if (payload.profile.role_id !== VALID_ROLE) {
+            return { valid: false, reason: 'Insufficient role' };
+        }
+        return { valid: true, payload };
+    } catch (e) {
+        return { valid: false, reason: 'Failed to decode token' };
+    }
+}
+
+
 export function AuthenticationProvider({ children }) {
 
     const [accessToken,setAccessToken] = useState(null);
@@ -13,10 +46,18 @@ export function AuthenticationProvider({ children }) {
         setLoadingTokens(true);
         const storedAccessToken = localStorage.getItem("accessToken");
         const storedRefreshToken = localStorage.getItem("refreshToken");
-        if (storedAccessToken && storedRefreshToken) {
-            setAccessToken(storedAccessToken);
-            setRefreshToken(storedRefreshToken);
+
+        const { valid } = validateToken(storedAccessToken);
+
+        if (!valid) {
+            setAccessToken(null);
+            setRefreshToken(null);
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
         }
+
+        setAccessToken(storedAccessToken);
+        setRefreshToken(storedRefreshToken);
         setLoadingTokens(false);
     }, []);
 
@@ -43,6 +84,8 @@ export function AuthenticationProvider({ children }) {
     const login = useCallback(async (email, password) => {
         try {
             const tokens = await authenticateCredentials(email,password);
+            const { valid } = validateToken(tokens.accessToken);
+            if (!valid) throw new Error("Invalid access token received");
             setTokens(tokens);
             return true;
         } catch(err) {
@@ -63,10 +106,16 @@ export function AuthenticationProvider({ children }) {
         }
     }, [refreshToken, setTokens, clearTokens])
     
+    const isAuthenticated = useMemo(() => {
+        if (!accessToken) return false;
+        const { valid } = validateToken(accessToken);
+        return valid;
+    }, [accessToken]);
+
     const values = useMemo(() => ({
       accessToken,
       refreshToken,
-      isAuthenticated: accessToken != null,
+      isAuthenticated,
       login,
       logout,
       setTokens,
@@ -76,6 +125,7 @@ export function AuthenticationProvider({ children }) {
     [
       accessToken,
       refreshToken,
+      isAuthenticated,
       login,
       logout,
       setTokens,
