@@ -12,6 +12,7 @@
 }
 
 .modal {
+    margin: 1rem;
     flex-grow: 1;
     max-width: 1000px;
     max-height: 90vh;

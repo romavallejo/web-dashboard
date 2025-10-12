@@ -66,20 +66,8 @@ export default function TermsCond() {
                     <Button onClick={editing} text='Actualizar T&C' icon='/icons/terms.svg'/>
                 ) : 
                 (<div className='terms-options'>
-                    <button 
-                        className='green' 
-                        onClick={save}
-                        disabled={false}
-                    >
-                        <img src='/icons/save.svg' />
-                    </button>
-                    <button 
-                        className='red' 
-                        onClick={cancel}
-                        disabled={false}
-                    >
-                        <img src="/icons/x.svg" alt="close"/>
-                    </button>
+                    <Button style='save' icon='/icons/save.svg' text='Guardar Cambios' onClick={save} disable={false}/>
+                    <Button style='delete' icon='/icons/x.svg' onClick={cancel} disable={false}/>
                 </div>)}
             </div>
             <div className="grid">

@@ -4,6 +4,7 @@ import PaginationCategories from '../components/PaginationCategories.jsx';
 import Window from '../components/Window.jsx';
 import SearchBar from '../components/SearchBar.jsx';
 import PaginationControls from '../components/PaginationControls.jsx';
+import Button from '../components/Button.jsx';
 import { useState, useEffect } from 'react';
 import { useCategory } from '../context/CategoryContext.jsx';
 import { getCategories, createNewCategory } from '../api/categoryServices.js';
@@ -86,15 +87,18 @@ export default function Categorias() {
         <div className="page">
             <div className='header'>
                 <h1>Categorías</h1>
-                <button onClick={()=>{
-                    setIsCreateCategoryOpen(true);
-                    setCategoryInfo({
-                        id: 0,
-                        name: "",
-                        description: ""
-                    });
-                    setErrors({});
-                }}>+ Crear Categoría</button>
+                <Button 
+                    icon='/icons/create.svg'
+                    text='Crear Categoría'
+                    onClick={()=>{
+                        setIsCreateCategoryOpen(true);
+                        setCategoryInfo({
+                            id: 0,
+                            name: "",
+                            description: ""
+                        });
+                        setErrors({});}}
+                />
             </div>
             <div className="grid">
                 <Card title="Lista de Categorías" size={[1,4]} icon='/icons/category-sec.svg'>

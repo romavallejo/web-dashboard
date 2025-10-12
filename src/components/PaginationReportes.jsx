@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Window from './Window';
+import Button from './Button.jsx';
 import '../css/Pagination.css'
 import { formatDate } from '../utils/formatDate.js'
 import ReportForm from './ReportForm.jsx';
@@ -169,10 +170,13 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                     >
                         <div className='delete-report'>
                             <p className='delete-text'>¿Seguro que desea eliminar el reporte con ID {reportInfo.id}?</p>
-                            <button 
+                            <Button 
                                 onClick={deleteReport}
-                                disabled={isLoading}
-                                >Eliminar</button>
+                                disable={isLoading}
+                                text="Eliminar Reporte"
+                                style="delete"
+                                icon="/icons/delete-forever.svg"
+                            />
 
                             {isLoading && <p>Eliminando reporte...</p>}
                             {errors.submit && <p className='error-message'>* {errors.submit}</p>}

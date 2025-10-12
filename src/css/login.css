@@ -36,15 +36,3 @@
     padding: 10px;
     border-radius: 10px;
 }
-
-.submit {
-    padding: 10px;
-    border: 0;
-    background-color: var(--primary-highlight-color);
-    color: var(--background-color);
-    border-radius: 30px;
-}
-
-.submit:hover {
-    outline: 2px solid var(--secondary-highlight-color);
-}

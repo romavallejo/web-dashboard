@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthentication } from "../context/AuthenticationContext";
+import Button from "../components/Button";
 import "../css/login.css";
 
 export default function LogIn() {
-  const { login } = useAuthentication();
+  
+  const { login, isAuthenticated } = useAuthentication();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -22,6 +24,11 @@ export default function LogIn() {
       setError("Credenciales Incorrectas");
     }
   }
+
+  useEffect(()=>{
+    if (isAuthenticated)
+      navigate("/");
+  },[isAuthenticated]);
 
   return (
     <div className="login-holder finisher-header">
@@ -47,10 +54,10 @@ export default function LogIn() {
             required
           />
         </div>
-
-        <button type="submit" className="submit">
-          Ingresar
-        </button>
+        <Button 
+          type='submit'
+          text='Ingresar'
+        />
 
         {error && <p className="error">{error}</p>}
 

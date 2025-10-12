@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Window from './Window';
+import Button from '../components/Button.jsx';
 import CategoryForm from './CategoryForm';
 import { useCategory } from '../context/CategoryContext';
 import { updateExistingCategory, deleteExistingCategory } from '../api/categoryServices';
@@ -125,10 +126,13 @@ export default function PaginationCategories({ rows, uponUpload }) {
                         <div className="window-content">
                             <div className='delete-category'>
                                 <p className='delete-text'>¿Seguro que desea eliminar la categoría con ID {categoryInfo.id}?</p>
-                                <button 
+                                <Button
                                     onClick={deleteCategory}
-                                    disabled={isLoading}
-                                >Eliminar</button>
+                                    disable={isLoading}
+                                    text='Eliminar Categoría'
+                                    icon='/icons/delete-forever.svg'
+                                    style='delete'
+                                />
                                 {isLoading && <p>Eliminando cateogría...</p>}
                             </div>             
                         </div>

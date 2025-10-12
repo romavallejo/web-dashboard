@@ -4,28 +4,27 @@ button.button-wrapper {
     align-items: center;
     gap: 5px;
     border: 0px;
-    padding: 4px;
-    border-radius: 16px;
+    padding: 8px;
+    border-radius: 20px;
     color: var(--background-color);
 }
 
 .button-text {
     color: var(--background-color);
-    font-size: 1rem;
 }
 
-.delete-style {
-    background-color: var(--red-color);
+.delete-type {
+    background-color: var(--red-color) !important;
 }
-.delete-style:hover {
-    background-color: var(--red-color-hover);
+.delete-type:hover {
+    background-color: var(--red-color-hover) !important;
 }
 
 .save-type {
-    background-color: var(--green-color);
+    background-color: var(--green-color) !important;
 }
 .save-type:hover {
-    background-color: var(--green-color-hover);
+    background-color: var(--green-color-hover) !important;
 }
 
 .normal-type {

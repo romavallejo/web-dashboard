@@ -1,5 +1,6 @@
 import ImageUploader from './ImageUploader';
 import CategoryTag from './CategoryTag';
+import Button from './Button';
 import { useReport } from '../context/ReportContext';
 import { deleteImage } from '../api/imageServices';
 import '../css/Reportes.css'
@@ -136,10 +137,13 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
                 </div>
             </div>
             <div className='save-changes'>
-                <button 
+                <Button 
+                    style="save"
+                    text={submitLabel}
+                    icon='/icons/save.svg'
                     onClick={onSubmit}
-                    disabled={isUploading}
-                >{submitLabel}</button>
+                    disable={isUploading}
+                />
                 {errors.submit && <p className='error-message'>* {errors.submit}</p>}
 
             </div>

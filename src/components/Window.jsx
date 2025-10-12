@@ -1,3 +1,4 @@
+import Button from './Button';
 import '../css/Window.css'
 
 export default function Window({ title, onClose, disableButton, children }) {
@@ -6,10 +7,7 @@ export default function Window({ title, onClose, disableButton, children }) {
             <div className="modal">
                 <div className='modal-header'>
                     <p className='window-descriptor'>{title}</p>
-                    <button onClick={onClose}
-                        disabled={disableButton}>
-                        <img src="/icons/x.svg" alt="close"/>
-                    </button>
+                    <Button onClick={onClose} disable={disableButton} icon='/icons/x.svg' />
                 </div>
                 {children}
             </div>

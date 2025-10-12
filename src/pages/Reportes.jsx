@@ -4,6 +4,7 @@ import PaginationReportes from '../components/PaginationReportes.jsx'
 import SearchBar from '../components/SearchBar.jsx'
 import PaginationControls from '../components/PaginationControls.jsx'
 import ReportForm from '../components/ReportForm.jsx'
+import Button from '../components/Button.jsx';
 import { useEffect, useState } from 'react'
 import { formatDate } from '../utils/formatDate.js'
 import { useReport } from '../context/ReportContext.jsx'
@@ -152,11 +153,15 @@ export default function Reportes(){
             <div className="page">
                 <div className='header'>
                     <h1>Reportes</h1>
-                    <button onClick={()=>{
-                        handleSetReportInfo();
-                        setIsCreateReportOpen(true);
-                        setErrors({});
-                    }}>+ Crear Reporte</button>
+                    <Button 
+                        onClick={()=>{
+                            handleSetReportInfo();
+                            setIsCreateReportOpen(true);
+                            setErrors({});
+                        }}
+                        text="Crear Reporte"
+                        icon="/icons/create.svg"
+                    />
                 </div>
                 <div className="grid grid-reports">
 

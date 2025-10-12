@@ -1,4 +1,5 @@
 import { useCategory } from '../context/CategoryContext';
+import Button from '../components/Button.jsx';
 import '../css/Pagination.css'
 import '../css/PaginationCategories.css'
 
@@ -35,10 +36,13 @@ export default function CategoryForm({ onSubmit, submitLabel, isUploading }) {
             {errors.description && <p className='error-message'>* {errors.description}</p>}
 
             <div className='save-changes'>
-                <button 
+                <Button 
                     onClick={onSubmit}
-                    disabled={isUploading}
-                >{submitLabel}</button>
+                    disable={isUploading}
+                    text={submitLabel}
+                    icon='/icons/save.svg'
+                    style='save'
+                />
 
                 {isUploading && <p>Creando cateogría...</p>}
                 {errors.submit && <p className='error-message'>* {errors.submit}</p>}

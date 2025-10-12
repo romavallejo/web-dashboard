@@ -167,7 +167,7 @@ export default function Estadisticas() {
                 <ul className='recent-alerts'>
                   {data &&
                     data.recentAlerts.map(alert =>
-                      <AlertListItem key={alert.title} alert={alert.title}/>
+                      <AlertListItem key={alert.id} alert={alert.title}/>
                     )
                   }
                 </ul>

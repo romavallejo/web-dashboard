@@ -22,18 +22,6 @@
     font-weight: 700;
 }
 
-.delete-category button:hover {
-    background-color: var(--red-color-hover);
-}
-
-.delete-category button {
-    background-color: var(--red-color);
-    border: 0px;
-    padding: 10px;
-    border-radius: 1rem;
-    color: var(--background-color);
-}
-
 .filter-fields {
     margin-bottom: 1rem;
     width: 100%;
