@@ -32,21 +32,6 @@
     margin-bottom: 1rem;
 }
 
-.modal-header button {
-    background-color: var(--red-color);
-    color: var(--background-color);
-    border: 0;
-    padding: 4px;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-header button:hover {
-    background-color: var(--red-color-hover);
-}
-
 .window-descriptor {
     color: var(--secondary-color);
 }
