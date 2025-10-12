@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar.jsx'
 import PaginationControls from '../components/PaginationControls.jsx'
 import ReportForm from '../components/ReportForm.jsx'
 import Button from '../components/Button.jsx';
+import AnimatedNumber from '../components/AnimatedNumber.jsx'
 import { useEffect, useState } from 'react'
 import { formatDate } from '../utils/formatDate.js'
 import { useReport } from '../context/ReportContext.jsx'
@@ -166,19 +167,19 @@ export default function Reportes(){
                 <div className="grid grid-reports">
 
                     <Card title='Total Reportes' icon='/icons/reports-sec.svg'>
-                        <p className="number">{reportStats.totalReports}</p>
+                        <p className="number"><AnimatedNumber value={reportStats.totalReports}/></p>
                     </Card>
 
                     <Card title='Aprobados' icon='/icons/aproved-sec.svg'>
-                        <p className="number aceptado">{reportStats.totalAproved}</p>
+                        <p className="number aceptado"><AnimatedNumber value={reportStats.totalAproved}/></p>
                     </Card>
 
                     <Card title='Rechazados' icon='/icons/rejected-sec.svg'>
-                        <p className="number rechazado">{reportStats.totalRejected}</p>
+                        <p className="number rechazado"><AnimatedNumber value={reportStats.totalRejected}/></p>
                     </Card>
 
                     <Card title='Pendientes' icon='/icons/pending-sec.svg'>
-                        <p className="number revision">{reportStats.totalPending}</p>
+                        <p className="number revision"><AnimatedNumber value={reportStats.totalPending}/></p>
                     </Card>
 
                     <Card title='Lista de Reportes' size={[1,4]} icon='/icons/reports-sec.svg'>

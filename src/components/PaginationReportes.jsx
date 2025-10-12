@@ -8,6 +8,7 @@ import ViewReport from './ViewReport.jsx';
 import { useReport } from '../context/ReportContext.jsx';
 import { onCommittingReport, onCancelReport} from '../utils/imageLogic.js'
 import { updateReport, deleteReportService } from '../api/reportServices.js';
+import { motion } from 'framer-motion';
 
 export default function PaginationReportes({ rows, uponUpload, categorias, categoryMap }) {
 
@@ -108,26 +109,32 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                             </td>
                             <td className='date-col'>{formatDate(row.created_at)}</td>
                             <td className='actions'>
-                                <button onClick={()=>{
+                                <motion.button 
+                                whileHover={{scale:1.1}}
+                                onClick={()=>{
                                     handleSetReportInfo(row);
                                     setIsViewReportOpen(true);
                                 }}>
                                     <img src='/icons/view.svg'/>
-                                </button>
-                                <button onClick={()=>{
+                                </motion.button>
+                                <motion.button 
+                                whileHover={{scale:1.1}}
+                                onClick={()=>{
                                     handleSetReportInfo(row);
                                     setIsEditReportOpen(true);
                                     setErrors({});
                                 }}>
                                     <img src='/icons/edit.svg'/>
-                                </button>
-                                <button onClick={()=>{
+                                </motion.button>
+                                <motion.button 
+                                whileHover={{scale:1.1}}
+                                onClick={()=>{
                                     handleSetReportInfo(row);
                                     setIsDeleteOpen(true);
                                     setErrors({});
                                 }}>
                                     <img src='/icons/delete.svg'/>
-                                </button>
+                                </motion.button>
                             </td>
                         </tr>
                     ))}

@@ -1,11 +1,18 @@
 import '../css/Button.css'
+import { motion } from "framer-motion";
 
 export default function Button({ icon, text, onClick, style, disable, type }) {
 
     return(
-        <button type={type} disabled={disable} onClick={onClick} className={`button-wrapper ${style === "save" ? "save-type" : style === "delete" ? "delete-type" : "normal-type"}`}>
+        <motion.button 
+            type={type} 
+            disabled={disable} 
+            onClick={onClick} 
+            className={`button-wrapper ${style === "save" ? "save-type" : style === "delete" ? "delete-type" : "normal-type"}`}
+            whileHover={{scale: 1.1}}
+        >
             {icon && <img src={icon} />}
             {text && <p className="button-text">{text}</p>}
-        </button>
+        </motion.button>
     );
 }

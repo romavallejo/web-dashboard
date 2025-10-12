@@ -4,6 +4,7 @@ import Button from '../components/Button.jsx';
 import CategoryForm from './CategoryForm';
 import { useCategory } from '../context/CategoryContext';
 import { updateExistingCategory, deleteExistingCategory } from '../api/categoryServices';
+import { motion } from "framer-motion";
 import '../css/Pagination.css'
 import '../css/PaginationCategories.css'
 
@@ -73,24 +74,30 @@ export default function PaginationCategories({ rows, uponUpload }) {
                             <td className='id-col'>{row.id}</td>
                             <td className='name-col'>{row.name}</td>
                             <td className='actions'>
-                                <button onClick={()=>{
+                                <motion.button 
+                                whileHover={{scale:1.1}}
+                                onClick={()=>{
                                     hanldeSetCategoryInfo(row);
                                     setIsViewCategoryOpen(true);
                                 }}>
                                     <img src='/icons/view.svg'/>
-                                </button>
-                                <button onClick={()=>{
+                                </motion.button>
+                                <motion.button 
+                                whileHover={{scale:1.1}}
+                                onClick={()=>{
                                     hanldeSetCategoryInfo(row);
                                     setIsEditCategoryOpen(true);
                                 }}>
                                     <img src='/icons/edit.svg'/>
-                                </button>
-                                <button onClick={()=>{
+                                </motion.button>
+                                <motion.button 
+                                whileHover={{scale:1.1}}
+                                onClick={()=>{
                                     hanldeSetCategoryInfo(row);
                                     setIsDeleteCategoryOpen(true);
                                 }}>
                                     <img src='/icons/delete.svg'/>
-                                </button>
+                                </motion.button>
                             </td>
                         </tr>
                     ))}

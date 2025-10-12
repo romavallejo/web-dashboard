@@ -3,6 +3,7 @@ import CategoryTag from './CategoryTag';
 import Button from './Button';
 import { useReport } from '../context/ReportContext';
 import { deleteImage } from '../api/imageServices';
+import { motion } from 'framer-motion';
 import '../css/Reportes.css'
 import '../css/PaginationReportes.css'
 
@@ -115,9 +116,21 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
                     {errors.link && <p className='error-message'>* {errors.link}</p>}
 
                     <div className='categories-list report-state'>
-                        <button onClick={()=>setReportInfo(prev => {return {...prev, status_id: 2}})} className={`tag aceptado ${reportInfo.status_id === 2 ? 'selected' :''}`}>Aceptado</button>
-                        <button onClick={()=>setReportInfo(prev => {return {...prev, status_id: 3}})} className={`tag rechazado ${reportInfo.status_id === 3 ? 'selected' : ''}`}>Rechazado</button>
-                        <button onClick={()=>setReportInfo(prev => {return {...prev, status_id: 1}})} className={`tag revision ${reportInfo.status_id === 1 ? 'selected' : ''}`}>Pendiente</button>
+                        <motion.button 
+                            whileHover={{scale:1.05}}
+                            onClick={()=>setReportInfo(prev => {return {...prev, status_id: 2}})} 
+                            className={`tag aceptado ${reportInfo.status_id === 2 ? 'selected' :''}`}>Aceptado
+                        </motion.button>
+                        <motion.button 
+                            whileHover={{scale:1.05}}
+                            onClick={()=>setReportInfo(prev => {return {...prev, status_id: 3}})} 
+                            className={`tag rechazado ${reportInfo.status_id === 3 ? 'selected' : ''}`}>Rechazado
+                        </motion.button>
+                        <motion.button 
+                            whileHover={{scale:1.05}}
+                            onClick={()=>setReportInfo(prev => {return {...prev, status_id: 1}})} 
+                            className={`tag revision ${reportInfo.status_id === 1 ? 'selected' : ''}`}>Pendiente
+                        </motion.button>
                     </div>
 
                     {errors.status_id && <p className='error-message'>* {errors.status_id}</p>}

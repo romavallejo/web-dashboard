@@ -1,6 +1,6 @@
 import { Outlet, useLocation, useNavigate, } from "react-router-dom"
 import Sidebar from "./pages/Sidebar"
-import Topbar from "./pages/TopBar"
+import Topbar from "./pages/Topbar"
 import { ReportProvider } from "./context/ReportContext"
 import { CategoryProvider } from "./context/CategoryContext"
 import { useState } from "react"
