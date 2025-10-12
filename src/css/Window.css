@@ -35,8 +35,11 @@
     background-color: var(--red-color);
     color: var(--background-color);
     border: 0;
-    padding: 10px;
-    border-radius: 1rem;
+    padding: 4px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-header button:hover {

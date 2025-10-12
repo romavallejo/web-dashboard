@@ -7,8 +7,9 @@ export default function Window({ title, onClose, disableButton, children }) {
                 <div className='modal-header'>
                     <p className='window-descriptor'>{title}</p>
                     <button onClick={onClose}
-                        disabled={disableButton}
-                    >X</button>
+                        disabled={disableButton}>
+                        <img src="/icons/x.svg" alt="close"/>
+                    </button>
                 </div>
                 {children}
             </div>

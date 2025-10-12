@@ -1,0 +1,42 @@
+.report-list-item {
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-highlight-color);
+    padding: 1rem;
+    gap: 10px;
+    font-weight: bold;
+    width: 85%;
+}
+
+.report-list-item:hover {
+    outline: 0;
+}
+
+.report-id {
+    background-color: var(--red-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-text {
+    color: var(--primary-highlight-color);
+    margin-right: auto;
+}
+
+.report-upvotes {
+    display: flex;
+    gap: 5px;
+    background-color: var(--third-highlight-color);
+
+}
+
+.report-upvotes, .report-id{
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.report-id .id-text, .report-upvotes .upvote-text {
+    color: var(--background-color);
+}
+

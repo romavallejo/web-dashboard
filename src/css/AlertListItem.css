@@ -1,0 +1,25 @@
+.alert-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.alert-list-item:hover {
+    outline: 0;
+}
+
+.alert-icon-holder {
+    background-color: var(--red-color);
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alert-text {
+    color: var(--primary-highlight-color);
+    font-weight: bold;
+}

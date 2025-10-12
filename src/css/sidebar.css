@@ -32,6 +32,10 @@
     margin-top: auto;
 }
 
+.logo-holder {
+    margin-bottom: 1rem;
+}
+
 .logo {
     width: 90px;
     margin-bottom: 1rem;
