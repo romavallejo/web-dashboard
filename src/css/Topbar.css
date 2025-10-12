@@ -27,7 +27,7 @@ div.top-bar > :first-child {
 }
 
 .menu-button:hover {
-    background-color: var(--secondary-highlight-color);
+    outline: 2px solid var(--background-color);
     border-radius: 1rem;
     border: 0;
 }

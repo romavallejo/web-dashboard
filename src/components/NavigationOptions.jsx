@@ -35,13 +35,15 @@ export default function NavigationOptions({ current, onClose }) {
         <div className='navigation-overlay'>
           <div className="navigation">
               <ul className='links'>
-                    <button 
+                    <motion.button 
                         onClick={onClose}
-                        className='close'> 
+                        className='close'
+                        whileHover={{scale: 1.1}}
+                    > 
                         <li>
                             <img src="/icons/x.svg" alt="close"/>
                         </li>
-                    </button>
+                    </motion.button>
 
                     {links.map(link => {
                         return <SideBarLink target={link.path} label={link.label} key={link.path} icon={current === link.path ? link.iconCurrent : link.icon} isCurrent={current === link.path}/>;
