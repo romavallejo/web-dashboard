@@ -97,7 +97,7 @@ export default function Categorias() {
                 }}>+ Crear Categoría</button>
             </div>
             <div className="grid">
-                <Card title="Lista de Categorías" size={[1,4]}>
+                <Card title="Lista de Categorías" size={[1,4]} icon='/icons/category-sec.svg'>
                     <div className='filter-fields'>
                         <SearchBar onSearch={handleSearch} holder='ID, Nombre'/>
                     </div>

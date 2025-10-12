@@ -1,0 +1,36 @@
+button.button-wrapper {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: 0px;
+    padding: 4px;
+    border-radius: 16px;
+    color: var(--background-color);
+}
+
+.button-text {
+    color: var(--background-color);
+    font-size: 1rem;
+}
+
+.delete-style {
+    background-color: var(--red-color);
+}
+.delete-style:hover {
+    background-color: var(--red-color-hover);
+}
+
+.save-type {
+    background-color: var(--green-color);
+}
+.save-type:hover {
+    background-color: var(--green-color-hover);
+}
+
+.normal-type {
+    background-color: var(--primary-highlight-color);
+}
+.normal-type:hover {
+    background-color: var(--primary-highlight-color-hover);
+}

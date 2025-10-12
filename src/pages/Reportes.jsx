@@ -160,23 +160,23 @@ export default function Reportes(){
                 </div>
                 <div className="grid grid-reports">
 
-                    <Card title='Total Reportes'>
+                    <Card title='Total Reportes' icon='/icons/reports-sec.svg'>
                         <p className="number">{reportStats.totalReports}</p>
                     </Card>
 
-                    <Card title='Aprobado'>
+                    <Card title='Aprobados' icon='/icons/aproved-sec.svg'>
                         <p className="number aceptado">{reportStats.totalAproved}</p>
                     </Card>
 
-                    <Card title='Rechazados'>
+                    <Card title='Rechazados' icon='/icons/rejected-sec.svg'>
                         <p className="number rechazado">{reportStats.totalRejected}</p>
                     </Card>
 
-                    <Card title='Pendiente'>
+                    <Card title='Pendientes' icon='/icons/pending-sec.svg'>
                         <p className="number revision">{reportStats.totalPending}</p>
                     </Card>
 
-                    <Card title='Lista de Reportes' size={[1,4]}>
+                    <Card title='Lista de Reportes' size={[1,4]} icon='/icons/reports-sec.svg'>
                         <div className='filter-bar'>
                             <SearchBar onSearch={handleSearch} holder='ID, Usuario'/>
                             <div className='filter-options'>

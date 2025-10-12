@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Card from '../components/Card.jsx'
+import Button from '../components/Button.jsx';
 import { getTermsCond, updateTermsCond } from '../api/termsCondServices.js';
 import '../css/pageBase.css'
 import '../css/TermsCond.css'
@@ -61,22 +62,28 @@ export default function TermsCond() {
         <div className="page">
             <div className='header'>
                 <h1>Términos y Condiciones</h1>
-                {!isEditing ? (<button onClick={editing}>Actualizar T&C</button>) : 
-                (<div>
+                {!isEditing ? (
+                    <Button onClick={editing} text='Actualizar T&C' icon='/icons/terms.svg'/>
+                ) : 
+                (<div className='terms-options'>
                     <button 
                         className='green' 
                         onClick={save}
                         disabled={false}
-                    >Guardar</button>
+                    >
+                        <img src='/icons/save.svg' />
+                    </button>
                     <button 
                         className='red' 
                         onClick={cancel}
                         disabled={false}
-                    >X</button>
+                    >
+                        <img src="/icons/x.svg" alt="close"/>
+                    </button>
                 </div>)}
             </div>
             <div className="grid">
-                <Card title='Actuales' size={[1,4]}>
+                <Card title='Actuales' size={[1,4]} icon='/icons/terms-sec.svg'>
                     {!isEditing ? (<p>{terms}</p>) : 
                     (<textarea 
                         className='edit-text' 

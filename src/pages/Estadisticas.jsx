@@ -116,27 +116,27 @@ export default function Estadisticas() {
           <h1>Estadísticas</h1>
           <div className='grid'>
 
-              <Card className={"center"} title='Usuarios Registrados'>
+              <Card className={"center"} title='Usuarios Registrados' icon='/icons/user-sec.svg'>
                   <p className="number">{data ? data.stats.total_users : 0}</p>
               </Card>
 
-              <Card title='Reportes Totales'>
+              <Card title='Reportes Totales' icon='/icons/reports-sec.svg'>
                   <p className="number">{data ? data.stats.total_reports : 0}</p>
               </Card>
 
-              <Card title='Estado de Reportes' size={[2,2]}>
+              <Card title='Estado de Reportes' size={[2,2]} icon='/icons/status-sec.svg'>
                   <div className='pie-container'>
                       <Pie data={dataEstadoReportes} options={optionsEstadoReportes}/>
                   </div>
               </Card>
 
-              <Card title='Categorias más frecuentes' size={[2,2]}>
+              <Card title='Categorías más frecuentes' size={[2,2]} icon='/icons/category-sec.svg'>
                 <div className='pie-container'>
                       <Pie data={mostFrequentCategories} options={optionsEstadoReportes}/>
                 </div>
               </Card>
 
-              <Card title='Reportes Creados por Mes' size={[2,2]}>
+              <Card title='Reportes Creados por Mes' size={[2,2]} icon='/icons/calendar-sec.svg'>
                   <div className='year-filter'>
                     <select 
                       className='toggle-select'
@@ -153,7 +153,7 @@ export default function Estadisticas() {
                   </div>
               </Card>
               
-              <Card title="Top Reportes del Mes" size={[2,2]}>
+              <Card title="Top Reportes del Mes" size={[2,2]} icon='/icons/reports-sec.svg'>
                 <ul className='top-reportes'>
                   {data &&
                     data.topReportsMonth.map(rep =>
@@ -163,7 +163,7 @@ export default function Estadisticas() {
                 </ul>
               </Card>
 
-              <Card title="Alertas Recientes" size={[2,2]}>
+              <Card title="Alertas Recientes" size={[2,2]} icon='/icons/alert-sec.svg'>
                 <ul className='recent-alerts'>
                   {data &&
                     data.recentAlerts.map(alert =>

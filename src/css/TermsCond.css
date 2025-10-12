@@ -8,14 +8,6 @@
     font-size: 1rem;
 }
 
-.green {
-    background-color: var(--green-color) !important;
-}
-
-.red {
-    background-color: var(--red-color) !important;
-}
-
 .error-message {
     color: var(--red-color);
     font-weight:lighter !important;
