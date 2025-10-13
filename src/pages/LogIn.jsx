@@ -57,6 +57,7 @@ export default function LogIn() {
         <Button 
           type='submit'
           text='Ingresar'
+          icon='/icons/login.svg'
         />
 
         {error && <p className="error">{error}</p>}

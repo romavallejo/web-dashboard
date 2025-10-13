@@ -32,7 +32,7 @@
 }
 
 .field input {
-    border: 2px solid var(--margin-color);
+    border: 2px solid var(--primary-color);
     padding: 10px;
     border-radius: 10px;
 }
