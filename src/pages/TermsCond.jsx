@@ -11,23 +11,26 @@ export default function TermsCond() {
     async function fetchTerms(){
         try {
             const data = await getTermsCond();
-            setTerms(data);
+            setTerms(data.text);
         } catch(err) { 
             console.log(err)
         }
     }
     useEffect(()=>{
-        //fetchTerms();
+        fetchTerms();
     },[]);
+
+    useEffect(()=>{
+        setDraftTerms(terms);
+    },[terms]);
 
     const [isFieldEmpty,setIsFieldEmpty] = useState(false);
     const [errorInUplaod,setErrorInUpload] = useState(false);
     const [isEditing,setIsEditing] = useState(false);
-    const [draftTerms,setDraftTerms] = useState(terms);
+    const [draftTerms,setDraftTerms] = useState("");
     const [isLoading,setIsLoading] = useState(false);
 
     function editing(){
-        setDraftTerms(terms);
         setIsEditing(true);
     }
 

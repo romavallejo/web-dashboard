@@ -1,7 +1,7 @@
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export async function getTermsCond() {
-    const res = await fetch(`${BASE_URL}/reports`, {
+    const res = await fetch(`${BASE_URL}/configurations/1`, {
         method: "GET"
     });
     const data = await res.json();
@@ -12,11 +12,12 @@ export async function getTermsCond() {
 
 export async function updateTermsCond(newTerms) {
 
-    const res = await fetch(`${BASE_URL}/reports/${reportInfo.id}`,{
+    const res = await fetch(`${BASE_URL}/configurations/1`,{
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-            terms: newTerms
+            "title":"Terminos y condiciones",
+            "text":newTerms
         })
     });
 
