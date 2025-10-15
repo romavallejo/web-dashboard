@@ -14,6 +14,9 @@ export default function Card({ className ,title, size = [1,1], icon, children}) 
             }}
             initial={{ opacity: 0, y:50 }}
             animate={{ opacity: 1, y: 0}}
+            whileHover={{
+                boxShadow: "0px 25px 50px -12px rgba(0, 0, 0, 0.3)",
+            }}
             transition={{
                 duration: 0.4,
                 scale: { type: "spring", visualDuration: 0.8, bounce: 0.2 },
