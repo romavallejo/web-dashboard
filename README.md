@@ -1,5 +1,7 @@
 #  Red por la Ciberseguirdad Administrator Dashboard
 
+![alt text](https://github.com/romavallejo/web-dashboard/public/readmeImage.png?raw=true)
+
 ## 🧩 Overview
 
 **Web Dashboard** is a **React-based web application** built using **Vite** for fast builds and instant hot reloads.  
