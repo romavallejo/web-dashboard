@@ -1,8 +1,25 @@
+import React, {useEffect} from 'react';
 import Button from './Button';
 import { motion } from 'framer-motion';
 import '../css/Window.css'
 
 export default function Window({ title, onClose, disableButton, children }) {
+
+    const handleKeyPress = (event) => {
+    if (event.key === 'Escape') {
+        onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
+
     return (
         <motion.div 
             className="modal-overlay"
