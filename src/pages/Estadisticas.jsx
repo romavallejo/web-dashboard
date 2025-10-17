@@ -74,7 +74,7 @@ export default function Estadisticas() {
     datasets: [
       {
         data: [data ? data.stats.approved_reports : 0, data ? data.stats.pending_reports : 0, data ? data.stats.rejected_reports : 0],
-        backgroundColor: ['#38de22', '#FFA500', '#E74C3C'],
+        backgroundColor: ['#1ABC9C', '#FFA500', '#E74C3C'],
       },
     ],
   };
