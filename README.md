@@ -1,6 +1,6 @@
 #  Red por la Ciberseguirdad Administrator Dashboard
 
-![alt text](https://github.com/romavallejo/web-dashboard/public/readmeImage.png?raw=true)
+![Dashboard Preview](public/dashboard-preview.png)
 
 ## 🧩 Overview
 
