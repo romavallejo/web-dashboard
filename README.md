@@ -1,6 +1,6 @@
 #  Red por la Ciberseguirdad Administrator Dashboard
 
-![Dashboard Preview](public/dashboard-preview.png)
+![Dashboard Preview](public/readmeImage.png)
 
 ## 🧩 Overview
 
