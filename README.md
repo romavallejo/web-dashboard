@@ -39,6 +39,15 @@ Before setting up the project, make sure you have the following installed:
 
 ---
 
+## 📦 Setting up .env file
+
+Create a .env file at the root level of the project, in it write down a line as follows making the link equal to the actual API used.
+
+   ```bash
+   VITE_BACKEND_URL=http://you-actual-api-IP
+   ```
+---
+
 ## 🚀 Running the Project
 
 Start the development server with:
