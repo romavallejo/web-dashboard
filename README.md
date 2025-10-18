@@ -2,14 +2,14 @@
 
 ![Dashboard Preview](public/readmeImage.png)
 
-## 🧩 Overview
+##  Overview
 
 **Web Dashboard** is a **React-based web application** built using **Vite** for fast builds and instant hot reloads.  
 It uses **React Router DOM** for navigation and **Framer Motion** for smooth animations.
 
 ---
 
-## ⚙️ Prerequisites
+##  Prerequisites
 
 Before setting up the project, make sure you have the following installed:
 
@@ -19,7 +19,7 @@ Before setting up the project, make sure you have the following installed:
 - 
 ---
 
-## 📦 Installation
+##  Installation
 
 1. **Clone the repository**
 
@@ -41,7 +41,7 @@ Before setting up the project, make sure you have the following installed:
 
 ---
 
-## 📦 Setting up .env file
+##  Setting up .env file
 
 Create a .env file at the root level of the project, in it write down a line as follows making the link equal to the actual API used.
 
@@ -50,7 +50,7 @@ Create a .env file at the root level of the project, in it write down a line as 
    ```
 ---
 
-## 🚀 Running the Project
+##  Running the Project
 
 Start the development server with:
 
@@ -60,11 +60,11 @@ npm run dev
 
 By default, the app will be available at:
 
-👉 [http://localhost:5173](http://localhost:5173)
+ [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## 🧱 Project Structure
+##  Project Structure
 
 ```
 src/
@@ -76,7 +76,7 @@ src/
 
 ---
 
-## 🧰 Dependencies
+##  Dependencies
 
 | Package | Purpose |
 |----------|----------|
@@ -85,7 +85,7 @@ src/
 
 ---
 
-## 🧪 Scripts
+##  Scripts
 
 | Command | Description |
 |----------|-------------|
@@ -95,7 +95,7 @@ src/
 
 ---
 
-## 🌐 Deployment
+##  Deployment
 
 To create a production build:
 
