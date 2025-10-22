@@ -40,21 +40,54 @@ export async function updateReport(reportInfo) {
       title: reportInfo.title,
       image: reportInfo.image,
       description: reportInfo.description,
-      created_by: reportInfo.created_by,
       status_id: reportInfo.status_id,
       category: reportInfo.categories,
       report_url: reportInfo.link,
     }),
   });
 
-  if (!res.ok) throw new Error(data?.message || "Error updating report");
+  if (!res.ok) throw new Error("Error updating report");
+  console.log("User id:", JSON.stringify(reportInfo.created_by));
+
   if (reportInfo.status_id != 1) {
     await sendNotification(
-      Number(reportInfo.created_by),
+      reportInfo.created_by,
       reportInfo.status_id,
       reportInfo.title
     );
   }
+  const data = await res.json();
+
+  return true;
+}
+export async function sendNotification(userId, statusId, titleReport) {
+  const reportStatuses = {
+    1: "Pendiente",
+    2: "Aprobado",
+    3: "Rechazado",
+  };
+
+  const title = `El estado de su reporte ha cambiado a: ${reportStatuses[statusId]}`;
+  const message = `El estado de su reporte titulado ${titleReport} ha sido actualizado a ${reportStatuses[statusId]}`;
+
+  console.log("Notificación que se enviará:", {
+    created_by: userId,
+    title: title,
+    message: message,
+  });
+
+  const res = await fetch(`${BASE_URL}/notifications`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      created_by: userId,
+      title: title,
+      message: message,
+    }),
+  });
+
+  if (!res.ok) throw new Error("Error sending notification");
+
   const data = await res.json();
 
   return true;
@@ -71,24 +104,3 @@ export async function deleteReportService(reportInfo) {
   return true;
 }
 
-export async function sendNotification(userId, statusId, titleReport) {
-  const reportStatuses = {
-    1: "Pendiente",
-    2: "Aprobado",
-    3: "Rechazado",
-  };
-
-  const title = `El estado de su reporte ha cambiado a: ${reportStatuses[statusId]}`;
-  const message = `El estado de su reporte titulado ${titleReport} ha sido actualizado a ${reportStatuses[statusId]}`;
-
-  const res = await fetch(`${BASE_URL}/notifications`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ created_by: 1, title: title, message: message }),
-  });
-
-  if (!res.ok) throw new Error("Error sending notification");
-  const data = await res.json();
-
-  return true;
-}

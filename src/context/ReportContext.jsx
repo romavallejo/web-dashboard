@@ -12,7 +12,8 @@ export function ReportProvider({ children }) {
         description: "",
         link: "",
         status_id: 0,
-        user: ""
+        user: "",
+        created_by: ""
     });
 
     const [errors, setErrors] = useState({});

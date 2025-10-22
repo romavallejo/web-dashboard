@@ -1,0 +1,15 @@
+[
+{
+  "id": 1,
+  "name": "Sample Item",
+  "description": "This is a generic JSON object example.",
+  "isActive": true,
+  "tags": ["example", "test", "json"],
+  "metadata": {
+    "createdAt": "2025-10-15T12:00:00Z",
+    "updatedAt": "2025-10-15T12:30:00Z",
+    "createdBy": "system"
+  }
+}
+
+]
