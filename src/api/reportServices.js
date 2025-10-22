@@ -84,7 +84,7 @@ export async function sendNotification(userId, statusId, titleReport) {
   const res = await fetch(`${BASE_URL}/notifications`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ created_by: 1, title: title, message: message }),
+    body: JSON.stringify({ created_by: userId, title: title, message: message }),
   });
 
   if (!res.ok) throw new Error("Error sending notification");
