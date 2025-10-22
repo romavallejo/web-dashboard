@@ -1,4 +1,3 @@
-import icon from '/icons/alert.svg'
 import { motion } from 'framer-motion';
 import '../css/AlertListItem.css'
 
@@ -14,7 +13,7 @@ export default function AlertListItem({ alert }) {
             }}
         >
             <div className='alert-icon-holder'>
-                <img src={icon} alt='alert'/>
+                <img src={'/icons/alert.svg'} alt='alert'/>
             </div>
             <p className='alert-text'>{alert}</p>
         </motion.li>

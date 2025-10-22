@@ -10,19 +10,18 @@ export async function onCommittingReport(reportInfo) {
 }
 
 export async function onCancelReport(reportInfo) {
-    // CASE 1: New report (no start image)
-    // → delete the uploaded image because it's temporary
+    //If new report (no start image)
+    // delete the uploaded image because it's temporary
     if (!reportInfo.startImage && reportInfo.image) {
         await deleteImage(reportInfo.image);
         return;
     }
 
-    // CASE 2: Editing existing report
-    // → delete the new temp image, keep the original
+    // if editing existing report
+    // delete the new temp image, keep the original
     if (reportInfo.startImage) {
         if (reportInfo.image && reportInfo.image !== reportInfo.startImage) {
             await deleteImage(reportInfo.image);
         }
-        return;
     }
 }

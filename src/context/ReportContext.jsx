@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useMemo } from "react";
 
 const ReportContext = createContext();
 
@@ -47,14 +47,16 @@ export function ReportProvider({ children }) {
         }
     );
 
-    return (
-        <ReportContext.Provider value={{
+    const obj = useMemo(()=>({
             reportInfo, setReportInfo,
             errors, setErrors,
             validateInfo,
             filteredReports, setFilteredReports,
             filters, setFilters,
-        }}>
+        }));
+
+    return (
+        <ReportContext.Provider value={obj}>
         {children}
         </ReportContext.Provider>
     );

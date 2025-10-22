@@ -64,7 +64,7 @@ export function AuthenticationProvider({ children }) {
     const setTokens = useCallback(tokens=>{
         setAccessToken(tokens.accessToken);
         setRefreshToken(tokens.refreshToken);
-        if (typeof window === "undefined") return;
+        if (typeof globalThis.window === "undefined") return;
         localStorage.setItem("accessToken",tokens.accessToken)
         localStorage.setItem("refreshToken",tokens.refreshToken)
     },[]);
@@ -72,7 +72,7 @@ export function AuthenticationProvider({ children }) {
     const clearTokens = useCallback(() => {
         setAccessToken(null);
         setRefreshToken(null);
-        if (typeof window === "undefined") return;
+        if (typeof globalThis.window === "undefined") return;
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
     }, []);

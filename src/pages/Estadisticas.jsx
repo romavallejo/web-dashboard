@@ -94,12 +94,6 @@ export default function Estadisticas() {
       b.total_reportes - a.total_reportes
     );
     sortedCat = sortedCat.slice(0,5);
-    /*
-    sortedCat.push({
-      name: "Otros",
-      total_reportes: sortedCat.reduce((acc,curr)=>{return acc-curr.total_reportes;},data.stats.total_reports),
-    });
-    */
     setFrequentCategories(sortedCat);
   },[data]);
   const mostFrequentCategories = {

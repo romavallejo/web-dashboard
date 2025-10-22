@@ -1,6 +1,5 @@
 import AnimatedNumber from './AnimatedNumber';
-import icon from '/icons/thumb-up-small.svg'
-import '../css/ReportListItem.css'
+import '../css/ReportListItem.css';
 import { motion} from "framer-motion";
 
 export default function ReportListItem({ id, title, upvotes}) {
@@ -19,7 +18,7 @@ export default function ReportListItem({ id, title, upvotes}) {
             </div>
             <p className='title-text'>{title}</p>
             <div className="report-upvotes">
-                <img src={icon} alt='thumb up' />
+                <img src={'/icons/thumb-up-small.svg'} alt='thumb up' />
                 <p className='upvote-text'><AnimatedNumber value={upvotes}/></p>
             </div>
         </motion.li>

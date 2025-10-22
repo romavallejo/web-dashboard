@@ -12,8 +12,6 @@ export default function PaginationCategories({ rows, uponUpload }) {
 
     const { categoryInfo, setCategoryInfo, validateInfo, setErrors } = useCategory();
 
-    const columns = ['ID','Nombre','Acciones']
-
     function hanldeSetCategoryInfo(category) {
         setCategoryInfo({
             id: category.id,

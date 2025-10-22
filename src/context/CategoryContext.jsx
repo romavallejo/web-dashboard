@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 const CategoryContext = createContext();
 
@@ -26,14 +26,16 @@ export function CategoryProvider({ children }) {
 
     const [filteredCategories,setFilteredCategories] = useState([]);
 
-    return (
-        <CategoryContext.Provider value={{
+    const obj = useMemo(()=>({
             categoryInfo, setCategoryInfo,
             errors, setErrors,
             validateInfo,
             filteredCategories, setFilteredCategories,
             allCategories, setAllCategories
-        }}>
+        }));
+
+    return (
+        <CategoryContext.Provider value={obj}>
         {children}
         </CategoryContext.Provider>
     );

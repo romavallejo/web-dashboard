@@ -3,10 +3,9 @@ import Sidebar from "./pages/Sidebar"
 import Topbar from "./pages/Topbar"
 import { ReportProvider } from "./context/ReportContext"
 import { CategoryProvider } from "./context/CategoryContext"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import './css/dashboard.css'
 import { useAuthentication } from './context/AuthenticationContext'
-import { useEffect } from "react"
 
 function App() {
 
@@ -25,7 +24,7 @@ function App() {
     <>
       {isAuthenticated &&
         <div className="dashboard">
-        <Sidebar className={!isSidebarContracted ? "not-contracted" : "contracted"} isContracted={isSidebarContracted} setIsContracted={setIsSidebarContracted} current={location.pathname}/>
+        <Sidebar className={isSidebarContracted ? "contracted" : "not-contracted"} isContracted={isSidebarContracted} setIsContracted={setIsSidebarContracted} current={location.pathname}/>
         <Topbar current={location.pathname}/>
         <div className="main-content">
         <ReportProvider>

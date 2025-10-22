@@ -2,8 +2,6 @@ import { useState } from 'react';
 import NavigationOptions from '../components/NavigationOptions';
 import { motion } from 'framer-motion';
 import '../css/Topbar.css'
-import logo from '/logo-dark.png'
-import menu from '/icons/menu.svg'
 
 export default function Topbar({ current }) {
 
@@ -14,7 +12,7 @@ export default function Topbar({ current }) {
             <nav>
                 <div className='top-bar'>
                     <div className='logo-holder'>
-                        <img className="logo-small" src={logo} alt='Logo' onLoad={()=>setLogoLoaded(true)}/>
+                        <img className="logo-small" src={'/logo-dark.png'} alt='Logo' onLoad={()=>setLogoLoaded(true)}/>
                     </div>
                     {logoLoaded &&
                     <motion.div 
@@ -30,7 +28,7 @@ export default function Topbar({ current }) {
                             className='menu-button'
                             onClick={()=>setAreOptionsOpen(true)}
                         >
-                            <img src={menu} alt='Menu'/>
+                            <img src={'/icons/menu.svg'} alt='Menu'/>
                         </button>
                     </motion.div>
                     }

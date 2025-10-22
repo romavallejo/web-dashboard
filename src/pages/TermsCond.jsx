@@ -25,7 +25,7 @@ export default function TermsCond() {
     },[terms]);
 
     const [isFieldEmpty,setIsFieldEmpty] = useState(false);
-    const [errorInUplaod,setErrorInUpload] = useState(false);
+    const [errorInUpload,setErrorInUpload] = useState(false);
     const [isEditing,setIsEditing] = useState(false);
     const [draftTerms,setDraftTerms] = useState("");
     const [isLoading,setIsLoading] = useState(false);
@@ -85,7 +85,7 @@ export default function TermsCond() {
                     />)}
 
                     {isFieldEmpty && <p className='error-message'>* Los términos y condiciones no pueden estar vacios</p>}
-                    {errorInUplaod && <p className='error-message'>* Error al momento de actualizar</p>}
+                    {errorInUpload && <p className='error-message'>* Error al momento de actualizar</p>}
                     {isLoading && <p>Actualizando...</p>}
 
                 </Card>

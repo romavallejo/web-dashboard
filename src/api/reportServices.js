@@ -31,7 +31,6 @@ export async function createNewReport(reportInfo) {
 }
 
 export async function updateReport(reportInfo) {
-  //console.log("uploaded image with result path: ",reportInfo.image);
 
   const res = await fetch(`${BASE_URL}/reports/${reportInfo.id}`, {
     method: "PUT",
@@ -56,7 +55,6 @@ export async function updateReport(reportInfo) {
       reportInfo.title
     );
   }
-  const data = await res.json();
 
   return true;
 }
@@ -87,8 +85,6 @@ export async function sendNotification(userId, statusId, titleReport) {
   });
 
   if (!res.ok) throw new Error("Error sending notification");
-
-  const data = await res.json();
 
   return true;
 }
