@@ -32,7 +32,8 @@ export default function PaginationReportes({ rows, uponUpload, categorias, categ
                 link: report.report_url,
                 status_id: report.status_id,
                 user: report.user_name,
-                created_at: report.created_at
+                created_at: report.created_at,
+                created_by: report.created_by
             }));
     }
 

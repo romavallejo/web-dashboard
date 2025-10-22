@@ -92,7 +92,8 @@ export default function Reportes(){
                 description: "",
                 link: "",
                 status_id: 0,
-                user: ""
+                user: "",
+                created_by: "",
             });
     }
 
