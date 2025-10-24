@@ -1,13 +1,6 @@
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export async function authenticateCredentials(e, p) {
-  console.log(
-    JSON.stringify({
-      email: e,
-      password: p,
-      type: "web",
-    })
-  );
 
   const res = await fetch(`${BASE_URL}/auth/login`, {
     method: "POST",
