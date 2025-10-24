@@ -119,17 +119,17 @@ export default function ReportForm({ onSubmit, submitLabel, categories, category
                         <motion.button 
                             whileHover={{scale:1.05}}
                             onClick={()=>setReportInfo(prev => {return {...prev, status_id: 2}})} 
-                            className={`tag aceptado ${reportInfo.status_id === 2 ? 'selected' :''}`}>Aceptado
+                            className={`tag aceptado ${reportInfo.status_id === 2 ? 'selected' :'not-selected'}`}>Aceptado
                         </motion.button>
                         <motion.button 
                             whileHover={{scale:1.05}}
                             onClick={()=>setReportInfo(prev => {return {...prev, status_id: 3}})} 
-                            className={`tag rechazado ${reportInfo.status_id === 3 ? 'selected' : ''}`}>Rechazado
+                            className={`tag rechazado ${reportInfo.status_id === 3 ? 'selected' : 'not-selected'}`}>Rechazado
                         </motion.button>
                         <motion.button 
                             whileHover={{scale:1.05}}
                             onClick={()=>setReportInfo(prev => {return {...prev, status_id: 1}})} 
-                            className={`tag revision ${reportInfo.status_id === 1 ? 'selected' : ''}`}>Pendiente
+                            className={`tag revision ${reportInfo.status_id === 1 ? 'selected' : 'not-selected'}`}>Pendiente
                         </motion.button>
                     </div>
 

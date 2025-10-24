@@ -123,6 +123,10 @@
     outline: 2px var(--primary-color) solid;
 }
 
+.report-state button.not-selected {
+    opacity: 0.5;
+}
+
 .save-changes {
     display: flex;
     justify-content: center;
