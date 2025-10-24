@@ -16,7 +16,7 @@ Before setting up the project, make sure you have the following installed:
 - **Node.js** (v18 or higher recommended)  
 - **npm** (comes with Node.js)  
 - A code editor like **VS Code**
-- 
+- Git installed
 ---
 
 ##  Installation
