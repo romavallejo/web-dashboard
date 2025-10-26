@@ -1,10 +1,9 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export async function uploadImage(file) {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch(`${BASE_URL}/images/report-pictures`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/images/report-pictures`, {
         method: "POST",
         body: formData,
     });
@@ -19,7 +18,7 @@ export async function uploadImage(file) {
 export async function deleteImage(path) {
     const toSend = {path:path};
 
-    const res = await fetch(`${BASE_URL}/images/`,{
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/images/`,{
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",

@@ -1,7 +1,6 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export async function getCategories() {
-    const res = await fetch(`${BASE_URL}/categories`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/categories`, {
         method: "GET"
     });
     const data = await res.json();
@@ -11,7 +10,7 @@ export async function getCategories() {
 }
 
 export async function createNewCategory(categoryInfo) {
-    const res = await fetch(`${BASE_URL}/categories`,{
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/categories`,{
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -28,7 +27,7 @@ export async function createNewCategory(categoryInfo) {
 
 export async function updateExistingCategory(categoryInfo) {
 
-    const res = await fetch(`${BASE_URL}/categories`,{
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/categories`,{
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -45,7 +44,7 @@ export async function updateExistingCategory(categoryInfo) {
 }
 
 export async function deleteExistingCategory(categoryInfo) {
-    const res = await fetch(`${BASE_URL}/categories`,{
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/categories`,{
         method: "DELETE",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({

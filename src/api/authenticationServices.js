@@ -1,8 +1,7 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export async function authenticateCredentials(e, p) {
 
-  const res = await fetch(`${BASE_URL}/auth/login`, {
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -19,7 +18,7 @@ export async function authenticateCredentials(e, p) {
 }
 
 export async function refreshAccessToken(refToken) {
-  const res = await fetch(`${BASE_URL}/auth/refresh`, {
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/refresh`, {
     refreshToken: refToken,
   });
 
@@ -33,7 +32,7 @@ export async function refreshAccessToken(refToken) {
 }
 
 export async function verifyToken(accessToken) {
-  const response = await fetch(`${BASE_URL}/auth/verify`, {
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/verify`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,

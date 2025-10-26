@@ -1,7 +1,7 @@
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export async function getDashboardInformation() {
-    const res = await fetch(`${BASE_URL}/dashboard`,{
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/dashboard`,{
         method: "GET",
         headers: {"Content-Type": "application/json"},
     })

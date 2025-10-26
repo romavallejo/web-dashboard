@@ -1,7 +1,7 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 
 export async function getReports() {
-  const res = await fetch(`${BASE_URL}/reports`, {
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/reports`, {
     method: "GET",
   });
   const data = await res.json();
@@ -11,7 +11,7 @@ export async function getReports() {
 }
 
 export async function createNewReport(reportInfo) {
-  const res = await fetch(`${BASE_URL}/reports`, {
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/reports`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -32,7 +32,7 @@ export async function createNewReport(reportInfo) {
 
 export async function updateReport(reportInfo) {
 
-  const res = await fetch(`${BASE_URL}/reports/${reportInfo.id}`, {
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/reports/${reportInfo.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -74,7 +74,7 @@ export async function sendNotification(userId, statusId, titleReport) {
     message: message,
   });
 
-  const res = await fetch(`${BASE_URL}/notifications`, {
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/notifications`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -90,7 +90,7 @@ export async function sendNotification(userId, statusId, titleReport) {
 }
 
 export async function deleteReportService(reportInfo) {
-  const res = await fetch(`${BASE_URL}/reports/${reportInfo.id}`, {
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/reports/${reportInfo.id}`, {
     method: "DELETE",
   });
 

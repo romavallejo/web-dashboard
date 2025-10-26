@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Red por la Ciberseguridad</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        connect-src 'self' http://18.222.210.25;
+        img-src 'self' data:;
+        script-src 'self';
+        style-src 'self' 'unsafe-inline';
+        frame-ancestors 'none';
+      "
+    />
   </head>
   <body>
     <div id="root"></div>
